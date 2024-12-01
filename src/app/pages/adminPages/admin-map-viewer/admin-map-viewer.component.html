@@ -1,0 +1,188 @@
+<div class="w-full h-full overflow-hidden absolute left-[0.5rem] top-[0rem] z-[0]">
+    <div class="overflow-hidden" #modelContainer>
+    </div>
+</div>
+
+
+<div class="z-[1000] fixed top-0 right-0 w-[550px] sm:w-auto p-4">
+    <div class="w-full grid grid-cols-2  bg-gray-400 p-4 rounded-xl gap-2">
+        <!-- Change Model Buttons -->
+        <div class="flex justify-center align-center w-full h-full pt-12">
+            <button *ngIf="!mapTerrain" (click)="changeModel('assets/model/mapTerrain.glb'); mapTerrain=true"
+                class="size-20 hover:bg-green-700 hover:text-gray-50 hover:shadow-[#87c38f] hover:shadow-md bg-green-500 text-white flex justify-center items-start rounded-xl">
+                <div class="flex h-full pt-6 justify-center text-gray-50">
+                    <svg width="24px" height="24px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                        class="iconify iconify--gis" preserveAspectRatio="xMidYMid meet">
+                        <path
+                            d="M50 5L24.637 30.469H41.34v20.705h17.32V30.469h16.703zM28.135 37.309a3.5 3.5 0 0 0-2.668 1.234L.832 67.559a3.5 3.5 0 0 0 2.67 5.765l93-.064a3.5 3.5 0 0 0 2.666-5.766L74.59 38.543a3.5 3.5 0 0 0-2.668-1.234H64.66c-.002 2.333-.008 4.666-.008 7h5.649l18.64 21.957l-77.873.052l18.686-22.01h5.586c.002-2.333.003-4.666 0-7zM89.91 78.264l-9.178.007l8.211 9.67l-77.875.053l8.22-9.682l-9.188.008L.832 89.234A3.5 3.5 0 0 0 3.502 95l93-.064a3.5 3.5 0 0 0 2.666-5.766z"
+                            fill="#161a1d"></path>
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Second Button -->
+            <button *ngIf="mapTerrain" (click)="changeModel('assets/model/map.glb'); mapTerrain=false"
+                class="size-20  hover:bg-green-700 hover:text-gray-200 hover:shadow-[#87c38f] hover:shadow-md bg-green-500 text-white flex justify-center items-start rounded-xl">
+                <div class="flex h-full pt-6 justify-center text-gray-300">
+                    <svg width="24px" height="24px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                        class="iconify iconify--gis" preserveAspectRatio="xMidYMid meet">
+                        <path
+                            d="M50 5L24.637 30.469H41.34v20.705h17.32V30.469h16.703zM28.135 37.309a3.5 3.5 0 0 0-2.668 1.234L.832 67.559a3.5 3.5 0 0 0 2.67 5.765l93-.064a3.5 3.5 0 0 0 2.666-5.766L74.59 38.543a3.5 3.5 0 0 0-2.668-1.234H64.66c-.002 2.333-.008 4.666-.008 7h5.649l18.64 21.957l-77.873.052l18.686-22.01h5.586c.002-2.333.003-4.666 0-7zM89.91 78.264l-9.178.007l8.211 9.67l-77.875.053l8.22-9.682l-9.188.008L.832 89.234A3.5 3.5 0 0 0 3.502 95l93-.064a3.5 3.5 0 0 0 2.666-5.766z"
+                            fill="#161a1d"></path>
+                    </svg>
+                </div>
+            </button>
+
+        </div>
+        <div class="grid grid-cols-2 gap-2 justify-center">
+
+            <p class="text-gray-50 text-lg col-span-2 text-center">Legend:</p>
+            <div class="size-6 bg-red-500 rounded-lg">
+            </div>
+            <p class="text-gray-50 text-xs">Unavailable</p>
+            <div class="size-6 bg-green-500 rounded-lg">
+            </div>
+            <p class="text-gray-50 text-xs">Available</p>
+            <div class="size-6 bg-yellow-500 rounded-lg">
+            </div>
+            <p class="text-gray-50 text-xs">Pending</p>
+            <div class="size-6 bg-blue-500 rounded-lg">
+            </div>
+            <p class="text-gray-50 text-xs">Disable</p>
+        </div>
+        <label for="eventSelect" class="col-span-2 text-left text-lg text-gray-50">Select Events:</label>
+        <select id="eventSelect" class="outline-none w-full justify center col-span-2" (change)="onEventSelect($event)">
+            <option value="" disabled selected>{{getEventName()}}</option>
+            <option *ngFor="let event of eventData" [value]="event.event_id">
+                {{ event.event_name }}
+            </option>
+        </select>
+
+    </div>
+</div>
+<!-- Error Message (only shown when errorMessage is true) -->
+<div *ngIf="errorMessage"
+    class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-full w-full z-20">
+</div>
+
+<!-- Green Div (always centered within its parent) -->
+<div *ngIf="errorMessage=='done'"
+    class="animate-fadeIn absolute px-8 grid justify-center items-center top-[2rem] left-1/2 transform -translate-x-1/2 w-480px h-[480px]  md:h-[480px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
+    <div class="flex w-full h-full justify-center items-center">
+        <div class="block">
+            <img src="http://localhost/mapp-thesis/public/dbAssets/kioskImages/{{kioskImage}}"
+                class="size-80 object-contain" />
+
+            <p class="text-center text-lg text-gray-50">{{kioskName}}</p>
+        </div>
+        <div class="block">
+        </div>
+    </div>
+
+    <div class="flex justify-between w-full">
+        <button (click)="errorMessage=''"
+            class="h-12 w-24 bg-red-400 rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">Close</button>
+        <button (click)="isModalOpen=!isModalOpen;errorMessage=''"
+            class="h-12 w-24 bg-green-400 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Edit</button>
+    </div>
+</div>
+<!-- Green Div (always centered within its parent) -->
+
+
+
+
+
+<div *ngIf="isModalOpen"
+    class="fixed inset-0 flex justify-center -top-10 items-center  bg-gray-700 bg-opacity-50 z-[1000]">
+    <div class="bg-[#226f54] rounded-lg p-6 w-1/3 relative">
+        <!-- Disabled Button on the upper-right corner -->
+       
+
+        <h2 class="text-xl font-bold mb-4 text-gray-50">Edit Kiosk</h2>
+
+        <!-- Form -->
+        <form (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <label for="kiosk_name" class="block text-sm font-medium text-gray-50">Kiosk Name</label>
+                <input id="kiosk_name" [(ngModel)]="kioskName" name="kiosk_name" type="text"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </div>
+            <div class="mb-4">
+                <label for="status" class="block text-sm font-medium text-gray-50">Status</label>
+                <select id="status" [(ngModel)]="kioskStatus" name="status"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="unavailable">Unavailable</option>
+                    <option value="available">Available</option>
+                    <option value="disable">Disable</option>
+                    <option value="pending">Pending</option>
+                </select>
+            </div>
+
+            <div class="hidden mb-4">
+                <label for="position_x" class="block text-sm font-medium text-gray-50">Position X</label>
+                <input id="position_x" [(ngModel)]="posx" name="position_x" type="text"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </div>
+
+            <div class="hidden mb-4">
+                <label for="position_y" class="block text-sm font-medium text-gray-50">Position Y</label>
+                <input id="position_y" [(ngModel)]="posy" name="position_y" type="text"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </div>
+
+
+            <div class="mb-4">
+                <label for="kiosk_description" class="block text-sm font-medium text-gray-50">Description</label>
+                <textarea id="kiosk_description" [(ngModel)]="kioskDescription" name="kiosk_description" rows="3"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="event_image" class="block text-sm font-medium text-gray-50">Kiosk Image</label>
+                <!-- Custom container for the styled file input -->
+                <div class="relative h-12 bg-white rounded-md text-sm px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
+                    (click)="fileInput.click()">
+                    <span class="text-gray-700" *ngIf="kioskUploadImage">{{kioskUploadImage.name}}</span>
+                    <span class="text-gray-700" *ngIf="!kioskUploadImage">Upload image</span>
+                    <div class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
+                        Browse
+                    </div>
+                </div>
+                <!-- Hidden actual file input -->
+                <input #fileInput type="file" id="eventImage" name="eventImage" class="hidden"
+                    (change)="onFileChange($event)" />
+            </div>
+
+            <div *ngIf="errorMessage!='done' && !errorMessage" class="mb-4">
+                <p class="text-center text-md text-gray-50">{{errorMessage}}</p>
+            </div>
+            <div class="flex justify-end">
+                <button type="button" (click)="closeModal()"
+                    class="px-4 py-2 mr-2 text-white bg-gray-500 hover:bg-gray-700 rounded-md">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 text-white bg-green-700 hover:bg-green-800 rounded-md">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="submitKiosk=='true'"
+    class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[65rem] overflow-y-hidden w-full z-20">
+</div>
+<div *ngIf="submitKiosk=='true'"
+    class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[5rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
+    <div class="flex w-full h-full justify-center items-center">
+        <p class="text-gray-50 text-center text-3xl w-80">
+            Kiosk Updated Succesfully!
+    </div>
+    <div class="flex justify-end w-full ">
+        <button (click)="changeVal()"
+            class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Okay
+        </button>
+    </div>
+</div>

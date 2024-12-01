@@ -1,0 +1,10 @@
+@media print {
+    body {
+      color: black !important; /* Make all text black */
+    }
+    
+    * {
+      color: black !important; /* Ensure all text and inherited colors are black */
+    }
+  }
+  

@@ -1,0 +1,119 @@
+<div class="min-h-screen flex flex-col items-center bg-customBlack" *ngIf="shouldShowForUser()">
+  <!-- Centered Navbar -->
+  <div class="w-full max-w-screen-xl">
+    <app-navbar></app-navbar>
+  </div>
+
+  <div class="w-full max-w-screen-xl">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<div *ngIf="shouldShowForAdmin()" class="min-h-screen flex flex-col items-center bg-customBlack">
+  <div  class="flex w-full max-w-screen-xl">
+    <!-- Sidebar -->
+    <div class="hidden md:flex w-60 h-full  text-white flex-col justify-between fixed z-[1000]">
+      <div class="flex min-h-screen w-full bg-customDarkGreen shadow-r-xl shadow-black ">
+        <app-admin-navbar></app-admin-navbar>
+      </div>
+    </div>
+    <div #sidebar *ngIf="isSidebarVisible" class="flex md:hidden w-60 h-full  text-white flex-col justify-between fixed z-[1000]">
+      <div  class="flex min-h-screen w-full bg-customDarkGreen shadow-r-xl shadow-black ">
+        <app-admin-navbar ></app-admin-navbar>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <div class="flex-1 md:ml-60 max-w-screen-xl ">
+      <!-- Navbar occupying full width with flexbox -->
+      <div class="w-full " *ngIf="!isMap()">
+        <div class=" flex justify-between items-center h-16 bg-[#2c6e49] shadow-[#1b4332] shadow-md px-4 py-4" *ngFor="let user of userData">
+          <div>
+            <button #sidebarButton class="md:hidden text-white focus:outline-none" (click)="toggleSidebar()">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex justify-center">
+            <button #notifyButton (click)="toggleNotificationBar()"
+              class="text-white rounded-md text-sm flex items-center justify-between w-auto pr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 48 48" fill="#ffffff">
+                <path
+                  d="M38.498 36H9.502c-1.205 0-2.31-.607-2.955-1.625S5.822 32.1 6.335 31.01L9 25.648v-6.267c0-8.239 6.271-14.987 14.277-15.364l0 0c4.151-.188 8.08 1.271 11.075 4.128C37.35 11.004 39 14.859 39 19v6.648l2.65 5.333c.527 1.119.448 2.377-.197 3.395S39.703 36 38.498 36zM23.348 5.516h.01H23.348zM18.09 38c.478 2.833 2.942 5 5.91 5s5.431-2.167 5.91-5H18.09z">
+                </path>
+              </svg>
+
+              <p class="relative size-5 bg-[#880d1e] rounded-full text-center top-[-10px] left-[-15px]">
+                <span *ngIf="notification">{{ getUnreadCount() }}</span>
+              </p>
+            </button>
+            <div #notifer *ngIf="toggleNotification"
+              class="flex absolute justify-end items-center animate-swipeDown max-w-[350px] shadow-r-md shadow-black p-2 z-[1000]">
+              <!-- Notification Card -->
+              <div class="relative max-w-[350px]  top-12 right-[7.85rem] bg-dropDown shadow-xl rounded-lg p-4">
+                <!-- Pointer -->
+                <div
+                  class="relative -top-8 left-36 md:left-36 w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-dropDown">
+                </div>
+                <div class="h-96 w-56 pb-2 grid overflow-hidden">
+                  <div class="overflow-scrollable h-full overflow-y-auto px-2">
+                    <div class="text-white text-md font-bold">Unread Messages:</div>
+                    <hr>
+                    <div *ngIf="!hasUnreadMessages()" class="block text-sm justify-self-start align-start py-2">
+                      <div class="text-md text-white text-center">No new notifications</div>
+                    </div>
+                    <div *ngFor="let notif of notification; let i = index">
+                      <div class="text-gray-500 text-sm mb-4 text-center">
+                        <div *ngIf="notif.status=='unread'" class="block text-sm w-full">
+                          <div class="text-md text-white text-left">{{ notif.message }}</div>
+                          <div class="text-[10px] pt-1 text-right text-white flex justify-between">
+                            {{ formatDate(notif.date_created) }}
+                            <button *ngIf="notif.status=='unread'"
+                              (click)="readMessage(notif.notification_id,'read');refreshPage()"
+                              class="text-gray-300 hover:text-gray-50 underline">Read</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-white text-md font-bold">Read Messages:</div>
+                    <hr>
+                    <div *ngFor="let notif of notification; let i = index">
+                      <div *ngIf="notif.status=='read'" class="block text-sm justify-self-start align-start py-2">
+                        <div class="text-md text-white">{{ notif.message }}</div>
+                        <div class="text-[10px] pt-1 text-white text-left">{{ formatDate(notif.date_created) }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="flex justify-center items-center ">
+              <!-- Profile Image -->
+              <img *ngIf="!user.profile_image" src="assets/images/defaultProfile.png"
+                class="size-10 bg-black rounded-full">
+            </div>
+            <!-- User Name -->
+            <div class="pl-2 text-xl font-bold justify-center align-center pt-1 text-gray-50 pr-4">
+              {{ user.First_name | slice: 0:6 }}<span *ngIf="user.First_name.length > 6">...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="pt-4 max-w-screen-xl">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="w-full max-w-screen-xl h-8" *ngIf=" shouldShowForUser()|| shouldShowForAdmin()">
+  <app-footer class="bg-customBlack"></app-footer>
+</div>
+
+<div *ngIf="isRoute()">
+  <router-outlet></router-outlet>
+</div>

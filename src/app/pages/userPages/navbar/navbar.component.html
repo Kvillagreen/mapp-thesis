@@ -1,0 +1,231 @@
+<div class="fixed w-full z-[100]" *ngIf="userType=='user'">
+  <div class="flex max-w-screen-xl z-100 items-center justify-between bg-customDarkGreen px-6 py-4"
+    *ngFor="let user of userData">
+    <div class="flex space-x-4 justify-self-center items-center">
+      <button #button class="md:hidden text-white focus:outline-none" (click)="toggleSide()">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <img (click)="refreshPage()" src="assets/images/chmsu_logo.png" class="cursor-pointer size-12">
+      <h1 class="text-xl font-bold text-white text-3xl text-center">Chmsu-A mAPP</h1>
+    </div>
+    <div class="flex items-center space-x-4">
+      <!-- Notification Bar (Visible if showNotification is true) -->
+      <button #notifyButton (click)="toggleNotificationBar()"
+        class="text-white rounded-md text-sm flex items-center justify-between w-auto pr-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 48 48" fill="white">
+          <path
+            d="M38.498 36H9.502c-1.205 0-2.31-.607-2.955-1.625S5.822 32.1 6.335 31.01L9 25.648v-6.267c0-8.239 6.271-14.987 14.277-15.364l0 0c4.151-.188 8.08 1.271 11.075 4.128C37.35 11.004 39 14.859 39 19v6.648l2.65 5.333c.527 1.119.448 2.377-.197 3.395S39.703 36 38.498 36zM23.348 5.516h.01H23.348zM18.09 38c.478 2.833 2.942 5 5.91 5s5.431-2.167 5.91-5H18.09z">
+          </path>
+        </svg>
+
+        <p class="relative size-5 bg-red-700 rounded-full text-center top-[-10px] left-[-15px]">
+          <span *ngIf="notification">{{ getUnreadCount() }}</span>
+        </p>
+      </button>
+      <div class="md:flex hidden justify-center items-center">
+        <div>
+          <img *ngIf="!user.profile_image" src="assets/images/defaultProfile.png"
+            class="size-10 bg-black rounded-full ">
+
+        </div>
+        <button #drop (click)="toggleSettings()"
+          class=" hidden md:flex text-gray-800 pl-2 text-white text-xl font-bold justify-center text-gray-200 hover:text-white align-center ">
+          {{
+          user.First_name | slice:0:6 }}<span *ngIf="user.First_name.length>6">...</span>
+          <span>
+            <svg *ngIf="isDropped" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6  relative" viewBox="0 0 20 20"
+              fill="currentColor" aria-hidden="true">
+              <path d="M5 12h10L10 6z" />
+            </svg>
+            <svg *ngIf="!isDropped" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6  relative" viewBox="0 0 20 20"
+              fill="currentColor" aria-hidden="true">
+              <path d="M5 8h10l-5 6z" />
+            </svg>
+
+          </span>
+        </button>
+      </div>
+      <!-- Logout Button -->
+    </div>
+  </div>
+  <div #sidebar *ngIf="toggleSidebar"
+    [ngClass]="{'animate-slide-in-right': toggleSidebar, 'animate-slide-in-left': !toggleSidebar}"
+    class="md:hidden flex top-[0] relative min-h-screen max-w-[250px] bg-dropDown shadow-r-xl shadow-black p-2 z-[0]">
+    <div class="grid-cols-1 grid w-full h-full pl-2 span-8" *ngFor="let user of userData">
+      <div class="flex justify-center align-center pt-4 w-full ">
+        <img *ngIf="!user.profile_image" src="assets/images/defaultProfile.png"
+          class="size-24 bg-black rounded-full border-2 border-white">
+      </div>
+      <div class="block text-gray-800 text-lg text-center text-white pb-1 ">{{user.Username}}</div>
+      <hr class="pt-4">
+      <a routerLink=" /dashboard" routerLinkActive="active" class="buttonSideBar "
+        [routerLinkActiveOptions]="{exact:true}">
+        <span class="pr-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3h18v18H3z"></path>
+            <path d="M3 9h18M9 3v18"></path>
+          </svg>
+        </span>
+        Dashboard
+      </a>
+      <a routerLink="/transaction" routerLinkActive="active" class="buttonSideBar">
+        <span class="pr-2">
+          <svg fill="white" width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M2,7V21a1,1,0,0,0,1,1H13V6H3A1,1,0,0,0,2,7ZM5,9h5v2H5Zm0,4h5v2H5Zm0,4h5v2H5ZM22,3V21a1,1,0,0,1-1,1H15V4H10V3a1,1,0,0,1,1-1H21A1,1,0,0,1,22,3Z" />
+          </svg>
+        </span>
+        Transaction
+      </a>
+      <a routerLink="/profile" routerLinkActive="active" class="hidden ">
+        <span class="pr-2"><svg width="24" height="24" viewBox="0 0 20 20" version="1.1"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Dribbble-Light-Preview" transform="translate(-420.000000, -2159.000000)" fill="white">
+                <g id="icons" transform="translate(56.000000, 160.000000)">
+                  <path
+                    d="M374,2009 C371.794,2009 370,2007.206 370,2005 C370,2002.794 371.794,2001 374,2001 C376.206,2001 378,2002.794 378,2005 C378,2007.206 376.206,2009 374,2009 M377.758,2009.673 C379.124,2008.574 380,2006.89 380,2005 C380,2001.686 377.314,1999 374,1999 C370.686,1999 368,2001.686 368,2005 C368,2006.89 368.876,2008.574 370.242,2009.673 C366.583,2011.048 364,2014.445 364,2019 L366,2019 C366,2014 369.589,2011 374,2011 C378.411,2011 382,2014 382,2019 L384,2019 C384,2014.445 381.417,2011.048 377.758,2009.673"
+                    id="profile-[#1335]">
+                  </path>
+                </g>
+              </g>
+            </g>
+          </svg></span>Profile</a>
+      <a routerLink="/notification" routerLinkActive="active" class="buttonSideBar">
+        <span class="pr-2"><svg width="24" height="24" viewBox="0 0 20 20" version="1.1"
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Dribbble-Light-Preview" transform="translate(-420.000000, -2159.000000)" fill="white">
+                <g id="icons" transform="translate(56.000000, 160.000000)">
+                  <path
+                    d="M374,2009 C371.794,2009 370,2007.206 370,2005 C370,2002.794 371.794,2001 374,2001 C376.206,2001 378,2002.794 378,2005 C378,2007.206 376.206,2009 374,2009 M377.758,2009.673 C379.124,2008.574 380,2006.89 380,2005 C380,2001.686 377.314,1999 374,1999 C370.686,1999 368,2001.686 368,2005 C368,2006.89 368.876,2008.574 370.242,2009.673 C366.583,2011.048 364,2014.445 364,2019 L366,2019 C366,2014 369.589,2011 374,2011 C378.411,2011 382,2014 382,2019 L384,2019 C384,2014.445 381.417,2011.048 377.758,2009.673"
+                    id="profile-[#1335]">
+                  </path>
+                </g>
+              </g>
+            </g>
+          </svg></span>Notification</a>
+      <a (click)="logout()" routerLinkActive="active" class="buttonSideBar text-white"><span class="pr-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 48 48" fill="white">
+            <path
+              d="M38.498 36H9.502c-1.205 0-2.31-.607-2.955-1.625S5.822 32.1 6.335 31.01L9 25.648v-6.267c0-8.239 6.271-14.987 14.277-15.364l0 0c4.151-.188 8.08 1.271 11.075 4.128C37.35 11.004 39 14.859 39 19v6.648l2.65 5.333c.527 1.119.448 2.377-.197 3.395S39.703 36 38.498 36zM23.348 5.516h.01H23.348zM18.09 38c.478 2.833 2.942 5 5.91 5s5.431-2.167 5.91-5H18.09z">
+            </path>
+          </svg>
+
+        </span>logout</a>
+    </div>
+  </div>
+  <div class="max-w-screen-xl h-full z-[1000] "> <!-- navbar dropper -->
+    <div #notifer *ngIf="toggleNotification"
+      class="  flex justify-self-end items-center animate-swipeDown right-[1rem] md:right-[5.9rem] relative h-full min-h-[50px] max-w-[350px]  shadow-r-md shadow-black p-2">
+      <!-- Notification Card -->
+      <div class="relative max-w-sm w-full bg-dropDown shadow-xl rounded-lg p-4">
+        <!-- Pointer -->
+        <div
+          class="relative -top-8 -right-40 md:-right-28 w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-dropDown">
+        </div>
+        <div class="h-96 w-56 pb-2 grid overflow-hidden">
+          <div class="overflow-scrollable h-[calc(100%-2rem)] overflow-y-auto px-2">
+            <div class="text-white text-md font-bold">Unread Messages:</div>
+            <hr>
+            <div *ngIf="!hasUnreadMessages() " class="block text-sm justify-self-start align-start py-2">
+              <div class="text-md text-white text-center">No new notifications</div>
+            </div>
+            <div *ngFor="let notif of notification; let i = index">
+              <div class="text-gray-500 text-sm mb-4 text-center">
+                <div *ngIf="notif.status=='unread'" class=" py-2">
+                  <div class="text-md text-white  text-left leading-none">{{ notif.message }}</div>
+                  <div class="text-[10px] pt-1 text-right text-white flex justify-between align-center">
+                    <p>{{formatDate(notif.date_created ) }}</p>
+                    <button *ngIf="notif.status=='unread'" (click)="readMessage(notif.notification_id,'read');refreshPage()"
+                      class="text-gray-300 hover:text-gray-50 underline">Read</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-white text-md font-bold">Read Messages:</div>
+            <hr>
+            <div *ngFor="let notif of notification; let i = index">
+              <div *ngIf="notif.status=='read' " class="block text-sm justify-self-start align-start py-2">
+                <div class="text-md text-white">{{ notif.message }}</div>
+                <div class="text-[10px] pt-1 text-white text-left">{{ formatDate(notif.date_created )}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div #dropper *ngIf="isDropped"
+      class="hidden md:grid animate-swipeDown flex justify-self-end items-center min-h-[200px] max-w-[350px] shadow-r-md shadow-black p-2">
+      <!-- Notification Card -->
+      <div *ngFor="let user of userData" class="relative max-w-sm w-full h-full bg-dropDown shadow-md rounded-lg p-4">
+        <!-- Pointer -->
+        <div
+          class="relative -top-8 -right-32 w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-b-dropDown">
+        </div>
+        <div class="h-80 w-52 px-4 ">
+          <div class="grid-cols-1 grid w-full h-full pl-2 span-8">
+            <div class="text-center text-lg text-white">{{user.First_name+' '+user.Last_name}}</div>
+            <div class="text-center text-sm text-gray-200">{{user.Username}}</div>
+            <hr>
+            <a routerLink=" /dashboard" routerLinkActive="active" class="buttonSideBar "
+              [routerLinkActiveOptions]="{exact:true}">
+              <span class="pr-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3h18v18H3z"></path>
+                  <path d="M3 9h18M9 3v18"></path>
+                </svg>
+              </span>
+              Dashboard
+            </a>
+            <a routerLink="/transaction" routerLinkActive="active" class="buttonSideBar">
+              <span class="pr-2">
+                <svg fill="white" width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M2,7V21a1,1,0,0,0,1,1H13V6H3A1,1,0,0,0,2,7ZM5,9h5v2H5Zm0,4h5v2H5Zm0,4h5v2H5ZM22,3V21a1,1,0,0,1-1,1H15V4H10V3a1,1,0,0,1,1-1H21A1,1,0,0,1,22,3Z" />
+                </svg>
+              </span>
+              Transaction
+            </a>
+            <a routerLink="/profile" routerLinkActive="active"  class="  hidden">
+              <span class="pr-2"><svg width="24" height="24" viewBox="0 0 20 20" version="1.1"
+                  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Dribbble-Light-Preview" transform="translate(-420.000000, -2159.000000)" fill="white">
+                      <g id="icons" transform="translate(56.000000, 160.000000)">
+                        <path
+                          d="M374,2009 C371.794,2009 370,2007.206 370,2005 C370,2002.794 371.794,2001 374,2001 C376.206,2001 378,2002.794 378,2005 C378,2007.206 376.206,2009 374,2009 M377.758,2009.673 C379.124,2008.574 380,2006.89 380,2005 C380,2001.686 377.314,1999 374,1999 C370.686,1999 368,2001.686 368,2005 C368,2006.89 368.876,2008.574 370.242,2009.673 C366.583,2011.048 364,2014.445 364,2019 L366,2019 C366,2014 369.589,2011 374,2011 C378.411,2011 382,2014 382,2019 L384,2019 C384,2014.445 381.417,2011.048 377.758,2009.673"
+                          id="profile-[#1335]">
+                        </path>
+                      </g>
+                    </g>
+                  </g>
+                </svg></span>Profile</a>
+            <a (click)="logout()" routerLinkActive="active" class="buttonSideBar"><span class="pr-2">
+                <svg width="29" height="29" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 12L13 12" stroke="white" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M18 15L20.913 12.087V12.087C20.961 12.039 20.961 11.961 20.913 11.913V11.913L18 9"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M16 5V4.5V4.5C16 3.67157 15.3284 3 14.5 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H14.5C15.3284 21 16 20.3284 16 19.5V19.5V19"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Spinner -->
+<div *ngIf="loading"
+  class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-full w-full z-[100]">
+  <div class="animate-spin rounded-full size-20 border-t-4 border-black"></div>
+  <p class="relative left-[-65px] font-bold text-xs">loading...</p>
+</div>

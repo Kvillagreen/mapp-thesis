@@ -1,0 +1,23 @@
+* {
+    user-select: none;
+    /* Prevents text selection */
+    -webkit-user-drag: none;
+    /* Prevents dragging in WebKit browsers (e.g., Chrome, Safari) */
+    -moz-user-select: none;
+    /* Prevents text selection in Firefox */
+    -ms-user-select: none;
+    /* Prevents text selection in IE/Edge */
+  }
+  
+  .buttonSideBar {
+    @apply w-full h-10 text-lg text-white flex justify-start items-center  hover:bg-hoverBar hover:shadow-hoverBar hover:shadow-[2px] p-2 hover:rounded-lg
+  }
+  .truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .active {
+    @apply bg-[#2c6e49] shadow-hoverBar shadow-[2px] p-2 rounded-lg
+  }

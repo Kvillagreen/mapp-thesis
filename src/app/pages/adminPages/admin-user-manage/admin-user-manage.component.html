@@ -1,0 +1,284 @@
+<div class="w-full justify-center align-center h-full min-h-screen md:px-2 text-black ">
+    <div class="block">
+
+        <div class="grid grid-cols-3 justify-between pt-8 pb-5 overflow-hidden">
+            <div class="text-gray-700 text-md md:text-2xl font-bold col-span-1 flex items-center">
+                <p>
+                    User Management:</p>
+            </div>
+            <div class=" col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
+                <svg fill="#000000" height="28px" class="pr-2" width="28px" version="1.1" id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 488.4 488.4" xml:space="preserve">
+                    <g>
+                        <g>
+                            <path d="M0,203.25c0,112.1,91.2,203.2,203.2,203.2c51.6,0,98.8-19.4,134.7-51.2l129.5,129.5c2.4,2.4,5.5,3.6,8.7,3.6
+			s6.3-1.2,8.7-3.6c4.8-4.8,4.8-12.5,0-17.3l-129.6-129.5c31.8-35.9,51.2-83,51.2-134.7c0-112.1-91.2-203.2-203.2-203.2
+			S0,91.15,0,203.25z M381.9,203.25c0,98.5-80.2,178.7-178.7,178.7s-178.7-80.2-178.7-178.7s80.2-178.7,178.7-178.7
+			S381.9,104.65,381.9,203.25z" />
+                        </g>
+                    </g>
+                </svg>
+                <input type="text" placeholder="Search" [(ngModel)]="searchText"
+                    (ngModelChange)="onSearchChange($event)" class=" w-full text-gray-700 text-md focus:outline-none">
+            </div>
+        </div>
+
+        <div
+            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid  grid-cols-9 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-[10px] md:text-md font-semibold text-gray-50">
+            <div class="border-r-2 border-green-900 flex justify-center items-center"><button
+                    (click)="onSortChange('date_registered');ascDate = !ascDate" class="">
+                    <div class="flex justify-center items-center ">
+                        <svg *ngIf="ascDate" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascDate" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Date</p>
+                    </div>
+                </button></div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('First_name');ascFName = !ascFName" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascFName" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascFName" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Firstname</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('Last_name');ascLName = !ascLName" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascLName" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascLName" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Lastname</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 col-span-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('Email');ascEmail = !ascEmail" class="block">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascEmail" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascEmail" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Email</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('Contact#');ascStatus = !ascStatus" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Contact</p>
+
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('Company_name');ascCompany= !ascCompany" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascCompany" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascCompany" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Company</p>
+
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('Status');ascStatus= !ascStatus" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Status</p>
+                    </div>
+                </button>
+            </div>
+            <div class=" flex justify-center items-center">
+                <button (click)="onSortChange('User_type');ascUserType= !ascUserType" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascUserType" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascUserType" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>User type</p>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+        <div *ngFor="let user of getUserToDisplay()"
+            class=" grid grid-cols-9 text-xs overflow-hidden bg-customDarkGreen text-xs border-b border-gray-50 border-b-[3px] text-left w-full h-full px-3 md:px-2 py-2  font-semibold text-gray-200">
+            <div class=" flex justify-center items-center text-[10px] leading-none">{{formatDate(user.date_registered)}}
+            </div>
+            <div class="flex justify-center items-center leading-none">{{ user.First_name}}</div>
+            <div class="flex justify-center items-center leading-none">{{ user.Last_name}}</div>
+            <div class="flex justify-center col-span-2 items-center leading-none">{{ user.Email}}</div>
+            <div class="flex justify-center items-center leading-none">{{ user['Contact#']}}</div>
+            <div class="flex justify-center items-center leading-none">{{ user.Company_name}}</div>
+            <div class="flex justify-center items-center leading-none">
+
+                <select id="dropdown" class="bg-customDarkGreen border-none outline-none"
+                    (change)="onStatusChange($event, user.user_info_id, user.Email)">
+                    <option [value]="" disabled selected>
+                        <p *ngIf="user.status==0">pending</p>
+                        <p *ngIf="user.status==1">approved</p>
+                        <p *ngIf="user.status==2">denied</p>
+                    </option>
+                    <option *ngFor="let option of statusOptions"
+                        [ngClass]="{'bg-customDarkGreen rounded-md hover:bg-green-500': true}"
+                        class="bg-customDarkGreen rounded-md" [value]="option.value">
+                        {{ option.label }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="flex justify-center items-center"><select id="dropdown"
+                    class="bg-customDarkGreen border-none outline-none"
+                    (change)="onUserTypeChange( $event, user.user_info_id)">
+                    <option selected>
+                        {{user.User_type}}
+                    </option>
+                    <option *ngFor="let option of userTypeOptions"
+                        [ngClass]="{'bg-customDarkGreen rounded-md hover:bg-green-500': true}"
+                        class="bg-customDarkGreen rounded-md" [value]="option">
+                        {{ option }}
+                    </option>
+                </select></div>
+
+        </div>
+
+
+        <!-- Load more button -->
+        <div class="flex justify-center mt-1 justify-between">
+            <button (click)="prevTransaction()"
+                class="bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 hover:shadow-md hover:shadow-gray-400">
+                Prev
+            </button><button (click)="nextTransaction()"
+                class="bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 hover:shadow-md hover:shadow-gray-400">
+                Next
+            </button>
+        </div>
+    </div>

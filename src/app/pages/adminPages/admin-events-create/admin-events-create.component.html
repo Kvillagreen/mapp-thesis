@@ -1,0 +1,73 @@
+<div class="bg-[#226f54] rounded-lg p-6 max-w-screen-xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-50">Create Event</h2>
+    <hr>
+    <!-- Form -->
+    <form (ngSubmit)="onSubmit()" class="mt-4">
+        <div class="mb-4">
+            <label for="event_name" class="block text-sm font-medium text-gray-50">Event Name</label>
+            <input id="event_name" [(ngModel)]="eventName" name="event_name" type="text"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        </div>
+        <div class="grid grid-cols-2 gap-x-2">
+
+            <div class="mb-4">
+                <label for="event_start" class="block text-sm font-medium text-gray-50">Event Start</label>
+                <input id="event_start" [(ngModel)]="eventStart" name="event_start" type="datetime-local"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </div>
+
+            <div class="mb-4">
+                <label for="event_end" class="block text-sm font-medium text-gray-50">Event End</label>
+                <input id="event_end" [(ngModel)]="eventEnd" name="event_end" type="datetime-local"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </div>
+
+        </div>
+        <div class="mb-4">
+            <label for="details" class="block text-sm font-medium text-gray-50">Details</label>
+            <textarea id="details" [(ngModel)]="eventDetails" name="details" rows="4"
+                class="mt-1 block min-h-72 h-72 max-h-72 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label for="event_image" class="block text-sm font-medium text-gray-50">Event Image</label>
+            <!-- Custom container for the styled file input -->
+            <div class="relative h-12 bg-white rounded-md text-sm px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
+                (click)="fileInput.click()">
+                <span class="text-gray-700" *ngIf="eventImage">{{eventImage.name}}</span>
+                <span class="text-gray-700" *ngIf="!eventImage">Upload image</span>
+                <button class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
+                    Browse
+                </button>
+            </div>
+            <!-- Hidden actual file input -->
+            <input #fileInput type="file" id="eventImage" name="eventImage" class="hidden"
+                (change)="onFileChange($event)" required />
+        </div>
+
+        <div *ngIf="errorMessage" class="mb-4">
+            <p class="text-center text-md text-gray-50">{{errorMessage}}</p>
+        </div>
+        <div class="flex justify-end">
+            <button type="submit" class="px-4 py-2 text-white bg-green-700 hover:bg-green-800 rounded-md">
+                Create Event
+            </button>
+        </div>
+    </form>
+    
+    <div *ngIf="created"
+        class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[65rem] overflow-y-hidden w-full z-[1000]">
+    </div>
+    <div *ngIf="created"
+        class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[1100] bg-customDarkGreen">
+        <div class="flex w-full h-full justify-center items-center">
+            <p class="text-gray-50 text-center text-3xl w-80">
+                Event successfully created!
+        </div>
+        <div class="flex justify-end w-full ">
+            <button (click)="eventCreated()"
+                class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Okay
+            </button>
+        </div>
+    </div>
+</div>

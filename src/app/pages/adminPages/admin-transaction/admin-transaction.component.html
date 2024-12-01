@@ -1,0 +1,292 @@
+<div class="w-full justify-center align-center h-full min-h-screen md:px-2 text-black ">
+    <div class="block">
+        <div class="flex justify-between h-full w-full px-0 md:px-2 items-center">
+            <div
+                class="bg-green-200 size-36 px-2 text-center rounded-xl shadow-md shadow-gray-500 justify-center grid items-center">
+                <div class="text-8xl text-gray-600">{{ counterPaid(userTransaction) }}</div>
+                <div class="text-md text-gray-600 font-bold">PAID</div>
+            </div>
+            <div
+                class="bg-green-200 size-36 px-2 text-center rounded-xl shadow-md shadow-gray-500 justify-center grid items-center">
+                <div class="text-8xl text-gray-600">{{ counterFinished(userTransaction) }}</div>
+                <div class="text-md text-gray-600 font-bold w-full">FINISHED</div>
+            </div>
+            <div
+                class="bg-green-200 size-36 px-2 text-center rounded-xl shadow-md shadow-gray-500 justify-center grid items-center">
+                <div class="text-8xl text-gray-600">{{ userTransaction.length }}</div>
+                <div class="text-md text-gray-600 font-bold w-full">TRANSACTION</div>
+            </div>
+        </div>
+        <div class="grid grid-cols-3 justify-between pt-8 pb-5 ">
+            <div class="text-gray-700 text-md md:text-2xl font-bold col-span-1 flex items-center">
+                <p>
+                    Transaction History:</p>
+            </div>
+            <div class=" col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
+                <svg fill="#000000" height="28px" class="pr-2" width="28px" version="1.1" id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 488.4 488.4" xml:space="preserve">
+                    <g>
+                        <g>
+                            <path d="M0,203.25c0,112.1,91.2,203.2,203.2,203.2c51.6,0,98.8-19.4,134.7-51.2l129.5,129.5c2.4,2.4,5.5,3.6,8.7,3.6
+			s6.3-1.2,8.7-3.6c4.8-4.8,4.8-12.5,0-17.3l-129.6-129.5c31.8-35.9,51.2-83,51.2-134.7c0-112.1-91.2-203.2-203.2-203.2
+			S0,91.15,0,203.25z M381.9,203.25c0,98.5-80.2,178.7-178.7,178.7s-178.7-80.2-178.7-178.7s80.2-178.7,178.7-178.7
+			S381.9,104.65,381.9,203.25z" />
+                        </g>
+                    </g>
+                </svg>
+                <input type="text" placeholder="Search" [(ngModel)]="searchText"
+                    (ngModelChange)="onSearchChange($event)" class=" w-full text-gray-700 text-lg focus:outline-none">
+            </div>
+        </div>
+
+        <div
+            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid overflow-hidden grid-cols-8 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-sm md:text-lg font-semibold text-gray-50">
+            <div class="border-r-2 border-green-900 flex justify-center items-center"><button
+                    (click)="onSortChange('date_req');ascDate = !ascDate" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascDate" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascDate" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Date</p>
+                    </div>
+                </button></div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('Username');ascUsername = !ascUsername" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascUsername" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascUsername" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Name</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('event_name');ascEvent = !ascEvent" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascEvent" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascEvent" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Event Name</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('kiosk_name');ascKiosk = !ascKiosk" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascKiosk" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascKiosk" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Kiosk Name</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('purpose');ascPurpose = !ascPurpose" class="block">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascPurpose" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascPurpose" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Purpose</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('status');ascStatus = !ascStatus" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Status</p>
+
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('receipt_number');ascRefNum= !ascRefNum" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascRefNum" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascRefNum" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Receipt</p>
+
+                    </div>
+                </button>
+            </div>
+            <div class="flex justify-center items-center">Pdf file</div>
+        </div>
+
+        <div *ngFor="let transac of getTransactionsToDisplay()"
+            class="grid grid-cols-8 overflow-hidden bg-customDarkGreen border-b border-gray-50 border-b-[3px] text-center w-full h-full px-3 md:px-2 py-2 text-xs md:text-lg font-semibold text-gray-200">
+            <div class="text-xs md:text-sm flex justify-center items-center">{{formatDate(transac.date_req)}}</div>
+            <div class="flex justify-center items-center ">{{ transac.First_name+' '+transac.Last_name}}</div>
+            <div class="flex justify-center items-center ">{{ transac.event_name}}</div>
+            <div class="flex justify-center items-center">{{ transac.kiosk_name}}</div>
+            <div class="flex justify-center items-center">{{ transac.purpose ? transac.purpose : '----' }}</div>
+            <div class="flex justify-center items-center">
+                <select id="dropdown" class="bg-customDarkGreen border-none outline-none"
+                    (change)="onOptionSelected($event, transac.user_id, transac.event_id, transac.kiosk_id, transac.form_id,transac.Email, formatDate(transac.date_req))">
+                    <option value="" [ngClass]="{'bg-customDarkGreen rounded-md hover:bg-green-500 hidden': true}"
+                        selected>
+                        {{ statusViewer(transac.status)|| 'Select an option' }}
+                    </option>
+                    <option *ngFor="let option of statusOptions"
+                        [ngClass]="{'bg-customDarkGreen rounded-md hover:bg-green-500': true}"
+                        class="bg-customDarkGreen rounded-md" [value]="option">
+                        {{ statusViewer(option) }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="flex justify-center items-center">{{ transac.receipt_number}}</div>
+            <div class="flex justify-between items-center">
+                <button *ngIf="transac.file_name" (click)="viewPdfFile(transac.file_name)"
+                    class="bg-green-800 h-8 w-full md:text-sm rounded-lg hover:bg-green-900 hover:text-white">
+                    View forms
+                </button>
+                <div *ngIf="!transac.file_name"
+                    class="flex justify-center items-center text-center bg-green-800 h-8 w-full md:text-sm rounded-lg hover:text-white">
+                    No forms
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Load more button -->
+        <div class="flex justify-center mt-1 justify-between">
+            <button (click)="prevTransaction()"
+                class="bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 hover:shadow-md hover:shadow-gray-400">
+                Prev
+            </button><button (click)="nextTransaction()"
+                class="bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 hover:shadow-md hover:shadow-gray-400">
+                Next
+            </button>
+        </div>
+    </div>
+
+
+    <div *ngIf="viewPdf"
+        class="absolute top-0 left-1/2 transform -translate-x-1/2 mt-4 border-4 border-gray-300 bg-gray-50 w-3/4 h-[90%] flex flex-col z-[1000] shadow-lg">
+        <!-- Close Button -->
+        <button (click)="viewPdf=!viewPdf"
+            class="absolute top-2 right-2 py-1 hover:bg-green-700 hover:text-gray-200 text-lg text-center justify-center items-center cursor-pointer text-gray-50 rounded-full bg-customDarkGreen size-10 flex items-center justify-center">
+            x
+        </button>
+
+        <!-- Conditional PDF Embed -->
+        <ng-container *ngIf="pdfError; else showPdf">
+            <div class="flex items-center justify-center h-full text-gray-500 text-lg">
+                No PDF found.
+            </div>
+        </ng-container>
+
+        <ng-template #showPdf>
+            <embed [src]="pdfUrl" width="100%" height="100%" type="application/pdf" (error)="onPdfError()" />
+        </ng-template>
+    </div>

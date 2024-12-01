@@ -1,0 +1,96 @@
+<div class="w-full h-full fixed">
+    <div #modelContainer class="w-full h-full overflow-x-hidden ">
+    </div>
+</div>
+<div class="z-10 fixed top-20 right-0 w-[350px] bg-transparent p-4">
+    <div class="w-full grid grid-cols-2  bg-gray-400 p-4 rounded-xl gap-2">
+        <!-- Change Model Buttons -->
+        <div class="flex justify-center align-center w-full h-full pt-8">
+            <button *ngIf="!mapTerrain" (click)="changeModel('assets/model/mapTerrain.glb'); mapTerrain=true"
+                class="size-full hover:bg-green-700 hover:text-gray-50 hover:shadow-[#87c38f] hover:shadow-md bg-green-500 text-white flex justify-center items-start rounded-xl">
+                <div class="flex h-full pt-7 text-center justify-center text-gray-50">
+                    <svg width="32px" height="32px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                        class="iconify iconify--gis" preserveAspectRatio="xMidYMid meet">
+                        <path
+                            d="M50 5L24.637 30.469H41.34v20.705h17.32V30.469h16.703zM28.135 37.309a3.5 3.5 0 0 0-2.668 1.234L.832 67.559a3.5 3.5 0 0 0 2.67 5.765l93-.064a3.5 3.5 0 0 0 2.666-5.766L74.59 38.543a3.5 3.5 0 0 0-2.668-1.234H64.66c-.002 2.333-.008 4.666-.008 7h5.649l18.64 21.957l-77.873.052l18.686-22.01h5.586c.002-2.333.003-4.666 0-7zM89.91 78.264l-9.178.007l8.211 9.67l-77.875.053l8.22-9.682l-9.188.008L.832 89.234A3.5 3.5 0 0 0 3.502 95l93-.064a3.5 3.5 0 0 0 2.666-5.766z"
+                            fill="#161a1d"></path>
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Second Button -->
+            <button *ngIf="mapTerrain" (click)="changeModel('assets/model/map.glb'); mapTerrain=false"
+                class="size-full  hover:bg-green-700 hover:text-gray-200 hover:shadow-[#87c38f] hover:shadow-md bg-green-500 text-white flex justify-center items-start rounded-xl">
+                <div class="flex h-full pt-7 text-center justify-center text-gray-300">
+                    <svg width="32px" height="32px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                        class="iconify iconify--gis" preserveAspectRatio="xMidYMid meet">
+                        <path
+                            d="M50 5L24.637 30.469H41.34v20.705h17.32V30.469h16.703zM28.135 37.309a3.5 3.5 0 0 0-2.668 1.234L.832 67.559a3.5 3.5 0 0 0 2.67 5.765l93-.064a3.5 3.5 0 0 0 2.666-5.766L74.59 38.543a3.5 3.5 0 0 0-2.668-1.234H64.66c-.002 2.333-.008 4.666-.008 7h5.649l18.64 21.957l-77.873.052l18.686-22.01h5.586c.002-2.333.003-4.666 0-7zM89.91 78.264l-9.178.007l8.211 9.67l-77.875.053l8.22-9.682l-9.188.008L.832 89.234A3.5 3.5 0 0 0 3.502 95l93-.064a3.5 3.5 0 0 0 2.666-5.766z"
+                            fill="#161a1d"></path>
+                    </svg>
+                </div>
+            </button>
+
+        </div>
+        <div class="grid grid-cols-2 gap-2 justify-center px-4">
+
+            <p class="text-gray-50 text-lg col-span-2 font-bold text-left">Legend:</p>
+            <div class="size-6 bg-red-500 rounded-lg">
+            </div>
+            <p class="text-gray-50 text-xs">Unavailable</p>
+            <div class="size-6 bg-green-500 rounded-lg">
+            </div>
+            <p class="text-gray-50 text-xs">Available</p>
+            <div class="size-6 bg-yellow-500 rounded-lg">
+            </div>
+            <p class="text-gray-50 text-xs">Pending</p>
+        </div>
+    </div>
+</div>
+<!-- Error Message (only shown when errorMessage is true) -->
+<div *ngIf="errorMessage"
+    class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-full w-full z-20">
+</div>
+
+<!-- Green Div (always centered within its parent) -->
+<div *ngIf="errorMessage!='done'&& errorMessage !=''"
+    class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[8rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[580px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
+    <div class="flex w-full h-full justify-center items-center">
+        <p class="text-gray-50 text-center text-3xl">
+            Kiosk<b>{{kioskName}}</b> already occupied, please select other kiosk!</p>
+    </div>
+    <div class="flex justify-between w-full">
+        <button (click)="this.router.navigate(['/dashboard'])"
+            class="h-12 w-24 bg-red-400 rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">Go
+            back</button>
+        <button (click)="errorMessage=''"
+            class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Okay</button>
+    </div>
+</div>
+
+<div *ngIf="errorMessage=='done'"
+    class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[8rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[580px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
+    <div class=" grid grid-cols-[60%_40%] md:grid-cols-2  gap-2 ">
+        <div class="row-span-2 py-4">
+            <img class="rounded-xl h-full object-cover"
+                src="http://localhost/mapp-thesis/public/dbAssets/kioskImages/{{kioskImage}}" />
+        </div>
+        <div class="flex-cols items-center h-full w-full my-8">
+            <p class="text-gray-50 text-left text-xl">
+                Are you willing to procceed, using this kiosk <b>{{kioskName}} </b>?</p>
+            <p class="pt-8 text-gray-50 text-left leading-none h-68 md:h-44 ">
+                Description:<textarea  
+                readonly 
+                    class="h-32 bg-inherit min-h-32 max-h-32 w-full text-xs mt-2 focus:outline-none outline-none overflow-y-scroll">{{kioskDescription}} </textarea>
+            </p>
+        </div>
+        <div class=" relative -top-4 flex justify-between space-x-2 w-full">
+            <button (click)="errorMessage=''"
+                class="h-12 w-24 bg-red-400 rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">No</button>
+            <button (click)="toApplication()"
+                class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Yes</button>
+        </div>
+    </div>
+</div>

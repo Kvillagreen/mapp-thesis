@@ -1,0 +1,325 @@
+<div class="w-full justify-center align-center h-full min-h-screen md:px-2 text-black ">
+    <div class="block">
+
+        <div class="grid grid-cols-3 justify-between pt-8 pb-5 ">
+            <div class="text-gray-700 text-md md:text-2xl font-bold col-span-1 flex items-center">
+                <p>
+                    Manage Events:</p>
+            </div>
+            <div class=" col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
+                <svg fill="#000000" height="28px" class="pr-2" width="28px" version="1.1" id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 488.4 488.4" xml:space="preserve">
+                    <g>
+                        <g>
+                            <path d="M0,203.25c0,112.1,91.2,203.2,203.2,203.2c51.6,0,98.8-19.4,134.7-51.2l129.5,129.5c2.4,2.4,5.5,3.6,8.7,3.6
+			s6.3-1.2,8.7-3.6c4.8-4.8,4.8-12.5,0-17.3l-129.6-129.5c31.8-35.9,51.2-83,51.2-134.7c0-112.1-91.2-203.2-203.2-203.2
+			S0,91.15,0,203.25z M381.9,203.25c0,98.5-80.2,178.7-178.7,178.7s-178.7-80.2-178.7-178.7s80.2-178.7,178.7-178.7
+			S381.9,104.65,381.9,203.25z" />
+                        </g>
+                    </g>
+                </svg>
+                <input type="text" placeholder="Search" [(ngModel)]="searchText"
+                    (ngModelChange)="onSearchChange($event)" class=" w-full text-gray-700 text-lg focus:outline-none">
+            </div>
+        </div>
+
+        <div
+            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid overflow-hidden grid-cols-7 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-sm md:text-lg font-semibold text-gray-50">
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('event_start');ascStart = !ascStart" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascStart" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascStart" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Date Started</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('event_end');ascEnd = !ascEnd" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascEnd" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascEnd" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Date Ended</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('event_name');ascEvent = !ascEvent" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascEvent" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascEvent" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Event Name</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('details');ascDetails = !ascDetails" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Details</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <button (click)="onSortChange('status');ascStatus = !ascStatus" class="">
+                    <div class="flex justify-center items-center">
+                        <svg *ngIf="ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Status</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">
+                <div class="flex justify-center items-center">
+
+                    <p>Images</p>
+                </div>
+            </div>
+            <div class=" flex justify-center items-center">
+                <div class="flex justify-center items-center">
+                    <p>Review</p>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let events of getEventsToDisplay()"
+            class="grid grid-cols-7 overflow-hidden bg-customDarkGreen border-b border-gray-50 border-b-[3px] text-center w-full h-full px-3 md:px-2 py-2 text-xs md:text-lg font-semibold text-gray-200">
+
+            <div class="flex justify-center items-center text-sm">{{ formatDate(events.event_start)}}</div>
+            <div class="flex justify-center items-center text-sm">{{ formatDate(events.event_end)}}</div>
+            <div class="flex justify-center items-center">{{ events.event_name}}</div>
+            <div class="flex justify-center items-center text-xs leading-none">{{ events.details}}</div>
+            <div class="flex justify-center items-center">
+                <p *ngIf="events.status==1" class="text-green-200">Active</p>
+            </div>
+            <div class="flex justify-center items-center">
+                <img src="http://localhost/mapp-thesis/public/dbAssets/eventImages/{{events.event_image}}"
+                    class="size-24 object-cover" />
+            </div>
+            <div class="flex justify-center items-center">
+                <button
+                    (click)="isModalOpen=!isModalOpen;eventStart=events.event_start; eventEnd=events.event_end; eventName=events.event_name; eventDetails=events.details; eventId=events.event_id;eventStatus=events.status">
+                    <img src="/assets/svg/edit.svg" class="size-8" /></button>
+            </div>
+        </div>
+
+
+        <!-- Load more button -->
+        <div class="flex mt-1 justify-between">
+            <button (click)="prevTransaction()"
+                class="bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 hover:shadow-md hover:shadow-gray-400">
+                Prev
+            </button><button (click)="nextTransaction()"
+                class="bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 hover:shadow-md hover:shadow-gray-400">
+                Next
+            </button>
+        </div>
+    </div>
+    <div *ngIf="isModalOpen" class="fixed inset-0 flex justify-center items-center bg-gray-700 bg-opacity-50 z-[1000]">
+        <div class="bg-[#226f54] rounded-lg p-6 w-1/3 relative">
+            <!-- Disabled Button on the upper-right corner -->
+
+
+            <button
+                class="absolute top-2 right-2 py-1 hover:bg-green-700 hover:text-gray-200 text-lg text-center justify-center items-center cursor-pointer text-gray-50 rounded-full bg-customDarkGreen size-10 flex items-center justify-center"
+                (click)="disable=!disable"><svg fill="white" height="24px" width="24px" version="1.1" id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
+                    xml:space="preserve">
+                    <g>
+                        <g>
+                            <path d="M256,0C114.615,0,0,114.616,0,256s114.615,256,256,256s256-114.616,256-256S397.385,0,256,0z M66.783,256
+                       c0-104.503,84.716-189.217,189.217-189.217c40.19,0,77.446,12.541,108.089,33.907L100.689,364.089
+                       C79.323,333.446,66.783,296.19,66.783,256z M256,445.217c-40.19,0-77.446-12.541-108.089-33.907l263.399-263.399
+                       c21.366,30.643,33.907,67.899,33.907,108.089C445.217,360.501,360.501,445.217,256,445.217z" />
+                        </g>
+                    </g>
+                </svg>
+            </button>
+
+            <h2 class="text-xl font-bold mb-4 text-gray-50">Edit Event</h2>
+
+            <!-- Form -->
+            <form (ngSubmit)="onSubmit()">
+                <div class="mb-4">
+                    <label for="event_name" class="block text-sm font-medium text-gray-50">Event Name</label>
+                    <input id="event_name" [(ngModel)]="eventName" name="event_name" type="text"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="mb-4">
+                        <label for="event_start" class="block text-sm font-medium text-gray-50">Event Start</label>
+                        <input id="event_start" [(ngModel)]="eventStart" name="event_start" type="datetime-local"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="event_end" class="block text-sm font-medium text-gray-50">Event End</label>
+                        <input id="event_end" [(ngModel)]="eventEnd" name="event_end" type="datetime-local"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="details" class="block text-sm font-medium text-gray-50">Details</label>
+                    <textarea id="details" [(ngModel)]="eventDetails" name="details" rows="4"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="mb-4 ">
+                        <label for="event_status" class="block text-sm font-medium text-gray-50">Status</label>
+                        <input id="event_status" [(ngModel)]="eventStatusModel" name="event_status" type="text"
+                            class=" mt-1 block w-full px-3 py-2 border border-gray-300 h-12 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                    </div>
+                    <div class="mb-4">
+                        <label for="event_image" class="block text-sm font-medium text-gray-50">Event Image</label>
+                        <!-- Custom container for the styled file input -->
+                        <div class="mt-1 relative h-12 bg-white rounded-md text-sm px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
+                            (click)="fileInput.click()">
+                            <span class="text-gray-700" *ngIf="eventImage">{{eventImage.name}}</span>
+                            <span class="text-gray-700" *ngIf="!eventImage">Upload image</span>
+                            <div class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
+                                Browse
+                            </div>
+                        </div>
+                        <!-- Hidden actual file input -->
+                        <input #fileInput type="file" id="eventImage" name="eventImage" class="hidden"
+                            (change)="onFileChange($event)" required />
+                    </div>
+                </div>
+
+                <div *ngIf="errorMessage" class="mb-4">
+                    <p class="text-center text-md text-gray-50">{{errorMessage}}</p>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" (click)="closeModal()"
+                        class="px-4 py-2 mr-2 text-white bg-gray-500 hover:bg-gray-700 rounded-md">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 text-white bg-green-700 hover:bg-green-800 rounded-md">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="submit=='true'"
+        class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[65rem] overflow-y-hidden w-full z-20">
+    </div>
+
+    <div *ngIf="submit=='true'"
+        class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
+        <div class="flex w-full h-full justify-center items-center">
+            <p class="text-gray-50 text-center text-3xl w-80">
+                Events Updated Succesfully!
+        </div>
+        <div class="flex justify-end w-full ">
+            <button (click)="changeVal()"
+                class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Okay
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="disable"
+        class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[65rem] overflow-y-hidden w-full z-[1000]">
+    </div>
+    <div *ngIf="disable"
+        class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[1100] bg-customDarkGreen">
+        <div class="flex w-full h-full justify-center items-center">
+            <p class="text-gray-50 text-center text-3xl w-96 leading-none">
+                Are you sure you want to disable the event?
+                <br>
+                <br>
+                <span class="text-[18px]">Note: It will only be seen in the event history</span>
+
+        </div>
+        <div class="flex justify-between w-full ">
+            <button (click)="disable=!disable"
+                class="h-12 w-24 bg-red-700  rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-800 hover:shadow-md">No
+            </button>
+            <button (click)="eventDisable()"
+                class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Yes
+            </button>
+        </div>
+    </div>

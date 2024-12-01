@@ -1,0 +1,23 @@
+/* Default style for the label */
+label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+  }
+  
+  /* Style when checkbox is checked */
+  .checked-checkbox input {
+    background-color: #4CAF50; /* Green background */
+    border-color: #4CAF50; /* Green border */
+  }
+  
+  /* Optional: If you want to change the checkbox border color */
+  input[type="checkbox"]:checked {
+    border-color: #4CAF50; /* Change border color */
+  }
+  
+  /* Change the label text color when the checkbox is checked */
+  .checked-checkbox {
+    color: #4CAF50; /* Green text */
+  }
+  

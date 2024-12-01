@@ -1,0 +1,30 @@
+* {
+  user-select: none;  /* Prevents text selection */
+  -webkit-user-drag: none;  /* Prevents dragging in WebKit browsers (e.g., Chrome, Safari) */
+  -moz-user-select: none;  /* Prevents text selection in Firefox */
+  -ms-user-select: none;   /* Prevents text selection in IE/Edge */
+}
+
+.swiper-wrapper {
+    width: 100%;
+    height: max-content !important;
+    padding-bottom: 0px !important;
+    -webkit-transition-timing-function: linear !important;
+    transition-timing-function: linear !important;
+    position: relative;
+}
+
+.swiper-pagination-bullet {
+    background: #4f46e5;
+}
+.swiper-button-next::before {
+    content: '';
+    color: #4a5568; /* Example: Tailwind gray-700 color */
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .swiper-button-next:hover::before {
+    color: #1a202c; /* Example: Tailwind gray-900 color on hover */
+  }
+  

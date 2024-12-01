@@ -1,0 +1,131 @@
+<div class="h-full flex items-center justify-center ">
+
+    <div
+        class="sm:grid grid-cols-1 lg:grid-cols-2 items-start shadow-bottom shadow-black pt-28  md:px-8 min-h-screen-sm max-w-screen-xl rounded-xl">
+        <div class="justify-center items-center h-full w-full bg-gray-50  ">
+            <img src="assets/images/rulesRegulation.jpg" class="size-full rounded-l-xl object-full object-center">
+        </div>
+        <div
+            class="h-full  w-full px-5 py-2 md:p-8 justify-center items-center bg-customDarkGreen lg:rounded-l-none rounded-l-xl rounded-r-xl">
+
+            <div
+                class="w-full h-28 md:pt-0 pt-20 flex flex-col items-center md:flex-row md:justify-center md:top-0  top-12 md:left-6 relative">
+                <!-- Line with border -->
+                <div class="w-[20rem] md:w-[24rem] h-16 pt-5  border-b-4 px-4 md:px-20 relative">
+
+                </div>
+
+                <!-- Step 3 -->
+                <div
+                    class="size-8 bg-gray-50 rounded-full relative -top-[2rem] left-40 md:top-[1.90rem] md:left-0 mt-4 md:mt-0">
+                    <p
+                        class="relative text-md w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
+                        STEP 3
+                        <span class="text-xs text-gray-50"><br>Application</span>
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div
+                    class="size-5 bg-green-300 rounded-full relative -top-[4.75rem]  md:top-[1.90rem] md:right-[13.5rem] mt-4 md:mt-0">
+                    <p
+                        class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
+                        STEP 2
+                        <span class="text-xs text-gray-300"><br>Kiosk Selection</span>
+                    </p>
+                </div>
+
+                <!-- Step 1 -->
+                <div
+                    class="size-5 bg-green-300 rounded-full relative -top-[7rem]  -left-[10rem] md:top-[1.9rem]  md:-left-[28rem] mt-4 md:mt-0">
+                    <p
+                        class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
+                        STEP 1
+                        <span class="text-xs text-gray-300"><br>Event Selection</span>
+                    </p>
+                </div>
+            </div>
+            <h6 class="text-center text-3xl text-gray-50 md:pt-0 pt-20">Application form</h6>
+            <form (ngSubmit)="onSubmit()" class="pt-4 px-4 space-y-2 ">
+                <div  class="form-group col-span-1 pt-2">
+                    <label class="text-white">Username</label>
+                    <input readonly type="text" id="userName" [(ngModel)]="userName" name="userName"
+                        placeholder="{{userName}}"
+                        class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+                </div>
+                <div class="grid grid-cols-2 gap-x-2">
+                    <div class="form-group col-span-1 ">
+                        <label class="text-white">Event Name</label>
+                        <input readonly type="text" id="eventName" [(ngModel)]="eventName" name="eventName" 
+                            placeholder="{{eventName}}"
+                            class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+                    </div>
+                    <div  class="form-group col-span-1 ">
+                        <label class="text-white">Kiosk Name</label>
+                        <input readonly type="text" id="kioskName"  [(ngModel)]="kioskName" name="kioskName" 
+                            placeholder="{{kioskName}}"
+                            class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+                    </div>
+
+                </div>
+                <div class="form-group col-span-1 ">
+                    <label class="text-white">Date Requested</label>
+                    <input type="date" id="dateRequested"  [(ngModel)]="dateRequested" [ngModelOptions]="{standalone: true}" name="dateRequested" required
+                        placeholder="Date requested"
+                        class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+                </div>
+                <div class="form-group col-span-1 ">
+                    <label class="text-white">Purpose</label>
+                    <input type="text" id="purpose" [(ngModel)]="purpose" [ngModelOptions]="{standalone: true}" name="purpose" required placeholder="Purpose"
+                        class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+                </div>
+                <div class="form-group col-span-1">
+                    <label class="block text-sm font-medium mb-2 text-white">Letter Of Intent</label>
+                    <!-- Custom container for the styled file input -->
+                    <div class="relative h-12 bg-white rounded-xl text-sm px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
+                        (click)="fileInput.click()">
+                        <span class="text-gray-700" *ngIf="loiFile">{{loiFileName}}</span>
+                        <span class="text-gray-700" *ngIf="!loiFile">Upload a file</span>
+                        <button class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
+                            Browse
+                        </button>
+                    </div>
+                    <!-- Hidden actual file input -->
+                    <input #fileInput type="file" id="loi" name="loi" class="hidden" (change)="handleFileChange($event)"
+                        required />
+                </div>
+                <div class="form-group col-span-2 p-1">
+                    <button type="submit" id="submit" name="submit"
+                        class="h-12 w-32 rounded-xl text-white text-sm px-4 py-2 bg-green-800 hover:bg-green-900 border border-gray-300 focus:outline-none hover:ring-[3px] hover:ring-green-300">
+                        Submit
+                    </button>
+                </div>
+                <div class="form-group col-span-2 h-2 p-1">
+                    <p *ngIf="errorMessage" class="text-center text-red-700 text-sm ">{{this.errorMessage}}</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div  *ngIf="successMessage=='success'"
+class="animate-fadeIn absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[65rem] overflow-y-hidden w-full z-20">
+
+</div>
+<!-- Green Div (always centered within its parent) -->
+<div *ngIf="successMessage=='success'"
+    class="animate-fadeIn absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
+    <div class="flex w-full h-full justify-center items-center">
+        <p class="text-gray-50 text-center text-3xl">
+            Thank you for using our kiosk!, Admin has been notfied!<br>
+            Select okay to view transaction.
+    </div>
+    <div class="flex justify-between w-full">
+        <button (click)="this.router.navigate(['/dashboard'])"
+            class="h-12 w-24 bg-red-400 rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">Back</button>
+        <button (click)="this.router.navigate(['/transaction'])"
+            class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Okay</button>
+    </div>
+</div>

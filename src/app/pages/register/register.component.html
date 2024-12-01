@@ -1,0 +1,65 @@
+<div class="h-screen flex items-center justify-center bg-customGreen">
+  <div
+    class="sm:grid grid-cols-1 lg:grid-cols-2 items-start shadow-bottom shadow-black min-h-screen-sm max-w-screen-lg rounded-xl">
+    <div class="justify-center items-center h-full w-full p-5 hidden lg:flex bg-gray-50 rounded-l-xl">
+      <img src="assets/images/chmsu_logo.png" class="lg:size-4/5 object-contain object-center">
+    </div>
+    <div
+      class="h-full w-full px-5 py-20 md:p-10 justify-center items-center bg-gray-200 lg:rounded-l-none rounded-l-xl rounded-r-xl">
+      <h6 class="text-center text-3xl text-gray-700">Create an account!</h6>
+      <form (ngSubmit)="onSignUp()" class="pt-4">
+        <div class="grid grid-cols-2 col-span-1 gap-2">
+          <div class="form-group">
+            <input type="text" id="fname" [(ngModel)]="fname" name="fname" required placeholder="First Name"
+              class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+          </div>
+          <div class="form-group col-span-1">
+            <input type="text" id="lname" [(ngModel)]="lname" name="lname" required placeholder="Last Name"
+              class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+          </div>
+          <div class="form-group col-span-2">
+            <input type="text" id="email" [(ngModel)]="email" name="email" required placeholder="Enter Email"
+              class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+          </div>
+          <div class="form-group col-span-1">
+            <input type="text" id="businessName" [(ngModel)]="businessName" name="businessName" required
+              placeholder="Business Name"
+              class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+          </div>
+          <div class="form-group col-span-1">
+            <input type="text" id="contactNumber" [(ngModel)]="contactNumber" name="contactNumber" required
+              placeholder="Contact number"
+              class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+          </div>
+          <div class="form-group col-span-2">
+            <input type="text" id="username" [(ngModel)]="username" name="username" required placeholder="Username"
+              class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+          </div>
+          <div class="form-group col-span-1">
+            <input type="password" id="password" [(ngModel)]="password" name="password" required
+              placeholder="Confirm Password"
+              class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+          </div>
+          <div class="form-group col-span-1">
+            <input type="password" id="confirmpassword" [(ngModel)]="confirmPassword" name="confirmpassword" required
+              placeholder="Password"
+              class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+          </div>
+          <div class="form-group col-span-2 p-1">
+            <button type="submit" id="submit" name="submit"
+              class="h-12 rounded-full text-white text-sm px-4 py-2 bg-blue-600 hover:bg-blue-900 w-full border border-gray-300 focus:outline-none hover:ring-[3px] hover:ring-customSkyBlue">
+              Register
+            </button>
+          </div>
+          <div class="form-group col-span-2 h-2 p-1">
+            <p *ngIf="successMessage" class="text-center text-green-700 text-sm ">{{this.successMessage}}</p>
+            <p *ngIf="errorMessage" class="text-center text-red-700 text-sm ">{{this.errorMessage}}</p>
+          </div>
+        </div>
+      </form>
+      <div class="text-center pt-4">
+        <button (click)="goToSignIn()" class="text-blue-500 text-sm">Already have an account? Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>

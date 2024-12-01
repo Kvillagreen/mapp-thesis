@@ -1,0 +1,202 @@
+<div class="w-full justify-center align-center h-full min-h-screen md:px-2 text-black ">
+    <div class="block">
+
+        <div class="grid grid-cols-3 justify-between pt-8 pb-5 overflow-hidden">
+            <div class="text-gray-700 text-md md:text-2xl font-bold col-span-1 flex items-center">
+                <p>
+                    User Control:</p>
+            </div>
+            <div class=" col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
+                <svg fill="#000000" height="28px" class="pr-2" width="28px" version="1.1" id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 0 488.4 488.4" xml:space="preserve">
+                    <g>
+                        <g>
+                            <path d="M0,203.25c0,112.1,91.2,203.2,203.2,203.2c51.6,0,98.8-19.4,134.7-51.2l129.5,129.5c2.4,2.4,5.5,3.6,8.7,3.6
+			s6.3-1.2,8.7-3.6c4.8-4.8,4.8-12.5,0-17.3l-129.6-129.5c31.8-35.9,51.2-83,51.2-134.7c0-112.1-91.2-203.2-203.2-203.2
+			S0,91.15,0,203.25z M381.9,203.25c0,98.5-80.2,178.7-178.7,178.7s-178.7-80.2-178.7-178.7s80.2-178.7,178.7-178.7
+			S381.9,104.65,381.9,203.25z" />
+                        </g>
+                    </g>
+                </svg>
+                <input type="text" placeholder="Search" [(ngModel)]="searchText"
+                    (ngModelChange)="onSearchChange($event)" class=" w-full text-gray-700 text-md focus:outline-none">
+            </div>
+        </div>
+
+        <div
+            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid  grid-cols-8 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-[10px] md:text-[14px] leading-none font-semibold text-gray-50">
+            <div class="border-r-2 border-green-900 flex justify-center py-4 items-center"><button
+                    (click)="onSortChange('Firs_name');ascDate = !ascDate" class="">
+                    <div class="flex justify-center items-center ">
+                        <svg *ngIf="ascDate" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascDate" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>Name</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center py-4 items-center"><button
+                    (click)="onSortChange('User_type');ascType = !ascType" class="">
+                    <div class="flex justify-center items-center ">
+                        <svg *ngIf="ascType" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Down Arrow -->
+                            <path d="M12 20L6 14H18L12 20Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="10" x2="18" y2="10" />
+                            <line x1="8" y1="6" x2="16" y2="6" />
+                        </svg>
+                        <svg *ngIf="!ascType" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Up Arrow -->
+                            <path d="M12 4L6 10H18L12 4Z" fill="currentColor" />
+                            <!-- Line for data -->
+                            <line x1="6" y1="14" x2="18" y2="14" />
+                            <line x1="8" y1="18" x2="16" y2="18" />
+                        </svg>
+                        <p>User Type</p>
+                    </div>
+                </button>
+            </div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">Access Events</div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">Access Transactions</div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">Access Reports</div>
+            <div class="border-r-2 border-green-900  flex justify-center items-center">Access History</div>
+            <div class="border-r-2 border-green-900 flex justify-center items-center">Access Users</div>
+            <div class="flex justify-center items-center">Access Control</div>
+        </div>
+        <div *ngFor="let user of getUserToDisplay()"
+            class=" grid grid-cols-8  overflow-hidden bg-customDarkGreen text-md border-gray-50 border-b-[3px] text-left w-full h-full px-3 md:px-2 py-2  font-semibold text-gray-200">
+            <div class="flex justify-center text-center items-center leading-none ">{{ user.First_name+' '+user.Last_name}}</div>
+            <div class="flex justify-center items-center leading-none ">{{ user.User_type}}</div>
+            <div class="flex justify-center items-center">
+                <label class="flex items-center cursor-pointer relative">
+                    <input type="checkbox" [(ngModel)]="user.access_permissions_events"
+                        (change)="onPermissionChange(user.user_info_id, 'events', user.access_permissions_events)"
+                        class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-green-600 checked:border-green-600" />
+                    <span
+                        class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                            fill="currentColor" stroke="currentColor" stroke-width="1">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </label>
+            </div>
+            <div class="flex justify-center items-center">
+                <label class="flex items-center cursor-pointer relative">
+                    <input
+                        (change)="onPermissionChange(user.user_info_id, 'transactions',user.access_permissions_transactions)"
+                        type="checkbox" [(ngModel)]="user.access_permissions_transactions"
+                        class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-green-600 checked:border-green-600" />
+                    <span
+                        class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                            fill="currentColor" stroke="currentColor" stroke-width="1">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </label>
+            </div>
+            <div class="flex justify-center items-center">
+                <label class="flex items-center cursor-pointer relative">
+                    <input (change)="onPermissionChange(user.user_info_id, 'reports',user.access_permissions_reports)"
+                        type="checkbox" [(ngModel)]="user.access_permissions_reports"
+                        class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-green-600 checked:border-green-600" />
+                    <span
+                        class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                            fill="currentColor" stroke="currentColor" stroke-width="1">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </label>
+            </div>
+            <div class="flex justify-center items-center">
+                <label class="flex items-center cursor-pointer relative">
+                    <input
+                        (change)="onPermissionChange(user.user_info_id, 'user_settings',user.access_permissions_user_settings)"
+                        type="checkbox" [(ngModel)]="user.access_permissions_user_settings"
+                        class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-green-600 checked:border-green-600" />
+                    <span
+                        class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                            fill="currentColor" stroke="currentColor" stroke-width="1">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </label>
+            </div>
+            <div class="flex justify-center items-center">
+                <label class="flex items-center cursor-pointer relative">
+                    <input
+                        (change)="onPermissionChange(user.user_info_id, 'access_control',user.access_permissions_access_control)"
+                        type="checkbox" [(ngModel)]="user.access_permissions_access_control"
+                        class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-green-600 checked:border-green-600" />
+                    <span
+                        class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                            fill="currentColor" stroke="currentColor" stroke-width="1">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </label>
+            </div>
+            <div class="flex justify-center items-center">
+                <label class="flex items-center cursor-pointer relative">
+                    <input (change)="onPermissionChange(user.user_info_id, 'history',user.access_permissions_history)"
+                        type="checkbox" [(ngModel)]="user.access_permissions_history"
+                        class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-green-600 checked:border-green-600" />
+                    <span
+                        class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                            fill="currentColor" stroke="currentColor" stroke-width="1">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+
+        <!-- Load more button -->
+        <div class="flex justify-center mt-1 justify-between">
+            <button (click)="prevTransaction()"
+                class="bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 hover:shadow-md hover:shadow-gray-400">
+                Prev
+            </button><button (click)="nextTransaction()"
+                class="bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 hover:shadow-md hover:shadow-gray-400">
+                Next
+            </button>
+        </div>
+    </div>

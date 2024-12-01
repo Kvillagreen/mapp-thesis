@@ -1,0 +1,115 @@
+<div class="max-w-screen-xl flex flex-cols justify-center align-center">
+    <div class="grid grid-cols-1 md:grid-cols-3  gap-2 ">
+        <div
+            class="col-span-1 md:col-span-3 text-gray-500 grid grid-cols-2 md:grid-cols-4 gap-x-2 p-2 justify-center align-center rounded-3xl h-full w-full border border-gray-300 rounded-3xl shadow-md shadow-gray-400 ">
+            <div
+                class="w-full px-2 h-48 bg-gray-100 flex flex-col border-4 border-[#62b6cb] justify-center items-center rounded-xl">
+                <div class="w-full flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" fill="#62b6cb"
+                        stroke="#e3d5ca" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M12 14c-5 0-7 3-7 3v2h14v-2s-2-3-7-3z" />
+                    </svg>
+                </div>
+                <div class="text-center text-sm font-semibold">
+                    <p>Total Registered Users</p>
+                    <p class="text-xl">{{ user.length }}</p>
+                </div>
+            </div>
+
+
+            <div
+                class="w-full px-2  h-48 bg-gray-100 flex flex-col border-4 border-[#ff4d6d] justify-center items-center rounded-xl">
+                <div class="w-full flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" fill="#ff4d6d"
+                        stroke="#e3d5ca" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2C8.13 2 5 5.13 5 8c0 3.75 7 10 7 10s7-6.25 7-10c0-2.87-3.13-6-7-6z" />
+                        <circle cx="12" cy="8" r="3" />
+                    </svg>
+                </div>
+                <div class="text-center text-sm font-semibold">
+                    <p>Total Available Kiosk</p>
+                    <p class="text-xl">{{ getAvailableKioskCount()}}</p>
+                </div>
+            </div>
+            <div
+                class="w-full px-2  h-48 bg-gray-100 flex flex-col border-4 border-[#80ed99] justify-center items-center rounded-xl">
+                <div class="w-full flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="96" height="96" fill="#80ed99"
+                        stroke="#e3d5ca" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2C8.13 2 5 5.13 5 8c0 3.75 7 10 7 10s7-6.25 7-10c0-2.87-3.13-6-7-6z" />
+                        <circle cx="12" cy="8" r="3" />
+                    </svg>
+                </div>
+                <div class="text-center text-sm font-semibold">
+                    <p>Total Unavailable Kiosk</p>
+                    <p class="text-xl">{{ getUnavailableKioskCount()}}</p>
+                </div>
+            </div>
+            <div
+                class="w-full px-2  h-48 bg-gray-100 flex flex-col border-4 border-[#f28f3b] justify-center items-center rounded-xl">
+                <div class="w-full flex justify-center items-center">
+                    <svg fill="#f28f3b" width="96" height="96" stroke="#e3d5ca" stroke-width="1" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M2,7V21a1,1,0,0,0,1,1H13V6H3A1,1,0,0,0,2,7ZM5,9h5v2H5Zm0,4h5v2H5Zm0,4h5v2H5ZM22,3V21a1,1,0,0,1-1,1H15V4H10V3a1,1,0,0,1,1-1H21A1,1,0,0,1,22,3Z" />
+                    </svg>
+                </div>
+                <div class="text-center text-sm font-semibold">
+                    <p>Total Transaction</p>
+                    <p class="text-xl">{{ transaction.length}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-1 md:col-span-2 w-full border border-gray-300 shadow-md shadow-gray-400 rounded-3xl ">
+            <app-calendar></app-calendar>
+        </div>
+        <div class="col-span-1 rounded-3xl h-full w-full border border-gray-300 rounded-3xl shadow-md shadow-gray-400 ">
+
+            <p class="text-gray-700 text-2xl mt-4 px-4">Upcoming Events</p>
+            <hr class="text-gray-700 text-xl  mx-4">
+            <div class="h-5/6  justify-center itens-center flex bg-transparent ">
+                <div class="swiper justify-center itens-center default-carousel">
+                    <!-- Slides -->
+                    <div class="swiper-wrapper bg-transparent">
+                        <div *ngFor="let event of events" class="swiper-slide bg-gray-50  border-gray-50">
+                            <div *ngIf="events.length==0" class="h-full w-full flex justify-center items-center ">
+                                <div
+                                    class="h-[500px] w-full object-cover flex text-gray-50 justify-center items-center ">
+                                    No Image provided</div>
+                            </div>
+                            <div class="h-full w-full flex justify-center items-center bg-transparent  ">
+                                <img [src]="urlImage + event.event_image"
+                                    class="rounded-3xl opacity-80 h-full w-full object-contain" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <button
+                        class="swipe-prev absolute top-72 z-10 -left-4 transform -translate-y-1/2 bg-transparent p-2 rounded-full text-gray-700 text-7xl">
+                        <svg class="h-10 w-10 text-gray-600 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <button
+                        class="swipe-next absolute top-72 z-[10] -right-4 transform -translate-y-1/2 bg-transparent p-2 rounded-full text-gray-700 text-7xl">
+                        <svg class="h-10 w-10 text-gray-600 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+
+                    <!-- Pagination -->
+                    <div class="relative -top-2">
+                        <div class="swiper-pagination"></div>
+                    </div>
+                    <!-- Loading Overlay -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

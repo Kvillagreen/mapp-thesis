@@ -1,0 +1,153 @@
+<div class="h-full max-w-screen-xl  pt-20  justify-center flex items-center z-0 overflow-y-auto">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 pt-2 z-10">
+    <div class="h-full justify-center itens-center flex bg-black">
+      <div class="swiper justify-center itens-center default-carousel">
+        <!-- Slides -->
+        <div class="swiper-wrapper">
+          <div *ngFor="let event of events" class="swiper-slide">
+            <div *ngIf="events.length==0" class="h-full w-full flex justify-center items-center ">
+              <div class="h-[500px] w-full object-cover flex text-gray-50 justify-center items-center ">No Image provided</div>
+            </div>
+            <div class="h-full w-full flex justify-center items-center ">
+              <img [src]="urlImage + event.event_image" class="h-full w-full object-cover" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button
+          class="swipe-prev absolute top-72 z-10 left-1 transform -translate-y-1/2 bg-transparent p-2 rounded-full text-gray-700 text-7xl">
+          <svg class="h-14 w-14 text-gray-600 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button
+          class="swipe-next absolute top-72 z-[10] right-1 transform -translate-y-1/2 bg-transparent p-2 rounded-full text-gray-700 text-7xl">
+          <svg class="h-14 w-14 text-gray-600 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Pagination -->
+        <div class="relative -top-2">
+          <div class="swiper-pagination"></div>
+        </div>
+        <!-- Loading Overlay -->
+      </div>
+    </div>
+    <div class="flex justify-center items-center space-y-9  w-full h-full bg-customDarkGreen l-0 py-24 md:py-0">
+      <div class="block justify-center items-center  w-full pl-4">
+
+        <div class="text-left text-white text-7xl font-bold">EVENTS</div>
+        <div class="text-left  text-gray-300 text-sm font-semibold pt-2 w-3/4">"Streamline your event experience with
+          our kiosk
+          system—effortlessly browse, select, and stay updated on the latest happenings! Discover events that match your
+          interests, view real-time details, and plan with ease. Our intuitive system ensures a hassle-free way to stay
+          connected and make the most of every event opportunity."</div>
+        <div class="pt-4 ">
+          <button (click)="toggleKiosk()"
+            class="bg-gray-300 w-40 h-12 rounded-xl text-gray-600 font-bold shadow-sm shadow-gray-400 hover:text-gray-800 hover-bg-gray-400 hover:shadow-md hover:shadow-green-900 ">EXPLORE
+            EVENTS!</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="max-w-screen-xl ">
+    <div *ngIf="isEvent" class="animate-fadeIn fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[100]">
+      <!-- Modal -->
+      <div
+        class="relative bg-customDarkGreen max-w-screen-xl max-w-screen-md h-5/6 w-5/6 md:h-3/4 px-8 py-4 rounded-xl shadow-black shadow-[4px] overflow-y-auto z-[200]">
+        <div class="absolute top-4 right-4">
+          <button (click)="this.isEvent = !this.isEvent"
+            class="text-white hover:text-gray-700 p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="w-full h-20 flex flex-col items-center md:flex-row md:justify-center md:top-0  top-10 relative">
+          <!-- Line with border -->
+          <div class="w-[15rem] md:w-[29rem] h-16 pt-5  border-b-4 px-4 md:px-20 relative">
+
+          </div>
+
+          <!-- Step 3 -->
+          <div
+            class="size-5 bg-green-300 rounded-full relative -top-[1.75rem] left-32 md:top-[1.90rem] md:left-0 mt-4 md:mt-0">
+            <p class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold">
+              STEP 3
+              <span class="text-xs text-gray-300"><br>Application</span>
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div
+            class="size-5 bg-green-300 rounded-full relative -top-[4.0rem]  md:top-[1.90rem] md:right-[16rem] mt-4 md:mt-0">
+            <p class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold">
+              STEP 2
+              <span class="text-xs text-gray-300"><br>Kiosk Selection</span>
+            </p>
+          </div>
+
+          <!-- Step 1 -->
+          <div
+            class="size-8 bg-gray-50 rounded-full relative -top-[6.5rem]  -left-[8rem] md:top-[2rem]  md:-left-[32rem] mt-4 md:mt-0">
+            <p class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold">
+              STEP 1
+              <span class="text-xs text-gray-50"><br>Event Selection</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="w-full text-left text-white text-3xl font-bold border-white border-b-2 pt-4 pb-2">
+          Upcoming Events:
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 justify-center items-center  gap-4 pt-4">
+          <div *ngFor="let event of events"
+            class="h-full flex flex-col w-full bg-green-50 rounded-xl shadow-green-700 shadow-md px-3">
+            <div class="flex justify-center items-center">
+              <img [src]="urlImage + event.event_image"
+                class="size-28 rounded-full object-contain mt-4 justify-self-center align-center border-gray-300 border-2" />
+            </div>
+            <div class="text-center text-xl py-2 font-bold block">
+              {{ toTitleCase(event.event_name) }}
+            </div>
+            <hr class="border-t-2 border-black w-full">
+            <div class="text-center text-xs pt-2 block">
+              <p class="text-md font-bold">Start:</p>
+              <p>{{ formatDate(event.event_start) }}</p>
+              <p class="text-md font-bold pt-2">End:</p>
+              <p>{{ event.event_end }}</p>
+              <p class="text-md font-bold pt-2">Details:</p>
+              <p class="block w-full min-h-full">{{ event.details | slice: 0:100 }}<span
+                  *ngIf="event.details.length > 100">...</span></p>
+            </div>
+            <div class="flex align-center justify-center pt-3 pb-4 mt-auto">
+              <button
+                (click)="eventSelected(event.event_id,event.event_name,event.status,event.event_start,event.event_end)"
+                class="flex align-center justify-center font-bold text-gray-900 text-center h-12 w-40 pt-3 bg-gray-300 shadow-sm shadow-gray-400 rounded-full hover:bg-gray-400 hover:shadow-gray-900 hover:shadow-md">
+                Select This Event
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<div *ngIf="loading"
+  class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-full w-full z-[300]">
+  <div class="animate-spin rounded-full size-20 border-t-4 border-black"> </div>
+  <p class="relative left-[-65px] font-bold text-xs">loading...</p>
+</div>

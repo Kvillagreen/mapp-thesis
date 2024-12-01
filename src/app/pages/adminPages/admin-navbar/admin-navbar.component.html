@@ -1,0 +1,119 @@
+<div class="w-full h-full px-2 span-8 pt-4">
+    <div class="flex justify-center items-center flex-col h-32 w-full mb-4">
+        <img src="assets/images/chmsu_logo.png" alt="Logo" class="size-24 mb-2 cursor-pointer" (click)="refreshPage()">
+        <p class="text-center text-2xl font-bold">CHMSU-A MAPP</p>
+    </div>
+    <p class=" text-gray-50">Dashboard</p>
+    <hr class="">
+    <a routerLinkActive="active" class="buttonSideBar " routerLink="/dashboard-admin"
+        [routerLinkActiveOptions]="{exact:true}">
+        <span class="pr-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3h18v18H3z"></path>
+                <path d="M3 9h18M9 3v18"></path>
+            </svg>
+        </span>
+        Dashboard
+    </a>
+    <p class=" text-gray-50">Interface</p>
+    <hr class="">
+    <a *ngIf="transactions=='1'" routerLink="/transaction-admin" routerLinkActive="active" class="buttonSideBar">
+        <span class="pr-2">
+            <svg fill="white" width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M2,7V21a1,1,0,0,0,1,1H13V6H3A1,1,0,0,0,2,7ZM5,9h5v2H5Zm0,4h5v2H5Zm0,4h5v2H5ZM22,3V21a1,1,0,0,1-1,1H15V4H10V3a1,1,0,0,1,1-1H21A1,1,0,0,1,22,3Z" />
+            </svg>
+        </span>
+        Transaction
+    </a>
+    <div *ngIf="events=='1'" class="relative group">
+        <!-- Dropdown Trigger -->
+        <a class="buttonSideBar flex items-center justify-between cursor-pointer w-full" (click)="toggleDropdown()">
+            <span class="pr-2">
+                <img src="/assets/svg/calendar.svg" class="size-6" alt="Description of the image" />
+            </span>
+            Events
+            <svg class="ml-auto text-right" [ngClass]="{ 'rotate-180': isDropdownOpen }"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
+                height="20">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </a>
+
+        <!-- Dropdown Content -->
+        <div class=" left-0 mt-2 w-48 bg-customDarkGreen  text-white shadow-lg rounded-lg overflow-hidden transition-all duration-200"
+            *ngIf="isDropdownOpen">
+            <a routerLink="/add-events" class="block px-4 py-2 hover:bg-hoverBar text-sm">
+                Create Events
+            </a>
+            <a routerLink="/manage-events" class="block px-4 py-2 hover:bg-hoverBar text-sm">
+                Manage Events
+            </a>
+        </div>
+    </div>
+    <a routerLink="/map-viewer-admin" routerLinkActive="active" class="buttonSideBar">
+        <span class="pr-2">
+            <svg height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                <polygon style="fill:white;" points="154.64,420.096 154.64,59.496 0,134 0,512 " />
+                <polygon style="fill:white;" points="309.288,146.464 309.288,504.472 154.64,420.096 154.64,59.496 " />
+                <polygon style="fill:white;" points="463.928,50.152 309.288,146.464 309.288,504.472 463.928,415.68 " />
+                <path style="fill:black;"
+                    d="M414.512,281.656l-11.92-15.744c-8.8-11.472-85.6-113.984-85.6-165.048
+                C317.032,39.592,355.272,0,414.512,0S512,39.592,512,100.864c0,50.992-76.8,153.504-85.488,165.048L414.512,281.656z" />
+                <circle style="fill:white;" cx="414.512" cy="101.536" r="31.568" />
+            </svg>
+        </span>Kiosks</a>
+    <a *ngIf="settings=='1'" routerLink="/manage-user" routerLinkActive="active" class="buttonSideBar">
+        <span class="pr-2">
+            <svg width="24px" height="24px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z"
+                    fill="white" />
+                <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z" fill="white" />
+            </svg>
+        </span>Users</a>
+    <a *ngIf="reports=='1'" routerLink="/reports" routerLinkActive="active" class="buttonSideBar">
+        <span class="pr-2">
+            <svg fill="white" width="24px" height="24px" viewBox="0 0 32 32" version="1.1"
+                xmlns="http://www.w3.org/2000/svg">
+                <title>report</title>
+                <path d="M6 11h4v17h-4v-17zM22 16v12h4v-12h-4zM14 28h4v-24h-4v24z"></path>
+            </svg>
+        </span>Reports</a>
+    <a *ngIf="history=='1'" routerLink="/history" routerLinkActive="active" class="buttonSideBar">
+        <span class="pr-2">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 8V12L14.5 14.5" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path
+                    d="M5.60423 5.60423L5.0739 5.0739V5.0739L5.60423 5.60423ZM4.33785 6.87061L3.58786 6.87438C3.58992 7.28564 3.92281 7.61853 4.33408 7.6206L4.33785 6.87061ZM6.87963 7.63339C7.29384 7.63547 7.63131 7.30138 7.63339 6.88717C7.63547 6.47296 7.30138 6.13549 6.88717 6.13341L6.87963 7.63339ZM5.07505 4.32129C5.07296 3.90708 4.7355 3.57298 4.32129 3.57506C3.90708 3.57715 3.57298 3.91462 3.57507 4.32882L5.07505 4.32129ZM3.75 12C3.75 11.5858 3.41421 11.25 3 11.25C2.58579 11.25 2.25 11.5858 2.25 12H3.75ZM16.8755 20.4452C17.2341 20.2378 17.3566 19.779 17.1492 19.4204C16.9418 19.0619 16.483 18.9393 16.1245 19.1468L16.8755 20.4452ZM19.1468 16.1245C18.9393 16.483 19.0619 16.9418 19.4204 17.1492C19.779 17.3566 20.2378 17.2341 20.4452 16.8755L19.1468 16.1245ZM5.14033 5.07126C4.84598 5.36269 4.84361 5.83756 5.13505 6.13191C5.42648 6.42626 5.90134 6.42862 6.19569 6.13719L5.14033 5.07126ZM18.8623 5.13786C15.0421 1.31766 8.86882 1.27898 5.0739 5.0739L6.13456 6.13456C9.33366 2.93545 14.5572 2.95404 17.8017 6.19852L18.8623 5.13786ZM5.0739 5.0739L3.80752 6.34028L4.86818 7.40094L6.13456 6.13456L5.0739 5.0739ZM4.33408 7.6206L6.87963 7.63339L6.88717 6.13341L4.34162 6.12062L4.33408 7.6206ZM5.08784 6.86684L5.07505 4.32129L3.57507 4.32882L3.58786 6.87438L5.08784 6.86684ZM12 3.75C16.5563 3.75 20.25 7.44365 20.25 12H21.75C21.75 6.61522 17.3848 2.25 12 2.25V3.75ZM12 20.25C7.44365 20.25 3.75 16.5563 3.75 12H2.25C2.25 17.3848 6.61522 21.75 12 21.75V20.25ZM16.1245 19.1468C14.9118 19.8483 13.5039 20.25 12 20.25V21.75C13.7747 21.75 15.4407 21.2752 16.8755 20.4452L16.1245 19.1468ZM20.25 12C20.25 13.5039 19.8483 14.9118 19.1468 16.1245L20.4452 16.8755C21.2752 15.4407 21.75 13.7747 21.75 12H20.25ZM6.19569 6.13719C7.68707 4.66059 9.73646 3.75 12 3.75V2.25C9.32542 2.25 6.90113 3.32791 5.14033 5.07126L6.19569 6.13719Z"
+                    fill="white" />
+            </svg>
+        </span>History</a>
+    <a *ngIf="control=='1'" routerLink="/user-control" routerLinkActive="active" class="buttonSideBar">
+        <span class="pr-2">
+            <svg width="24px" height="24px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                    <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-103.000000, -362.000000)"
+                        fill="white">
+                        <path
+                            d="M118,382 C115.261,382 113.042,379.762 113.042,377 C113.042,374.238 115.261,372 118,372 C120.739,372 122.959,374.238 122.959,377 C122.959,379.762 120.739,382 118,382 L118,382 Z M132.008,380.536 L129.685,379.184 C129.815,378.474 129.901,377.749 129.901,377 C129.901,376.252 129.815,375.526 129.685,374.816 L132.008,373.464 C132.957,372.912 133.281,371.688 132.733,370.732 L130.75,367.268 C130.203,366.312 128.989,365.983 128.041,366.536 L125.694,367.901 C124.598,366.961 123.352,366.192 121.967,365.697 L121.967,364 C121.967,362.896 121.079,362 119.983,362 L116.017,362 C114.921,362 114.033,362.896 114.033,364 L114.033,365.697 C112.648,366.192 111.402,366.961 110.306,367.901 L107.959,366.536 C107.011,365.983 105.797,366.312 105.25,367.268 L103.267,370.732 C102.719,371.688 103.044,372.912 103.992,373.464 L106.315,374.816 C106.185,375.526 106.099,376.252 106.099,377 C106.099,377.749 106.185,378.474 106.315,379.184 L103.992,380.536 C103.044,381.088 102.719,382.312 103.267,383.268 L105.25,386.732 C105.797,387.688 107.011,388.017 107.959,387.464 L110.306,386.099 C111.402,387.039 112.648,387.809 114.033,388.303 L114.033,390 C114.033,391.104 114.921,392 116.017,392 L119.983,392 C121.079,392 121.967,391.104 121.967,390 L121.967,388.303 C123.352,387.809 124.598,387.039 125.694,386.099 L128.041,387.464 C128.989,388.017 130.203,387.688 130.75,386.732 L132.733,383.268 C133.281,382.312 132.957,381.088 132.008,380.536 L132.008,380.536 Z M118,374 C116.357,374 115.025,375.344 115.025,377 C115.025,378.657 116.357,380 118,380 C119.643,380 120.975,378.657 120.975,377 C120.975,375.344 119.643,374 118,374 L118,374 Z"
+                            id="settings" sketch:type="MSShapeGroup">
+
+                        </path>
+                    </g>
+                </g>
+            </svg>
+        </span>User Control</a>
+    <a (click)="logout()" routerLinkActive="active" class="buttonSideBar text-white"><span class="pr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 48 48" fill="white">
+                <path
+                    d="M38.498 36H9.502c-1.205 0-2.31-.607-2.955-1.625S5.822 32.1 6.335 31.01L9 25.648v-6.267c0-8.239 6.271-14.987 14.277-15.364l0 0c4.151-.188 8.08 1.271 11.075 4.128C37.35 11.004 39 14.859 39 19v6.648l2.65 5.333c.527 1.119.448 2.377-.197 3.395S39.703 36 38.498 36zM23.348 5.516h.01H23.348zM18.09 38c.478 2.833 2.942 5 5.91 5s5.431-2.167 5.91-5H18.09z">
+                </path>
+            </svg>
+
+        </span>logout</a>
+</div>
