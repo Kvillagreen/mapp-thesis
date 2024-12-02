@@ -1,6 +1,5 @@
 import { Component, DoCheck, OnInit, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from "./pages/login/login.component";
 import { NavbarComponent } from "./pages/userPages/navbar/navbar.component";
 import { FooterComponent } from './pages/userPages/footer/footer.component';
 import { Router } from '@angular/router';

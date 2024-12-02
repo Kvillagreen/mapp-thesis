@@ -9,12 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
 }
 
-
-// Database connection
-$servername = "localhost";
-$username = "root"; // Adjust according to your setup
-$password = ""; // Adjust according to your setup
-$dbname = "chmsu-a_mapp";
+$servername = "localhost"; // Adjust if hosted remotely
+$username = "u406204961_chmsu_amapp"; // Replace with your database username
+$password = "Villagreen23."; // Replace with your database password
+$dbname = "u406204961_chmsu_amapp"; // Replace with your database name
 
 
 $conn = new mysqli($servername, $username, $password, $dbname);

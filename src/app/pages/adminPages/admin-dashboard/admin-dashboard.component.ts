@@ -19,7 +19,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
   kiosk: any[] = [];
   user: any[] = [];
   transaction: any[] = [];
-  urlImage: string = 'dbAssets/eventImages/';
+  urlImage: string = 'https://mapp-thesis.infotech3c.com/public/dbAssets/eventImages/';
   constructor(private adminService: AdminService, private router: Router, private screenSizeService: ScreenSizeService) { }
 
   ngOnInit(): void {

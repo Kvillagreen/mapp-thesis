@@ -1,6 +1,6 @@
 <div class="min-h-screen flex flex-col items-center bg-customBlack" *ngIf="shouldShowForUser()">
   <!-- Centered Navbar -->
-  <div class="w-full max-w-screen-xl">
+  <div class="w-full max-w-full">
     <app-navbar></app-navbar>
   </div>
 
@@ -10,23 +10,25 @@
 </div>
 
 <div *ngIf="shouldShowForAdmin()" class="min-h-screen flex flex-col items-center bg-customBlack">
-  <div  class="flex w-full max-w-screen-xl">
+  <div class="flex w-full justiy-center align-center">
     <!-- Sidebar -->
     <div class="hidden md:flex w-60 h-full  text-white flex-col justify-between fixed z-[1000]">
       <div class="flex min-h-screen w-full bg-customDarkGreen shadow-r-xl shadow-black ">
         <app-admin-navbar></app-admin-navbar>
       </div>
     </div>
-    <div #sidebar *ngIf="isSidebarVisible" class="flex md:hidden w-60 h-full  text-white flex-col justify-between fixed z-[1000]">
-      <div  class="flex min-h-screen w-full bg-customDarkGreen shadow-r-xl shadow-black ">
-        <app-admin-navbar ></app-admin-navbar>
+    <div #sidebar *ngIf="isSidebarVisible"
+      class="flex md:hidden w-60 h-full  text-white flex-col justify-between fixed z-[1000]">
+      <div class="flex min-h-screen w-full bg-customDarkGreen shadow-r-xl shadow-black ">
+        <app-admin-navbar></app-admin-navbar>
       </div>
     </div>
     <!-- Main Content -->
     <div class="flex-1 md:ml-60 max-w-screen-xl ">
       <!-- Navbar occupying full width with flexbox -->
       <div class="w-full " *ngIf="!isMap()">
-        <div class=" flex justify-between items-center h-16 bg-[#2c6e49] shadow-[#1b4332] shadow-md px-4 py-4" *ngFor="let user of userData">
+        <div class=" flex justify-between items-center h-16 bg-[#2c6e49] shadow-[#1b4332] shadow-md px-4 py-4"
+          *ngFor="let user of userData">
           <div>
             <button #sidebarButton class="md:hidden text-white focus:outline-none" (click)="toggleSidebar()">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,7 +52,7 @@
             <div #notifer *ngIf="toggleNotification"
               class="flex absolute justify-end items-center animate-swipeDown max-w-[350px] shadow-r-md shadow-black p-2 z-[1000]">
               <!-- Notification Card -->
-              <div class="relative max-w-[350px]  top-12 right-[7.85rem] bg-dropDown shadow-xl rounded-lg p-4">
+              <div class="relative max-w-[350px]  top-12 right-[8.85rem] bg-dropDown shadow-xl rounded-lg p-4">
                 <!-- Pointer -->
                 <div
                   class="relative -top-8 left-36 md:left-36 w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-dropDown">
@@ -106,11 +108,12 @@
       <div class="pt-4 max-w-screen-xl">
         <router-outlet></router-outlet>
       </div>
+
     </div>
   </div>
 </div>
 
-<div class="w-full max-w-screen-xl h-8" *ngIf=" shouldShowForUser()|| shouldShowForAdmin()">
+<div class="w-full max-w-screen-xl h-8" *ngIf=" shouldShowForUser() || shouldShowForAdmin()">
   <app-footer class="bg-customBlack"></app-footer>
 </div>
 

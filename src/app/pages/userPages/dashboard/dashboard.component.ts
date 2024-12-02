@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Router } from '@angular/router';
-import { MapViewerComponent } from "../map-viewer/map-viewer.component";
 import { ScreenSizeService } from '../../../services/rest-api/screen-size.services';
 Swiper.use([Navigation, Pagination]);
 @Component({
@@ -17,9 +16,9 @@ Swiper.use([Navigation, Pagination]);
 export class DashboardComponent implements OnInit, AfterViewInit {
   events: any[] = [];
   loading = false;
-  urlImage: string = 'http://localhost/mapp-thesis/public/dbAssets/eventImages/';
+  urlImage: string = 'https://mapp-thesis.infotech3c.com/public/dbAssets/eventImages/';
   isEvent: boolean = false;
-  constructor(private eventService: EventService, private router: Router, private screenSizeService: ScreenSizeService) { }
+  constructor(private eventService: EventService, private router: Router) { }
   runOnce = false;
   ngOnInit() {
     if(sessionStorage.getItem('userType')=='admin'){

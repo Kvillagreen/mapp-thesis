@@ -7,7 +7,7 @@ import { throwError } from 'rxjs';
     providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost/mapp-thesis/src/app/services/php-files/'; // Replace with your PHP API URL
+  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files/'; // Replace with your PHP API URL
 
     constructor(private http: HttpClient) { }
 

@@ -227,7 +227,7 @@
             <div class="flex justify-center items-center ">{{ transac.First_name+' '+transac.Last_name}}</div>
             <div class="flex justify-center items-center ">{{ transac.event_name}}</div>
             <div class="flex justify-center items-center">{{ transac.kiosk_name}}</div>
-            <div class="flex justify-center items-center">{{ transac.purpose ? transac.purpose : '----' }}</div>
+            <div class="flex justify-center items-center leading-none text-sm">{{ transac.purpose ? transac.purpose : '----' }}</div>
             <div class="flex justify-center items-center">
                 <select id="dropdown" class="bg-customDarkGreen border-none outline-none"
                     (change)="onOptionSelected($event, transac.user_id, transac.event_id, transac.kiosk_id, transac.form_id,transac.Email, formatDate(transac.date_req))">

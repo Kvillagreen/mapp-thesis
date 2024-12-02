@@ -1,10 +1,10 @@
 <div class="w-full h-full px-2 span-8 pt-4">
     <div class="flex justify-center items-center flex-col h-32 w-full mb-4">
-        <img src="assets/images/chmsu_logo.png" alt="Logo" class="size-24 mb-2 cursor-pointer" (click)="refreshPage()">
+        <img src="https://mapp-thesis.infotech3c.com/public/assets/images/chmsu_logo.png" alt="Logo" class="size-24 mb-2 cursor-pointer" (click)="refreshPage()">
         <p class="text-center text-2xl font-bold">CHMSU-A MAPP</p>
     </div>
     <p class=" text-gray-50">Dashboard</p>
-    <hr class="">
+    <hr class="mb-2">
     <a routerLinkActive="active" class="buttonSideBar " routerLink="/dashboard-admin"
         [routerLinkActiveOptions]="{exact:true}">
         <span class="pr-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
@@ -16,8 +16,8 @@
         Dashboard
     </a>
     <p class=" text-gray-50">Interface</p>
-    <hr class="">
-    <a *ngIf="transactions=='1'" routerLink="/transaction-admin" routerLinkActive="active" class="buttonSideBar">
+    <hr class="mb-2">
+    <a *ngIf="transactions=='1'" routerLink="/transaction-admin" routerLinkActive="active" class="buttonSideBar ">
         <span class="pr-2">
             <svg fill="white" width="26" height="26" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path

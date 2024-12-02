@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = 'http://localhost/mapp-thesis/src/app/services/php-files/'; // Replace with your PHP API URL
+  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files/'; // Replace with your PHP API URL
 
   constructor(private http: HttpClient) { }
   getKioskMap(eventId:string):Observable<any[]> {
