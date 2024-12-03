@@ -39,7 +39,6 @@ export class AppComponent implements OnInit, DoCheck {
     this.userType = sessionStorage.getItem('userType');
 
   }
-
   ngOnInit(): void {
     this.fetchUser();
     this.getNotification();
@@ -118,7 +117,7 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   isMap(): boolean {
-    return this.router.url.startsWith('/map-viewer-admin') ;
+    return this.router.url.startsWith('/map-viewer-admin');
   }
 
 

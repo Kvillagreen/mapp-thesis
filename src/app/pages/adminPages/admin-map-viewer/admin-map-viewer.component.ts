@@ -64,7 +64,9 @@ export class AdminMapViewerComponent implements OnChanges {
 
   ngOnChanges(isMap: SimpleChanges): void {
   }
-
+  goToDashBoard(){
+    this.router.navigate(['/dashboard-admin'])
+  }
   onEventSelect(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const selectedEventId = selectElement.value;

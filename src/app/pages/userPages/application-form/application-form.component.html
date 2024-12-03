@@ -1,23 +1,23 @@
-<div class="h-full flex items-center justify-center ">
+<div class="h-full flex items-center justify-center overflow-y-scroll">
 
     <div
-        class="sm:grid grid-cols-1 lg:grid-cols-2 items-start shadow-bottom shadow-black pt-28  md:px-8 min-h-screen-sm max-w-screen-xl rounded-xl">
+        class="grid grid-cols-1 lg:grid-cols-2 items-start shadow-bottom shadow-black pt-28   min-h-screen-sm w-full md:max-w-screen-xl md:rounded-xl">
         <div class="justify-center items-center h-full w-full bg-gray-50  ">
-            <img src="assets/images/rulesRegulation.jpg" class="size-full rounded-l-xl object-full object-center">
+            <img src="assets/images/rulesRegulation.jpg" class="size-full md:rounded-l-xl object-full object-center">
         </div>
         <div
-            class="h-full  w-full px-5 py-2 md:p-8 justify-center items-center bg-customDarkGreen lg:rounded-l-none rounded-l-xl rounded-r-xl">
+            class="h-full  w-full md:px-5 px-2 py-2 justify-center items-center bg-customDarkGreen lg:rounded-l-none md:rounded-l-xl md:rounded-r-xl">
 
             <div
-                class="w-full h-28 md:pt-0 pt-20 flex flex-col items-center md:flex-row md:justify-center md:top-0  top-12 md:left-6 relative">
+                class="w-full h-28 md:pt-0 pt-8 flex flex-col px-20 items-center md:flex-row md:justify-center md:top-0  top-8 md:left-6 relative">
                 <!-- Line with border -->
-                <div class="w-[20rem] md:w-[24rem] h-16 pt-5  border-b-4 px-4 md:px-20 relative">
+                <div class="w-[16rem] md:w-[24rem] h-16 pt-5  border-b-4 px-4 md:px-20 relative">
 
                 </div>
 
                 <!-- Step 3 -->
                 <div
-                    class="size-8 bg-gray-50 rounded-full relative -top-[2rem] left-40 md:top-[1.90rem] md:left-0 mt-4 md:mt-0">
+                    class="size-8 bg-gray-50 rounded-full relative -top-[2rem] left-32 md:top-[1.90rem] md:left-0 mt-4 md:mt-0">
                     <p
                         class="relative text-md w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
                         STEP 3
@@ -37,7 +37,7 @@
 
                 <!-- Step 1 -->
                 <div
-                    class="size-5 bg-green-300 rounded-full relative -top-[7rem]  -left-[10rem] md:top-[1.9rem]  md:-left-[28rem] mt-4 md:mt-0">
+                    class="size-5 bg-green-300 rounded-full relative -top-[7rem]  -left-[8rem] md:top-[1.9rem]  md:-left-[28rem] mt-4 md:mt-0">
                     <p
                         class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
                         STEP 1
@@ -45,7 +45,7 @@
                     </p>
                 </div>
             </div>
-            <h6 class="text-center text-3xl text-gray-50 md:pt-0 pt-20">Application form</h6>
+            <h6 class="text-center text-3xl text-gray-50 md:pt-0 pt-10">Application form</h6>
             <form (ngSubmit)="onSubmit()" class="pt-4 px-4 space-y-2 ">
                 <div  class="form-group col-span-1 pt-2">
                     <label class="text-white">Username</label>

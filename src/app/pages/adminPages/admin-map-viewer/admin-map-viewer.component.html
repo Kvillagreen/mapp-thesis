@@ -1,13 +1,20 @@
-<div class="w-full h-full overflow-hidden absolute left-[0.5rem] top-[0rem] z-[0]">
+<div class="w-full h-full overflow-hidden absolute left-[0rem] top-[0rem] z-[100]">
     <div class="overflow-hidden" #modelContainer>
     </div>
 </div>
 
 
-<div class="z-[1000] fixed top-0 right-0 w-[550px] sm:w-auto p-4">
+<div class="z-[110] fixed bottom-0 md:top-0 right-0 w-full md:w-[350px] sm:w-auto p-4">
+    <button (click)="goToDashBoard()" class=" absolute top-12 left-8 flex justify-center align-center text-xl text-gray-50 w-20 bg-red-400 rounded-md mb-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex justify-center align-center mt-1 h-5 w-5">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        <span>Back</span>
+    </button>
     <div class="w-full grid grid-cols-2  bg-gray-400 p-4 rounded-xl gap-2">
         <!-- Change Model Buttons -->
-        <div class="flex justify-center align-center w-full h-full pt-12">
+        <div class="flex-cols justify-center align-center w-full h-full pt-8 mt-12">
             <button *ngIf="!mapTerrain" (click)="changeModel('assets/model/mapTerrain.glb'); mapTerrain=true"
                 class="size-20 hover:bg-green-700 hover:text-gray-50 hover:shadow-[#87c38f] hover:shadow-md bg-green-500 text-white flex justify-center items-start rounded-xl">
                 <div class="flex h-full pt-6 justify-center text-gray-50">
@@ -36,8 +43,7 @@
             </button>
 
         </div>
-        <div class="grid grid-cols-2 gap-2 justify-center">
-
+        <div class="grid grid-cols-2 gap-y-1 mt-4">
             <p class="text-gray-50 text-lg col-span-2 text-center">Legend:</p>
             <div class="size-6 bg-red-500 rounded-lg">
             </div>
@@ -68,9 +74,9 @@
 <!-- Green Div (centered) -->
 <div *ngIf="errorMessage=='done'"
     class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-[1000]">
-    <div class="bg-[#226f54] rounded-lg p-6 w-1/3 absolute ">
+    <div class="bg-[#226f54] rounded-lg p-6 w-full md:w-1/3 absolute ">
         <div>
-            <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/kioskImages/{{kioskImage}}" 
+            <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/kioskImages/{{kioskImage}}"
                 class="size-full object-contain" />
             <p class="text-center text-lg text-gray-50 mt-4">{{kioskName}}</p>
         </div>
@@ -85,7 +91,7 @@
 
 <!-- Modal (centered) -->
 <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-[1000]">
-    <div class="bg-[#226f54] rounded-lg p-6 w-1/3 absolute ">
+    <div class="bg-[#226f54] rounded-lg p-6 w-full md:w-1/3 absolute ">
         <h2 class="text-xl font-bold mb-4 text-gray-50 text-center">Edit Kiosk</h2>
         <!-- Form -->
         <form (ngSubmit)="onSubmit()">
@@ -138,12 +144,14 @@
 
 <!-- Success Message -->
 <div *ngIf="submitKiosk=='true'" class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-20">
-</div><div *ngIf="submitKiosk=='true'"
+</div>
+<div *ngIf="submitKiosk=='true'"
     class="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 z-[1000]">
-    <div class="bg-[#226f54] rounded-lg p-6 w-1/3 h-[350px] relative flex flex-col justify-center">
+    <div class="bg-[#226f54] rounded-lg p-6 w-full md:w-1/3 h-[350px] relative flex flex-col justify-center">
         <p class="text-gray-50 text-center text-3xl mb-4">Kiosk Updated Successfully!</p>
         <div class="flex justify-end mt-36">
-            <button (click)="changeVal()" class="h-12 w-24 bg-dropDown rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">
+            <button (click)="changeVal()"
+                class="h-12 w-24 bg-dropDown rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">
                 Okay
             </button>
         </div>

@@ -1,12 +1,12 @@
 <div class="w-full justify-center align-center h-full min-h-screen md:px-2 text-black ">
     <div class="block">
 
-        <div class="grid grid-cols-3 justify-between pt-8 pb-5 ">
-            <div class="text-gray-700 text-md md:text-2xl font-bold col-span-1 flex items-center">
+        <div class="grid grid-cols-3 justify-between pt-8 pb-5 px-1">
+            <div class="text-gray-700 text-3xl  font-bold md:col-span-1 col-span-3 flex items-center">
                 <p>
                     Manage Events:</p>
             </div>
-            <div class=" col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
+            <div class=" col-span-3 md:col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
                 <svg fill="#000000" height="28px" class="pr-2" width="28px" version="1.1" id="Capa_1"
                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="0 0 488.4 488.4" xml:space="preserve">
@@ -25,11 +25,11 @@
         </div>
 
         <div
-            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid overflow-hidden grid-cols-7 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-sm md:text-lg font-semibold text-gray-50">
+            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid overflow-hidden grid-cols-7  bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-[8px] leading-none md:text-lg font-semibold text-gray-50">
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('event_start');ascStart = !ascStart" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascStart" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascStart" xmlns="http://www.w3.org/2000/svg"  class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -54,7 +54,7 @@
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('event_end');ascEnd = !ascEnd" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascEnd" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascEnd" xmlns="http://www.w3.org/2000/svg"  class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -63,7 +63,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascEnd" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascEnd" xmlns="http://www.w3.org/2000/svg"  class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -79,7 +79,7 @@
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('event_name');ascEvent = !ascEvent" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascEvent" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascEvent" xmlns="http://www.w3.org/2000/svg"  class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -88,7 +88,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascEvent" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascEvent" xmlns="http://www.w3.org/2000/svg"  class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -104,7 +104,7 @@
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('details');ascDetails = !ascDetails" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascDetails" xmlns="http://www.w3.org/2000/svg"  class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -113,7 +113,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascDetails" xmlns="http://www.w3.org/2000/svg"  class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -129,7 +129,7 @@
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('status');ascStatus = !ascStatus" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascStatus" xmlns="http://www.w3.org/2000/svg"  class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -138,7 +138,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascStatus" xmlns="http://www.w3.org/2000/svg"  class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -164,18 +164,18 @@
             </div>
         </div>
         <div *ngFor="let events of getEventsToDisplay()"
-            class="grid grid-cols-7 overflow-hidden bg-customDarkGreen border-b border-gray-50 border-b-[3px] text-center w-full h-full px-3 md:px-2 py-2 text-xs md:text-lg font-semibold text-gray-200">
+            class="grid grid-cols-7 gap-x-2 overflow-hidden bg-customDarkGreen border-b border-gray-50 border-b-[3px] text-center w-full h-full px-3 md:px-2 py-2 text-[8px] leading-none md:text-lg font-semibold text-gray-200">
 
-            <div class="flex justify-center items-center text-sm">{{ formatDate(events.event_start)}}</div>
-            <div class="flex justify-center items-center text-sm">{{ formatDate(events.event_end)}}</div>
-            <div class="flex justify-center items-center">{{ events.event_name}}</div>
-            <div class="flex justify-center items-center text-xs leading-none">{{ events.details}}</div>
+            <div class="flex justify-center items-center text-[8px] md:text-sm">{{ formatDate(events.event_start)}}</div>
+            <div class="flex justify-center items-center text-[8px] md:text-sm">{{ formatDate(events.event_end)}}</div>
+            <div class="flex justify-center items-center ">{{ events.event_name}}</div>
+            <div class="flex justify-center items-center px-2 text-[7px] md:text-xs leading-none">{{ events.details}}</div>
             <div class="flex justify-center items-center">
                 <p *ngIf="events.status==1" class="text-green-200">Active</p>
             </div>
             <div class="flex justify-center items-center">
                 <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/eventImages/{{events.event_image}}"
-                    class="size-24 object-cover border-2 border-gray-50 rounded-lg" />
+                    class="size-18 md:size-24 object-cover border-2 border-gray-50 rounded-lg" />
             </div>
             <div class="flex justify-center items-center">
                 <button

@@ -2,27 +2,27 @@
     <div class="block">
         <div class="flex justify-between h-full w-full px-0 md:px-2 items-center">
             <div
-                class="bg-green-200 size-36 px-2 text-center rounded-xl shadow-md shadow-gray-500 justify-center grid items-center">
-                <div class="text-8xl text-gray-600">{{ counterPaid(userTransaction) }}</div>
-                <div class="text-md text-gray-600 font-bold">PAID</div>
+                class="bg-green-200 size-28 md:size-36 px-2 text-center rounded-xl shadow-md shadow-gray-500 justify-center grid items-center">
+                <div class="text-7xl md:text-8xl text-gray-600">{{ counterPaid(userTransaction) }}</div>
+                <div class="text-sm md:text-md text-gray-600 font-bold">PAID</div>
             </div>
             <div
-                class="bg-green-200 size-36 px-2 text-center rounded-xl shadow-md shadow-gray-500 justify-center grid items-center">
-                <div class="text-8xl text-gray-600">{{ counterFinished(userTransaction) }}</div>
-                <div class="text-md text-gray-600 font-bold w-full">FINISHED</div>
+                class="bg-green-200 size-28 md:size-36 px-2 text-center rounded-xl shadow-md shadow-gray-500 justify-center grid items-center">
+                <div class="text-7xl md:text-8xl text-gray-600">{{ counterFinished(userTransaction) }}</div>
+                <div class="text-sm md:text-md text-gray-600 font-bold w-full">FINISHED</div>
             </div>
             <div
-                class="bg-green-200 size-36 px-2 text-center rounded-xl shadow-md shadow-gray-500 justify-center grid items-center">
-                <div class="text-8xl text-gray-600">{{ userTransaction.length }}</div>
-                <div class="text-md text-gray-600 font-bold w-full">TRANSACTION</div>
+                class="bg-green-200 size-28 md:size-36 px-2 text-center rounded-xl shadow-md shadow-gray-500 justify-center grid items-center">
+                <div class="text-7xl md:text-8xl text-gray-600">{{ userTransaction.length }}</div>
+                <div class="text-sm md:text-md text-gray-600 font-bold w-full">TRANSACTION</div>
             </div>
         </div>
-        <div class="grid grid-cols-3 justify-between pt-8 pb-5 ">
-            <div class="text-gray-700 text-md md:text-2xl font-bold col-span-1 flex items-center">
+        <div class="grid grid-cols-3 justify-between pt-8 pb-5 px-1">
+            <div class="text-gray-700 text-3xl  font-bold md:col-span-1 col-span-3 flex items-center">
                 <p>
                     Transaction History:</p>
             </div>
-            <div class=" col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
+            <div class=" col-span-3 md:col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
                 <svg fill="#000000" height="28px" class="pr-2" width="28px" version="1.1" id="Capa_1"
                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="0 0 488.4 488.4" xml:space="preserve">
@@ -41,11 +41,11 @@
         </div>
 
         <div
-            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid overflow-hidden grid-cols-8 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-sm md:text-lg font-semibold text-gray-50">
+            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid overflow-hidden grid-cols-8 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-[7px] md:text-lg font-semibold text-gray-50">
             <div class="border-r-2 border-green-900 flex justify-center items-center"><button
                     (click)="onSortChange('date_req');ascDate = !ascDate" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascDate" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascDate" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -54,7 +54,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascDate" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascDate" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -69,7 +69,7 @@
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('Username');ascUsername = !ascUsername" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascUsername" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascUsername" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -78,7 +78,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascUsername" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascUsername" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -94,7 +94,7 @@
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('event_name');ascEvent = !ascEvent" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascEvent" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascEvent" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -103,7 +103,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascEvent" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascEvent" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -112,14 +112,14 @@
                             <line x1="6" y1="14" x2="18" y2="14" />
                             <line x1="8" y1="18" x2="16" y2="18" />
                         </svg>
-                        <p>Event Name</p>
+                        <p>Event</p>
                     </div>
                 </button>
             </div>
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('kiosk_name');ascKiosk = !ascKiosk" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascKiosk" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascKiosk" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -128,7 +128,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascKiosk" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascKiosk" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -137,14 +137,14 @@
                             <line x1="6" y1="14" x2="18" y2="14" />
                             <line x1="8" y1="18" x2="16" y2="18" />
                         </svg>
-                        <p>Kiosk Name</p>
+                        <p>Kiosk</p>
                     </div>
                 </button>
             </div>
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('purpose');ascPurpose = !ascPurpose" class="block">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascPurpose" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascPurpose" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -153,7 +153,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascPurpose" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascPurpose" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -169,7 +169,7 @@
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('status');ascStatus = !ascStatus" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascStatus" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -178,7 +178,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascStatus" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascStatus" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -195,7 +195,7 @@
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('receipt_number');ascRefNum= !ascRefNum" class="">
                     <div class="flex justify-center items-center">
-                        <svg *ngIf="ascRefNum" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="ascRefNum" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Down Arrow -->
@@ -204,7 +204,7 @@
                             <line x1="6" y1="10" x2="18" y2="10" />
                             <line x1="8" y1="6" x2="16" y2="6" />
                         </svg>
-                        <svg *ngIf="!ascRefNum" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        <svg *ngIf="!ascRefNum" xmlns="http://www.w3.org/2000/svg" class="svgTable"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <!-- Up Arrow -->
@@ -222,14 +222,14 @@
         </div>
 
         <div *ngFor="let transac of getTransactionsToDisplay()"
-            class="grid grid-cols-8 overflow-hidden bg-customDarkGreen border-b border-gray-50 border-b-[3px] text-center w-full h-full px-3 md:px-2 py-2 text-xs md:text-lg font-semibold text-gray-200">
-            <div class="text-xs md:text-sm flex justify-center items-center">{{formatDate(transac.date_req)}}</div>
-            <div class="flex justify-center items-center ">{{ transac.First_name+' '+transac.Last_name}}</div>
-            <div class="flex justify-center items-center ">{{ transac.event_name}}</div>
-            <div class="flex justify-center items-center">{{ transac.kiosk_name}}</div>
-            <div class="flex justify-center items-center leading-none text-sm">{{ transac.purpose ? transac.purpose : '----' }}</div>
-            <div class="flex justify-center items-center">
-                <select id="dropdown" class="bg-customDarkGreen border-none outline-none"
+            class="grid grid-cols-8 overflow-hidden bg-customDarkGreen border-b border-gray-50 border-b-[3px]  text-center w-full h-full px-3 md:px-2 py-2 text-[8px] md:text-lg font-semibold text-gray-200">
+            <div class="text-[7px] md:text-sm flex justify-center items-center leading-none">{{formatDate(transac.date_req)}}</div>
+            <div class="flex justify-center items-center leading-none">{{ transac.First_name+' '+transac.Last_name}}</div>
+            <div class="flex justify-center items-center leading-none">{{ transac.event_name}}</div>
+            <div class="flex justify-center items-center leading-none">{{ transac.kiosk_name}}</div>
+            <div class="flex justify-center items-center leading-none text-[7px] md:text-sm leading-none">{{ transac.purpose ? transac.purpose : '----' }}</div>
+            <div class="flex justify-center items-center leading-none ">
+                <select id="dropdown" class="bg-customDarkGreen border-none outline-none w-10 md:w-96"
                     (change)="onOptionSelected($event, transac.user_id, transac.event_id, transac.kiosk_id, transac.form_id,transac.Email, formatDate(transac.date_req))">
                     <option value="" [ngClass]="{'bg-customDarkGreen rounded-md hover:bg-green-500 hidden': true}"
                         selected>
@@ -244,15 +244,14 @@
             </div>
 
             <div class="flex justify-center items-center">{{ transac.receipt_number}}</div>
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center px-1">
                 <button *ngIf="transac.file_name" (click)="viewPdfFile(transac.file_name)"
-                    class="bg-green-800 h-8 w-full md:text-sm rounded-lg hover:bg-green-900 hover:text-white">
+                    class="bg-green-800 h-5 md:h-8 w-full md:text-sm rounded-lg hover:bg-green-900 leading-none hover:text-white">
                     View forms
                 </button>
                 <div *ngIf="!transac.file_name"
-                    class="flex justify-center items-center text-center bg-green-800 h-8 w-full md:text-sm rounded-lg hover:text-white">
+                    class="flex justify-center items-center text-center bg-green-800 h-8 w-full md:text-sm rounded-lg leading-none hover:text-white">
                     No forms
-
                 </div>
             </div>
         </div>

@@ -1,12 +1,12 @@
 <div class="w-full justify-center align-center h-full min-h-screen md:px-2 text-black ">
     <div class="block">
 
-        <div class="grid grid-cols-3 justify-between pt-8 pb-5 overflow-hidden">
-            <div class="text-gray-700 text-md md:text-2xl font-bold col-span-1 flex items-center">
+        <div class="grid grid-cols-3 justify-between pt-8 pb-5 px-1 overflow-hidden">
+            <div class="text-gray-700 text-3xl font-bold md:col-span-1 col-span-3 flex items-center">
                 <p>
                     User Control:</p>
             </div>
-            <div class=" col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
+            <div class=" col-span-3 md:col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
                 <svg fill="#000000" height="28px" class="pr-2" width="28px" version="1.1" id="Capa_1"
                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="0 0 488.4 488.4" xml:space="preserve">
@@ -25,7 +25,7 @@
         </div>
 
         <div
-            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid  grid-cols-8 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-[10px] md:text-[14px] leading-none font-semibold text-gray-50">
+            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid  grid-cols-8 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-[8px] md:text-[14px] leading-none font-semibold text-gray-50">
             <div class="border-r-2 border-green-900 flex justify-center py-4 items-center"><button
                     (click)="onSortChange('Firs_name');ascDate = !ascDate" class="">
                     <div class="flex justify-center items-center ">
@@ -72,7 +72,7 @@
                             <line x1="6" y1="14" x2="18" y2="14" />
                             <line x1="8" y1="18" x2="16" y2="18" />
                         </svg>
-                        <p>User Type</p>
+                        <p>Type</p>
                     </div>
                 </button>
             </div>
@@ -84,9 +84,9 @@
             <div class="flex justify-center items-center">Access Control</div>
         </div>
         <div *ngFor="let user of getUserToDisplay()"
-            class=" grid grid-cols-8  overflow-hidden bg-customDarkGreen text-md border-gray-50 border-b-[3px] text-left w-full h-full px-3 md:px-2 py-2  font-semibold text-gray-200">
-            <div class="flex justify-center text-center items-center leading-none ">{{ user.First_name+' '+user.Last_name}}</div>
-            <div class="flex justify-center items-center leading-none ">{{ user.User_type}}</div>
+            class=" grid grid-cols-8  overflow-hidden bg-customDarkGreen leading-none text-[10px] md:text-md border-gray-50 border-b-[3px] text-left w-full h-full px-3 md:px-2 py-2  font-semibold text-gray-200">
+            <div class="flex justify-center text-center items-center  leading-none px-2">{{ user.First_name+' '+user.Last_name}}</div>
+            <div class="flex justify-center items-center leading-none px-2 ">{{ user.User_type}}</div>
             <div class="flex justify-center items-center">
                 <label class="flex items-center cursor-pointer relative">
                     <input type="checkbox" [(ngModel)]="user.access_permissions_events"

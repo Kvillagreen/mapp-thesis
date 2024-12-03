@@ -79,4 +79,9 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.dynamicControl();
   }
+
+  isSidebarVisible(){
+    sessionStorage.setItem('isSidebarVisible','true')
+    console.log('check');
+  }
 }

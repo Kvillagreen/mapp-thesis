@@ -9,3 +9,7 @@
     /* Prevents text selection in IE/Edge */
   }
   
+  
+  .svgTable{
+    @apply md:w-6 md:h-6 w-4 h-4
+  }

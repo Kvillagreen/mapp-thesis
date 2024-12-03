@@ -289,6 +289,9 @@ export class MapViewerComponent implements OnChanges {
       }
       else {
 
+        const kioskName = userData.name;
+        this.kioskName = kioskName;
+        console.log(kioskName)
         this.errorMessage = 'occupied';
       }
     }

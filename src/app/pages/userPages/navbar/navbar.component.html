@@ -1,5 +1,5 @@
 <div class="fixed w-full z-[100]" *ngIf="userType=='user'">
-  <div class="flex max-full z-100 items-center justify-between bg-customDarkGreen px-6 py-4"
+  <div class="flex max-full z-100 items-center justify-between bg-customDarkGreen px-2 md:px-6 py-4"
     *ngFor="let user of userData">
     <div class="flex space-x-4 justify-self-center items-center">
       <button #button class="md:hidden text-white focus:outline-none" (click)="toggleSide()">
@@ -8,12 +8,12 @@
         </svg>
       </button>
       <img (click)="refreshPage()" src="https://mapp-thesis.infotech3c.com/public/assets/images/chmsu_logo.png" class="cursor-pointer size-12">
-      <h1 class="text-xl font-bold text-white text-3xl text-center">Chmsu-A mAPP</h1>
+      <h1 class="md:text-xl text-[18px] font-bold text-white text-3xl text-center">Chmsu-A mAPP</h1>
     </div>
     <div class="flex items-center space-x-4">
       <!-- Notification Bar (Visible if showNotification is true) -->
       <button #notifyButton (click)="toggleNotificationBar()"
-        class="text-white rounded-md text-sm flex items-center justify-between w-auto pr-2">
+        class="text-white rounded-md text-sm flex items-center justify-between w-auto  md:pr-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 48 48" fill="white">
           <path
             d="M38.498 36H9.502c-1.205 0-2.31-.607-2.955-1.625S5.822 32.1 6.335 31.01L9 25.648v-6.267c0-8.239 6.271-14.987 14.277-15.364l0 0c4.151-.188 8.08 1.271 11.075 4.128C37.35 11.004 39 14.859 39 19v6.648l2.65 5.333c.527 1.119.448 2.377-.197 3.395S39.703 36 38.498 36zM23.348 5.516h.01H23.348zM18.09 38c.478 2.833 2.942 5 5.91 5s5.431-2.167 5.91-5H18.09z">
@@ -124,7 +124,7 @@
       <div class="relative max-w-sm w-full bg-dropDown shadow-xl rounded-lg p-4">
         <!-- Pointer -->
         <div
-          class="relative -top-8 -right-36 md:-right-5 w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-dropDown">
+          class="relative -top-8 -right-40 md:-right-5 w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-dropDown">
         </div>
         <div class="h-96 w-56 pb-2 grid overflow-hidden">
           <div class="overflow-scrollable h-[calc(100%-2rem)] overflow-y-auto px-2">
@@ -160,11 +160,11 @@
     </div>
     <div #dropper *ngIf="isDropped"
     class="hidden md:grid animate-swipeDown absolute justify-self-end items-center right-0 min-h-[200px] max-w-[350px] shadow-r-md shadow-black p-2">
-    <!-- Notification Card -->
+    <!-- Settings Card -->
     <div *ngFor="let user of userData" class="relative max-w-sm w-full h-full bg-dropDown shadow-md rounded-lg p-4">
       <!-- Pointer -->
       <div
-        class="relative -top-8 -right-36 w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-b-dropDown">
+        class="relative -top-8  md:-right-36 w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-b-dropDown">
       </div>
       <div class="h-80 w-52 px-4">
         <div class="grid-cols-1 grid w-full h-full pl-2 span-8">

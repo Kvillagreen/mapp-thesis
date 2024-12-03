@@ -1,56 +1,58 @@
-<div class="max-w-screen-xl min-h-screen">
-    <div id="print-section-general"
-        class="max-w-screen-xl bg-customDarkGreen h-full p-8 rounded-xl shadow-md shadow-green-900">
+<div class="w-screen md:w-full h-full md:px-2">
+    <div class="w-full bg-customDarkGreen h-full p-2 md:rounded-xl shadow-md shadow-green-900">
         <div class="h-full w-full flex justify-between">
             <p class="text-gray-50 text-3xl font-semibold">General Report</p>
 
         </div>
         <hr>
         <div class="grid grid-cols-4 h-full w-full mt-4 gap-x-2 font-semibold">
-            <div class="bg-[#40916c] flex text-lg justify-center w-full h-20 p-2 grid rounded-lg">
-                <p class="text-center text-gray-50">Total Approved Users</p>
+            <div class="bg-[#40916c] flex text-[11px]  md:text-lg justify-center w-full h-20 p-2 grid rounded-lg">
+                <p class="text-center text-gray-50 leading-none">Total Approved Users</p>
                 <p class="flex justify-center align-center text-gray-50">{{approvedUser}}</p>
             </div>
-            <div class="bg-[#40916c] flex text-lg justify-center w-full h-20 p-2 grid rounded-lg">
-                <p class="text-left text-gray-50">Total Active Events</p>
+            <div class="bg-[#40916c] flex text-[11px]  md:text-lg  justify-center w-full h-20 p-2 grid rounded-lg">
+                <p class="text-center text-gray-50 leading-none">Total Active Events</p>
                 <p class="flex justify-center align-center text-gray-50">{{activeEvents}}</p>
             </div>
-            <div class="bg-[#40916c] flex text-lg justify-center w-full h-20 p-2 grid rounded-lg">
-                <p class="text-left text-gray-50">Total Kiosks</p>
+            <div class="bg-[#40916c] flex text-[11px]  md:text-lg  justify-center w-full h-20 p-2 grid rounded-lg">
+                <p class="text-center text-gray-50 leading-none">Total Kiosks</p>
                 <p class="flex justify-center align-center text-gray-50">{{kioskData.length}}</p>
             </div>
-            <div class="bg-[#40916c] flex text-lg justify-center w-full h-20 p-2 grid rounded-lg">
-                <p class="text-left text-gray-50">Total Paid Transactions</p>
+            <div class="bg-[#40916c] flex text-[11px]  md:text-lg  justify-center w-full h-20 p-2 grid rounded-lg">
+                <p class="text-center text-gray-50 leading-none">Total Paid Transactions</p>
                 <p class="flex justify-center align-center text-gray-50">{{finishedTransaction}}</p>
             </div>
         </div>
     </div>
-    <div class="max-w-screen-xl bg-customDarkGreen h-full p-8 mt-2 rounded-xl shadow-md shadow-green-900">
-        <div class="h-full w-full flex justify-between my-2">
-            <p class="text-gray-50 text-3xl font-semibold">Reports Per Event</p>
-            <div class="w-80 flex justify-center align-center">
-                <div class="w-40 flex justify-center align-center text-gray-700 pr-2">
+    <div class="w-full bg-customDarkGreen h-full px-4 py-8 md:p-8 mt-2  md:rounded-xl shadow-md shadow-green-900">
+        <div class="h-full w-full  flex-col my-2">
+            <p class="text-gray-50 text-center text-3xl font-semibold">Reports Per Event</p>
+            <div class="w-full flex justify-between align-center mt-4">
+                <div class="w-32 flex-col justify-center align-center text-gray-700 pr-2">
                     <label for="itemsPerPage" class="text-gray-50 pr-2 pt-2">Items: </label>
                     <select id="itemsPerPage" [(ngModel)]="itemsPerPage"
-                        class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-1 text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500">
                         <option *ngFor="let option of pageOptions" [value]="option">{{ option }}</option>
                     </select>
                 </div>
-                <select id="eventSelect"
-                    class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    (change)="onEventSelect($event)">
-                    <option value="" selected>{{getEventName() }}</option>
-                    <option *ngFor="let event of eventData" [value]="event.event_id">
-                        {{ event.event_name }}
-                    </option>
-                </select>
 
+                <div class="w-32 flex-col justify-center align-center text-gray-700 pr-2">
+                    <label for="itemsPerPage" class="text-gray-50 pr-2 pt-2">Events: </label>
+                    <select id="eventSelect"
+                        class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                        (change)="onEventSelect($event)">
+                        <option value="" selected>{{getEventName() }}</option>
+                        <option *ngFor="let event of eventData" [value]="event.event_id">
+                            {{ event.event_name }}
+                        </option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="grid grid-cols-2 h-full w-full mt-8 gap-x-2 gap-y-5">
             <div class="col-span-2" id="print-section-kiosk">
-                <div class="text-xl text-gray-50 text-center font-semibold flex justify-between p-2">
-                    <p>List of Kiosk</p>
+                <div class="text-xl text-gray-50 flex align-center text-center font-semibold  justify-between p-2">
+                    <p class="pt-1">List of Kiosk</p>
                     <button [useExistingCss]="true" printSectionId="print-section-kiosk"
                         class="flex justify-center align-center pt-1 h-8 w-8 bg-green-600 rounded-md hover:bg-green-700"
                         ngxPrint>
@@ -63,30 +65,23 @@
                     </button>
                 </div>
 
-                <div class="grid grid-cols-3 text-lg text-gray-50 mt-4 font-semibold py-2 border-y-2">
+                <div class="grid grid-cols-2 text-lg text-gray-50 mt-2 font-semibold py-2 border-y-2">
                     <div class="flex justify-center items-center w-full h-full">Kiosk Name</div>
                     <div class="flex justify-center items-center w-full h-full">Description</div>
-                    <div class="flex justify-center items-center w-full h-full">Kiosk Image</div>
                 </div>
 
                 <div *ngIf="eventReportData.length > 0">
                     <div *ngFor="let data of eventReportData.slice(0, itemsPerPage)"
-                        class="grid grid-cols-3 text-gray-50 leading-none mt-2 py-2 border-b-2">
+                        class="grid grid-cols-2 text-gray-50 leading-none mt-2 py-2 border-b-2">
                         <!-- Kiosk Name -->
-                        <div class="flex justify-center items-center w-full h-full">{{ data.kiosk_name }}</div>
+                        <div class="flex justify-center items-center w-full h-full text-lg md:text-md ">{{ data.kiosk_name }}</div>
                         <!-- Kiosk Description -->
                         <div class="flex justify-center items-center w-full h-full">{{ data.kiosk_description }}</div>
-                        <!-- Kiosk Image -->
-                        <div class="flex justify-center items-center w-full h-full">
-                            <img class="size-20"
-                                src="http://localhost/mapp-thesis/public/dbAssets/kioskImages/{{data.kiosk_image}}"
-                                alt="Kiosk Image" />
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-span-2" id="print-section-business">
+            <div class="col-span-2  mt-2" id="print-section-business">
                 <div class="text-xl text-gray-50 text-center font-semibold  flex justify-between p-2">
                     <p>List of Approved Business</p>
                     <button [useExistingCss]="true" printSectionId="print-section-business"
@@ -102,7 +97,7 @@
                     </button>
                 </div>
 
-                <div class="grid grid-cols-3 text-lg text-gray-50 mt-4 font-semibold py-2 border-y-2">
+                <div class="grid grid-cols-3 text-lg text-gray-50 mt-2 font-semibold py-2 border-y-2">
                     <div class="flex justify-center items-center w-full h-full">Company</div>
                     <div class="flex justify-center items-center w-full h-full">Owner</div>
                     <div class="flex justify-center items-center w-full h-full">Kiosk Name</div>
@@ -123,7 +118,7 @@
             </div>
 
             <div id="print-section-kiosk-business" class="col-span-2 mt-8">
-                <div class="text-xl text-gray-50 text-center font-semibold flex justify-between p-2">
+                <div class="text-lg md:text-xl text-gray-50 text-center font-semibold flex justify-between p-2">
                     <p>List of Kiosk Per Business Owner</p>
                     <button [useExistingCss]="true" printSectionId="print-section-kiosk-business"
                         class="flex justify-center align-center pt-1 h-8 w-8 bg-green-600 rounded-md hover:bg-green-700"
@@ -137,27 +132,27 @@
                     </button>
 
                 </div>
-                <div class="grid grid-cols-5 text-lg text-gray-50 mt-4 font-semibold py-2 border-y-2">
-                    <div class="flex justify-center items-center w-full h-full">Date Created</div>
-                    <div class="flex justify-center items-center w-full h-full">Kiosk Name</div>
-                    <div class="flex justify-center items-center w-full h-full">Owner</div>
-                    <div class="flex justify-center items-center w-full h-full">Purpose</div>
-                    <div class="flex justify-center items-center w-full h-full">Status</div>
+                <div class="grid grid-cols-5  gap-x-2 text-sm md:text-lg text-gray-50 mt-4 font-semibold py-2 border-y-2">
+                    <div class="flex justify-center items-center w-full h-full leading-none">Date Created</div>
+                    <div class="flex justify-center items-center w-full h-full leading-none">Kiosk Name</div>
+                    <div class="flex justify-center items-center w-full h-full leading-none">Owner</div>
+                    <div class="flex justify-center items-center w-full h-full leading-none">Purpose</div>
+                    <div class="flex justify-center items-center w-full h-full leading-none">Status</div>
                 </div>
 
                 <div *ngIf="kioskReportData.length > 0">
                     <div *ngFor="let data of kioskReportData.slice(0, itemsPerPage)"
-                        class="grid grid-cols-5 text-gray-50 leading-none mt-[10px] py-2 border-b-2 h-24">
+                        class="grid grid-cols-5 gap-x-2 text-gray-50 text-xs md:text-md leading-none mt-[10px] py-2 border-b-2 h-24">
                         <!-- Kiosk Name -->
-                        <div class="flex justify-center items-center w-full h-full">{{ formatDate(data.date_created) }}
+                        <div class="flex justify-center items-center w-full h-full leading-none">{{ formatDate(data.date_created) }}
                         </div>
-                        <div class="flex justify-center items-center w-full h-full">{{ data.kiosk_name }}</div>
+                        <div class="flex justify-center items-center w-full h-full leading-none">{{ data.kiosk_name }}</div>
                         <!-- Kiosk Description -->
-                        <div class="flex justify-center items-center w-full h-full">{{ data.First_name +'
+                        <div class="flex justify-center items-center w-full h-full leading-none">{{ data.First_name +'
                             '+data.Last_name}}
                         </div>
-                        <div class="flex justify-center items-center w-full h-full">{{ data.purpose}}</div>
-                        <div class="flex justify-center items-center w-full h-full">{{ data.status}}</div>
+                        <div class="flex justify-center items-center w-full h-full leading-none">{{ data.purpose}}</div>
+                        <div class="flex justify-center items-center w-full h-full leading-none">{{ data.status}}</div>
                     </div>
                 </div>
             </div>

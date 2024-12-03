@@ -1,12 +1,12 @@
 <div class="w-full justify-center align-center h-full min-h-screen md:px-2 text-black ">
     <div class="block">
 
-        <div class="grid grid-cols-3 justify-between pt-8 pb-5 ">
-            <div class="text-gray-700 text-md md:text-2xl font-bold col-span-1 flex items-center">
+        <div class="grid grid-cols-3 justify-between pt-8 pb-5 px-1">
+            <div class="text-gray-700 text-3xl  font-bold md:col-span-1 col-span-3 flex items-center">
                 <p>
-                    Events History:</p>
+                    Event History:</p>
             </div>
-            <div class=" col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
+            <div class=" col-span-3 md:col-span-2 flex items-center h-10 rounded-lg border-gray-700 border-2 p-2">
                 <svg fill="#000000" height="28px" class="pr-2" width="28px" version="1.1" id="Capa_1"
                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="0 0 488.4 488.4" xml:space="preserve">
@@ -25,7 +25,7 @@
         </div>
 
         <div
-            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid overflow-hidden grid-cols-6 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-sm md:text-lg font-semibold text-gray-50">
+            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid overflow-hidden grid-cols-6 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-[10px] leading-none md:text-lg font-semibold text-gray-50">
             <div class="border-r-2 border-green-900 flex justify-center items-center">
                 <button (click)="onSortChange('event_start');ascStart = !ascStart" class="">
                     <div class="flex justify-center items-center">
@@ -151,7 +151,7 @@
                     </div>
                 </button>
             </div>
-            <div class="border-r-2 border-green-900 flex justify-center items-center">
+            <div class=" flex justify-center items-center">
                 <div class="flex justify-center items-center">
 
                     <p>Images</p>
@@ -159,19 +159,19 @@
             </div>
         </div>
         <div *ngFor="let events of getEventsToDisplay()"
-            class="grid grid-cols-6 overflow-hidden bg-customDarkGreen border-b border-gray-50 border-b-[3px] text-center w-full h-full px-3 md:px-2 py-2 text-xs md:text-lg font-semibold text-gray-200">
+            class="grid grid-cols-6 overflow-hidden bg-customDarkGreen border-b border-gray-50 border-b-[3px] text-center w-full h-full px-3 md:px-2 py-2  text-[10px] leading-none md:text-lg font-semibold text-gray-200">
 
-            <div class="flex justify-center items-center text-sm">{{ formatDate(events.event_start)}}</div>
-            <div class="flex justify-center items-center text-sm">{{ formatDate(events.event_end)}}</div>
-            <div class="flex justify-center items-center">{{ events.event_name}}</div>
-            <div class="flex justify-center items-center text-xs leading-none">{{ events.details}}</div>
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center px-2 text-[10px] md:text-sm">{{ formatDate(events.event_start)}}</div>
+            <div class="flex justify-center items-center px-2 text-[10px] md:text-sm">{{ formatDate(events.event_end)}}</div>
+            <div class="flex justify-center items-center px-2">{{ events.event_name}}</div>
+            <div class="flex justify-center items-center  px-2 text-[8px] md:text-xs leading-none">{{ events.details}}</div>
+            <div class="flex justify-center items-center px-2">
                 <p *ngIf="events.status==1" class="text-green-200">Event Ended</p>
                 <p *ngIf="events.status==0" class="text-red-200">Event Disabled</p>
             </div>
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center ">
                 <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/eventImages/{{events.event_image}}"
-                    class="size-24 object-cover  border-2 border-gray-50 rounded-xl" />
+                    class="size-16 md:size-24 object-cover  border-2 border-gray-50 rounded-xl" />
             </div>
         </div>
 
