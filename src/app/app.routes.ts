@@ -21,6 +21,7 @@ import { AdminHistoryComponent } from './pages/adminPages/admin-history/admin-hi
 import { AdminReportsComponent } from './pages/adminPages/admin-reports/admin-reports.component';
 import { AdminUserManageComponent } from './pages/adminPages/admin-user-manage/admin-user-manage.component';
 import { AdminUserControlComponent } from './pages/adminPages/admin-user-control/admin-user-control.component';
+import { OwnerComponent } from './services/rest-api/owner/owner.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -39,6 +40,7 @@ export const routes: Routes = [
   { path: 'manage-user', component: AdminUserManageComponent, canActivate: [AdminGuard] },
   { path: 'user-control', component: AdminUserControlComponent, canActivate: [AdminGuard] },
   { path: 'map-viewer-admin', component: AdminMapViewerComponent, canActivate: [AdminGuard] },
+  { path: 'owner', component: OwnerComponent},
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 
 ];

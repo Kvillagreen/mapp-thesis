@@ -1,8 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild, AfterViewInit, OnInit, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { UserService } from '../../../services/rest-api/user.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AdminService } from '../../../services/rest-api/page-admin.service';
 
@@ -22,6 +20,7 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
   settings: string = '';
   control: string = '';
   history: string = '';
+  logOut: boolean = false;
   constructor(public router: Router, public adminService: AdminService) {
 
   }
@@ -72,16 +71,20 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
     });
   }
   ngDoCheck(): void {
-    setInterval(() => {
-      this.dynamicControl();
-    }, 120000);
+    if (sessionStorage.getItem('isLoggedIn') == 'login') {
+      setInterval(() => {
+        this.dynamicControl();
+      }, 120000);
+    }
   }
   ngOnInit(): void {
-    this.dynamicControl();
+    if (sessionStorage.getItem('isLoggedIn') == 'login') {
+      this.dynamicControl();
+    }
   }
 
-  isSidebarVisible(){
-    sessionStorage.setItem('isSidebarVisible','true')
+  isSidebarVisible() {
+    sessionStorage.setItem('isSidebarVisible', 'true')
     console.log('check');
   }
 }

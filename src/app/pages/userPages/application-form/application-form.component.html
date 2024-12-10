@@ -1,20 +1,18 @@
-<div class="h-full flex items-center justify-center overflow-y-scroll">
+<div class="h-full flex items-center justify-center overflow-hidden">
 
     <div
-        class="grid grid-cols-1 lg:grid-cols-2 items-start shadow-bottom shadow-black pt-28   min-h-screen-sm w-full md:max-w-screen-xl md:rounded-xl">
+        class="grid grid-cols-1 md:grid-cols-2 items-start shadow-bottom shadow-black pt-28   min-h-screen-sm w-full md:max-w-screen-xl md:rounded-l-xl">
         <div class="justify-center items-center h-full w-full bg-gray-50  ">
             <img src="assets/images/rulesRegulation.jpg" class="size-full md:rounded-l-xl object-full object-center">
         </div>
         <div
-            class="h-full  w-full md:px-5 px-2 py-2 justify-center items-center bg-customDarkGreen lg:rounded-l-none md:rounded-l-xl md:rounded-r-xl">
+            class="h-full  w-full md:px-5 px-2 py-2 justify-center items-center bg-customDarkGreen rounded-r-none  md:rounded-r-xl">
 
             <div
-                class="w-full h-28 md:pt-0 pt-8 flex flex-col px-20 items-center md:flex-row md:justify-center md:top-0  top-8 md:left-6 relative">
+                class="w-full h-28 md:pt-0 pt-8 flex flex-col px-16 items-center md:flex-row md:justify-center md:top-0  top-8 md:left-6 relative">
                 <!-- Line with border -->
-                <div class="w-[16rem] md:w-[24rem] h-16 pt-5  border-b-4 px-4 md:px-20 relative">
-
+                <div class="w-[16rem] md:w-[100%] h-16 pt-5  border-b-4 px-4 md:px-20 relative">
                 </div>
-
                 <!-- Step 3 -->
                 <div
                     class="size-8 bg-gray-50 rounded-full relative -top-[2rem] left-32 md:top-[1.90rem] md:left-0 mt-4 md:mt-0">
@@ -27,9 +25,9 @@
 
                 <!-- Step 2 -->
                 <div
-                    class="size-5 bg-green-300 rounded-full relative -top-[4.75rem]  md:top-[1.90rem] md:right-[13.5rem] mt-4 md:mt-0">
+                    class="size-5 bg-green-300 rounded-full relative -top-[4.75rem]  md:top-[1.90rem] md:-left-[50%]  lg:-left-[50%]  mt-4 md:mt-0">
                     <p
-                        class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
+                        class="relative text-sm w-40 text-center -top-10 -left-[4.0rem]  lg:-left-16 text-white font-bold leading-none">
                         STEP 2
                         <span class="text-xs text-gray-300"><br>Kiosk Selection</span>
                     </p>
@@ -37,7 +35,7 @@
 
                 <!-- Step 1 -->
                 <div
-                    class="size-5 bg-green-300 rounded-full relative -top-[7rem]  -left-[8rem] md:top-[1.9rem]  md:-left-[28rem] mt-4 md:mt-0">
+                    class="size-5 bg-green-300 rounded-full relative -top-[7rem]  -left-[8rem] md:top-[1.9rem] md:-left-[100%]  lg:-left-[96%] mt-4 md:mt-0 fixed">
                     <p
                         class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
                         STEP 1
@@ -46,72 +44,280 @@
                 </div>
             </div>
             <h6 class="text-center text-3xl text-gray-50 md:pt-0 pt-10">Application form</h6>
-            <form (ngSubmit)="onSubmit()" class="pt-4 px-4 space-y-2 ">
-                <div  class="form-group col-span-1 pt-2">
-                    <label class="text-white">Username</label>
+            <form (ngSubmit)="onSubmit()" class="pt-4 px-4 space-y-2 h-full pb-10">
+                <div class="form-group col-span-1 pt-2">
+                    <label class="text-white">Username*</label>
                     <input readonly type="text" id="userName" [(ngModel)]="userName" name="userName"
                         placeholder="{{userName}}"
                         class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
                 </div>
                 <div class="grid grid-cols-2 gap-x-2">
                     <div class="form-group col-span-1 ">
-                        <label class="text-white">Event Name</label>
-                        <input readonly type="text" id="eventName" [(ngModel)]="eventName" name="eventName" 
+                        <label class="text-white">Event Name*</label>
+                        <input readonly type="text" id="eventName" [(ngModel)]="eventName" name="eventName"
                             placeholder="{{eventName}}"
                             class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
                     </div>
-                    <div  class="form-group col-span-1 ">
-                        <label class="text-white">Kiosk Name</label>
-                        <input readonly type="text" id="kioskName"  [(ngModel)]="kioskName" name="kioskName" 
+                    <div class="form-group col-span-1 ">
+                        <label class="text-white">Kiosk Name*</label>
+                        <input readonly type="text" id="kioskName" [(ngModel)]="kioskName" name="kioskName"
                             placeholder="{{kioskName}}"
                             class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
                     </div>
 
                 </div>
-                <div class="form-group col-span-1 ">
-                    <label class="text-white">Date Requested</label>
-                    <input type="date" id="dateRequested"  [(ngModel)]="dateRequested" [ngModelOptions]="{standalone: true}" name="dateRequested" required
-                        placeholder="Date requested"
+
+                <!-- Date Input -->
+                <div class="form-group col-span-1 hidden">
+                    <label class="text-white">Date Requested*</label>
+                    <input type="date" id="dateRequested" [(ngModel)]="dateRequested" [max]="maxDate" [min]="minDate"
+                        [ngModelOptions]="{standalone: true}" name="dateRequested" required placeholder="Date requested"
                         class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
                 </div>
+                <div #calendar class="form-group col-span-1 w-full ">
+                    <label class="text-white">Days to Rent*</label>
+                    <button (click)="this.fileChecker=true; calendarVisible=!calendarVisible ;this.fileChecker=false;"
+                        class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 bg-gray-50 focus:outline-none
+                            focus:ring-[3px] focus:ring-customSkyBlue flex justify-between items-center">
+                        <p>
+                            {{numberOfDates}} Days
+                        </p>
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="size-4">
+                                <!-- Calendar Icon Paths -->
+                                <path
+                                    d="M6 2a1 1 0 011 1v1h10V3a1 1 0 112 0v1h1.5A2.5 2.5 0 0123 6.5v15A2.5 2.5 0 0120.5 24h-17A2.5 2.5 0 011 21.5v-15A2.5 2.5 0 013.5 4H5V3a1 1 0 011-1zM4 8v13.5c0 .275.225.5.5.5h17a.5.5 0 00.5-.5V8H4zm2-2h12V5H6v1z" />
+
+                                <!-- Days or Numbers inside the Calendar -->
+                                <text x="12" y="16" font-size="8" text-anchor="middle" fill="black">
+                                    {{ numberOfDates }}
+                                </text>
+                            </svg>
+                        </div>
+
+                    </button>
+                    <div *ngIf="calendarVisible" class="z-[1000] mt-1 absolute flex ">
+                        <app-calendar-user></app-calendar-user>
+                    </div>
+
+                </div>
+
                 <div class="form-group col-span-1 ">
-                    <label class="text-white">Purpose</label>
-                    <input type="text" id="purpose" [(ngModel)]="purpose" [ngModelOptions]="{standalone: true}" name="purpose" required placeholder="Purpose"
+                    <label class="text-white">Purpose*</label>
+                    <input type="text" id="purpose" [(ngModel)]="purpose" [ngModelOptions]="{standalone: true}"
+                        name="purpose" required placeholder="Purpose"
                         class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
                 </div>
                 <div class="form-group col-span-1">
-                    <label class="block text-sm font-medium mb-2 text-white">Letter Of Intent</label>
+                    <label class="text-white">Letter Of Intent*</label>
                     <!-- Custom container for the styled file input -->
                     <div class="relative h-12 bg-white rounded-xl text-sm px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
-                        (click)="fileInput.click()">
-                        <span class="text-gray-700" *ngIf="loiFile">{{loiFileName}}</span>
+                        (click)="this.fileChecker=true;fileInput.click()">
+                        <span class="text-gray-700" *ngIf="loiFile">{{loiFileName|slice:0:36}}
+                            <span class="text-gray-700" *ngIf="loiFileName && loiFileName.length > 36">...</span></span>
                         <span class="text-gray-700" *ngIf="!loiFile">Upload a file</span>
                         <button class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
                             Browse
                         </button>
                     </div>
                     <!-- Hidden actual file input -->
-                    <input #fileInput type="file" id="loi" name="loi" class="hidden" (change)="handleFileChange($event)"
-                        required />
+                    <input #fileInput type="file" id="loiFile" accept=".pdf" name="loiFile" class="hidden"
+                        (change)="fileChecker=true;handleFileChange($event,'1');" required />
                 </div>
-                <div class="form-group col-span-2 p-1">
+                <div class="form-group col-span-1 ">
+                    <div class="grid grid-cols-3 gap-x-2">
+                        <div class=" flex flex-col">
+                            <label class="text-white">Business Permit</label>
+                            <!-- Custom container for the styled file input -->
+                            <div class="relative h-12 bg-white rounded-xl text-xs px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
+                                (click)="this.fileChecker=true;fileInputBusiness.click()">
+                                <span class="text-gray-700" *ngIf="businessPermit">{{businessPermitName|slice:0:8}}
+                                    <span class="text-gray-700"
+                                        *ngIf="businessPermitName && businessPermitName.length > 8">...</span></span>
+                                <span class="text-gray-700" *ngIf="!businessPermit">Upload an image</span>
+                                <button class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
+                                    Browse
+                                </button>
+                            </div>
+                            <!-- Hidden actual file input -->
+                            <input #fileInputBusiness type="file" accept="image/*" id="businessPermit"
+                                name="businessPermit" class="hidden"
+                                (change)="fileChecker=true;handleFileChange($event,'2');" required />
+                        </div>
+                        <div class=" flex flex-col">
+                            <label class="text-white">Mayors Permit</label>
+                            <!-- Custom container for the styled file input -->
+                            <div class="relative h-12 bg-white rounded-xl text-xs px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
+                                (click)="this.fileChecker=true;fileInputMayors.click()">
+                                <span class="text-gray-700" *ngIf="mayorsPermit">{{mayorsPermitName|slice:0:8}}
+                                    <span class="text-gray-700"
+                                        *ngIf="mayorsPermitName && mayorsPermitName.length > 8">...</span></span>
+                                <span class="text-gray-700" *ngIf="!mayorsPermit">Upload an image</span>
+                                <button class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
+                                    Browse
+                                </button>
+                            </div>
+                            <!-- Hidden actual file input -->
+                            <input #fileInputMayors type="file" accept="image/*" id="mayorsPermit" name="mayorsPermit"
+                                class="hidden" (change)="fileChecker=true;handleFileChange($event,'3');" required />
+                        </div>
+                        <div class=" flex flex-col">
+                            <label class="text-white">Sanitary Permit</label>
+                            <!-- Custom container for the styled file input -->
+                            <div class="relative h-12 bg-white rounded-xl text-xs px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
+                                (click)="this.fileChecker=true;fileInputSanitary.click()">
+                                <span class="text-gray-700" *ngIf="sanitaryPermit">{{sanitaryPermitName|slice:0:8}}
+                                    <span class="text-gray-700"
+                                        *ngIf="sanitaryPermitName && sanitaryPermitName.length > 8">...</span></span>
+                                <span class="text-gray-700" *ngIf="!sanitaryPermit">Upload an image</span>
+                                <button class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
+                                    Browse
+                                </button>
+                            </div>
+                            <!-- Hidden actual file input -->
+                            <input #fileInputSanitary accept="image/*" type="file" id="loi" name="loi" class="hidden"
+                                (change)="fileChecker=true;handleFileChange($event,'4');" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-span-1 ">
+                    <label class="text-white">Things to bring </label>
+                    <div class="flex flex-col items-start mt-2 bg-gray-50 px-4 py-2 rounded-xl">
+                        <div class="flex justify-center align-center h-7">
+                            <label class="flex items-center cursor-pointer relative" for="check1">
+                                <input type="checkbox" value='Tables, and Chairs'
+                                    class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-black checked:bg-slate-800 checked:border-slate-800"
+                                    id="check1" (change)="checkBox($event);check1=!check1" />
+                                <span
+                                    class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                                        fill="currentColor" stroke="currentColor" stroke-width="1">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </span>
+                            </label>
+                            <label class="cursor-pointer ml-2 text-black text-sm align-center m-auto" for="check1">
+                                Tables, and Chairs
+                            </label>
+                        </div>
+                        <div class="flex justify-center align-center h-7">
+                            <label class="flex items-center cursor-pointer relative" for="check2">
+                                <input type="checkbox" value='Canopy'
+                                    class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-black checked:bg-slate-800 checked:border-slate-800"
+                                    id="check2" (change)="checkBox($event);check2=!check2" />
+                                <span
+                                    class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                                        fill="currentColor" stroke="currentColor" stroke-width="1">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </span>
+                            </label>
+                            <label class="cursor-pointer ml-2 text-black text-sm align-center m-auto" for="check2">
+                                Canopy
+                            </label>
+                        </div>
+                        <div class="flex justify-center align-center h-7">
+                            <label class="flex items-center cursor-pointer relative" for="check3">
+                                <input type="checkbox" value='Partitions'
+                                    class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-black checked:bg-slate-800 checked:border-slate-800"
+                                    id="check3" (change)="checkBox($event);check3=!check3" />
+                                <span
+                                    class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                                        fill="currentColor" stroke="currentColor" stroke-width="1">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </span>
+                            </label>
+                            <label class="cursor-pointer ml-2 text-black text-sm align-center m-auto" for="check3">
+                                Partitions
+                            </label>
+                        </div>
+                        <div class="flex justify-center align-center h-7">
+                            <label class="flex items-center cursor-pointer relative" for="check4">
+                                <input type="checkbox" value='Pegboards, Hooks, or Stands'
+                                    class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-black checked:bg-slate-800 checked:border-slate-800"
+                                    id="check4" (change)="checkBox($event);check4=!check4" />
+                                <span
+                                    class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                                        fill="currentColor" stroke="currentColor" stroke-width="1">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </span>
+                            </label>
+                            <label class="cursor-pointer ml-2 text-black text-sm align-center m-auto" for="check4">
+                                Pegboards, Hooks, or Stands
+                            </label>
+                        </div>
+                        <div class="flex justify-center align-center h-7 ">
+                            <label class="flex items-center cursor-pointer relative" for="others">
+                                <input type="checkbox" value='others'
+                                    class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-black checked:bg-slate-800 checked:border-slate-800"
+                                    id="others" (change)="checkBox($event); others=!others" />
+                                <span
+                                    class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                                        fill="currentColor" stroke="currentColor" stroke-width="1">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </span>
+                            </label>
+                            <label class="cursor-pointer ml-2 text-black  text-sm align-center m-auto" for="others">
+                                Others
+                            </label>
+                            <input *ngIf="others" type="text" id="othersValue" [(ngModel)]="othersValue"
+                                [ngModelOptions]="{standalone: true}" name="othersValue" required placeholder="Others"
+                                class="ml-2 h-full rounded-md text-sm px-2 py-2 w-full border border-black focus:outline-none focus:ring-[1px] focus:ring-customSkyBlue" />
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="form-group col-span-2 h-2 py-4">
+                    <p *ngIf="errorMessage" class="text-center text-red-700 text-sm ">{{this.errorMessage}}</p>
+                </div>
+                <div class="form-group col-span-2 py-1 flex justify-between">
+                    <button (click)="backMap()"
+                        class="h-12 w-32 rounded-xl text-white text-sm px-4 py-2 bg-red-400 hover:bg-red-600 border border-gray-300 focus:outline-none hover:ring-[3px] hover:ring-red-300">
+                        Back
+                    </button>
                     <button type="submit" id="submit" name="submit"
                         class="h-12 w-32 rounded-xl text-white text-sm px-4 py-2 bg-green-800 hover:bg-green-900 border border-gray-300 focus:outline-none hover:ring-[3px] hover:ring-green-300">
                         Submit
                     </button>
                 </div>
-                <div class="form-group col-span-2 h-2 p-1">
-                    <p *ngIf="errorMessage" class="text-center text-red-700 text-sm ">{{this.errorMessage}}</p>
-                </div>
+                
             </form>
         </div>
     </div>
 </div>
 
 
+<div *ngIf="load"
+    class="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-50 h-[70rem] w-full z-[100]">
+    <!-- Spinning Loader -->
+    <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+    <!-- Loading Text -->
+    <p class="mt-4 font-bold text-xs">loading...</p>
+</div>
 
-<div  *ngIf="successMessage=='success'"
-class="animate-fadeIn absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[65rem] overflow-y-hidden w-full z-20">
+<div *ngIf="successMessage=='success'"
+    class="animate-fadeIn absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[70rem] overflow-y-hidden w-full z-20">
 
 </div>
 <!-- Green Div (always centered within its parent) -->

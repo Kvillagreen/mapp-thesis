@@ -31,11 +31,13 @@
         <div *ngIf="events=='1'" class="relative group">
             <!-- Dropdown Trigger -->
             <a class="buttonSideBar flex items-center justify-between cursor-pointer w-full" (click)="toggleDropdown()">
-                <span class="pr-2">
-                    <img src="/assets/svg/calendar.svg" class="size-6" alt="Description of the image" />
-                </span>
-                Events
-                <svg class="ml-auto text-right" [ngClass]="{ 'rotate-180': isDropdownOpen }"
+                <div class="flex">
+                    <span class="pr-2">
+                        <img src="/assets/svg/calendar.svg" class="size-6" alt="Description of the image" />
+                    </span>
+                    <span>Events</span>
+                </div>
+                <svg class="ml-auto text-right " [ngClass]="{ 'rotate-180': isDropdownOpen }"
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
                     height="20">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -45,14 +47,15 @@
             <!-- Dropdown Content -->
             <div class=" left-0 mt-2 w-48 bg-customDarkGreen  text-white shadow-lg rounded-lg overflow-hidden transition-all duration-200"
                 *ngIf="isDropdownOpen">
-                <a routerLink="/add-events" class="block px-4 py-2 hover:bg-hoverBar text-sm">
+                <a routerLink="/add-events" class="block px-2 py-2 hover:bg-hoverBar text-sm">
                     Create Events
                 </a>
-                <a routerLink="/manage-events" class="block px-4 py-2 hover:bg-hoverBar text-sm">
+                <a routerLink="/manage-events" class="block px-2 py-2 hover:bg-hoverBar text-sm">
                     Manage Events
                 </a>
             </div>
         </div>
+
         <a routerLink="/map-viewer-admin" routerLinkActive="active" class="buttonSideBar">
             <span class="pr-2">
                 <svg height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -68,6 +71,7 @@
                     <circle style="fill:white;" cx="414.512" cy="101.536" r="31.568" />
                 </svg>
             </span>Kiosks</a>
+
         <a *ngIf="settings=='1'" routerLink="/manage-user" routerLinkActive="active" class="buttonSideBar">
             <span class="pr-2">
                 <svg width="24px" height="24px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,6 +81,7 @@
                     <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z" fill="white" />
                 </svg>
             </span>Users</a>
+
         <a *ngIf="reports=='1'" routerLink="/reports" routerLinkActive="active" class="buttonSideBar">
             <span class="pr-2">
                 <svg fill="white" width="24px" height="24px" viewBox="0 0 32 32" version="1.1"
@@ -85,6 +90,7 @@
                     <path d="M6 11h4v17h-4v-17zM22 16v12h4v-12h-4zM14 28h4v-24h-4v24z"></path>
                 </svg>
             </span>Reports</a>
+
         <a *ngIf="history=='1'" routerLink="/history" routerLinkActive="active" class="buttonSideBar">
             <span class="pr-2">
                 <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,6 +101,7 @@
                         fill="white" />
                 </svg>
             </span>History</a>
+
         <a *ngIf="control=='1'" routerLink="/user-control" routerLinkActive="active" class="buttonSideBar">
             <span class="pr-2">
                 <svg width="24px" height="24px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +119,38 @@
                     </g>
                 </svg>
             </span>User Control</a>
-        <a (click)="logout()" routerLinkActive="active" class="buttonSideBar text-white"><span class="pr-2">
+
+        <a *ngIf="!control" class="buttonSideBarLoad">
+            <span>
+                <div class="animate-spin rounded-full size-6 border-t-2 border-gray-50 mr-2"></div>
+            </span> Loading...
+        </a>
+        <a *ngIf="!history" class="buttonSideBarLoad">
+            <span>
+                <div class="animate-spin rounded-full size-6 border-t-2 border-gray-50 mr-2"></div>
+            </span> Loading...
+        </a>
+        <a *ngIf="!reports" class="buttonSideBarLoad">
+            <span>
+                <div class="animate-spin rounded-full size-6 border-t-2 border-gray-50 mr-2"></div>
+            </span> Loading...
+        </a>
+        <a *ngIf="!settings" class="buttonSideBarLoad">
+            <span>
+                <div class="animate-spin rounded-full size-6 border-t-2 border-gray-50 mr-2"></div>
+            </span> Loading...
+        </a>
+        <a *ngIf="!transactions" class="buttonSideBarLoad">
+            <span>
+                <div class="animate-spin rounded-full size-6 border-t-2 border-gray-50 mr-2"></div>
+            </span> Loading...
+        </a>
+        <a *ngIf="!events" class="buttonSideBarLoad">
+            <span>
+                <div class="animate-spin rounded-full size-6 border-t-2 border-gray-50 mr-2"></div>
+            </span> Loading...
+        </a>
+        <a (click)="logOut=true" routerLinkActive="active" class="buttonSideBar text-white"><span class="pr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 48 48" fill="white">
                     <path
                         d="M38.498 36H9.502c-1.205 0-2.31-.607-2.955-1.625S5.822 32.1 6.335 31.01L9 25.648v-6.267c0-8.239 6.271-14.987 14.277-15.364l0 0c4.151-.188 8.08 1.271 11.075 4.128C37.35 11.004 39 14.859 39 19v6.648l2.65 5.333c.527 1.119.448 2.377-.197 3.395S39.703 36 38.498 36zM23.348 5.516h.01H23.348zM18.09 38c.478 2.833 2.942 5 5.91 5s5.431-2.167 5.91-5H18.09z">
@@ -120,5 +158,30 @@
                 </svg>
 
             </span>logout</a>
+    </div>
+</div>
+
+<div *ngIf="logOut == true"
+    class="animate-fadeIn fixed inset-0 flex justify-center items-center z-[100] items-center justify-center bg-white bg-opacity-50 h-full w-full z-[100]">
+</div>
+<div *ngIf="logOut == true" class="animate-fadeIn fixed inset-0 flex justify-center items-center z-[100]">
+    <div
+        class="w-[300px] h-[230px] md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl bg-customDarkGreen">
+        <div class=" flex flex-col w-full h-full justify-center items-center">
+            <p class="text-gray-50 text-center text-sm md:text-2xl md:px-8 md:w-full">
+                Are you sure you want to log out?
+            </p>
+            <div class="flex justify-between space-x-20 md:space-x-52 mt-20">
+                <button (click)="logOut = !logOut"
+                    class="h-8 w-16 md:h-12 md:w-24 bg-dropDown rounded-xl text-gray-50 text-center text-sm md:text-lg hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md z-[105]">
+                    Cancel
+                </button>
+                <button (click)="logout()"
+                    class="h-8 w-16 md:h-12 md:w-24 bg-red-800 rounded-xl text-gray-50 text-center text-sm md:text-lg hover:bg-red-900 hover:text-gray-200 hover:shadow-red-800 hover:shadow-md z-[105]">
+                    Logout
+                </button>
+            </div>
+
+        </div>
     </div>
 </div>

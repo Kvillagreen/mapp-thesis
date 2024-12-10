@@ -36,12 +36,17 @@ export class AppComponent implements OnInit, DoCheck {
   }
   constructor(private router: Router, private userService: UserService, private adminService: AdminService) { }
   ngDoCheck(): void {
-    this.userType = sessionStorage.getItem('userType');
+    if (sessionStorage.getItem('isLoggedIn') == 'login') {
+      this.userType = sessionStorage.getItem('userType');
+    }
 
   }
   ngOnInit(): void {
-    this.fetchUser();
-    this.getNotification();
+
+    if (sessionStorage.getItem('isLoggedIn') == 'login') {
+      this.fetchUser();
+      this.getNotification();
+    }
   }
 
   // HostListener to listen for clicks outside the notification and button
@@ -122,7 +127,7 @@ export class AppComponent implements OnInit, DoCheck {
 
 
   isRoute(): boolean {
-    return this.router.url.startsWith('/login') || this.router.url.startsWith('/register');
+    return this.router.url.startsWith('/login') || this.router.url.startsWith('/register')|| this.router.url.startsWith('/owner');
   }
 
   shouldShowForAdmin(): boolean {
@@ -135,8 +140,13 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   readMessage(notificationId: number, status: string) {
-    this.userService.updateMessage(notificationId, status).subscribe();
+    this.userService.updateMessage(notificationId, status).subscribe((data: any) => {
+      if (data.success == true) {
+        this.refreshPage();
+      }
+    });
   }
+
 
   refreshPage() {
     window.location.reload();

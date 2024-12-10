@@ -18,8 +18,8 @@ export class NavbarComponent implements AfterViewInit, OnInit, DoCheck {
   toggleSidebar: boolean = false;
   toggleNotification: boolean = false;
   userData: any[] = [];
-  userType:string='';
-
+  userType: string = '';
+  logOut: boolean = false;
 
   @ViewChild('sidebar') sidebar!: ElementRef;
   @ViewChild('button') button!: ElementRef;
@@ -53,30 +53,34 @@ export class NavbarComponent implements AfterViewInit, OnInit, DoCheck {
       return notif.status === 'unread' ? count + 1 : count;
     }, 0);
   }
-  refreshPage(){
+  refreshPage() {
     window.location.reload();
   }
   // Method to check if there are any "unread" notifications
   hasUnreadMessages(): boolean {
     return this.notification.some(notif => notif.status === 'unread');
-  } 
-  
+  }
+
   isLastUnread(): boolean {
     // Find the last unread notification
     const lastUnreadIndex = this.notification
       .map((notif, index) => (notif.status === 'unread' ? index : -1))
       .filter(index => index !== -1) // Filter out -1 values
       .pop(); // Get the last unread index (last element in the filtered array)
-  
+
     // Check if the last unread notification is the last element in the array
     return lastUnreadIndex === this.notification.length - 1;
   }
-  
+
   toggleSettings() {
     this.isDropped = !this.isDropped;
   }
+
   readMessage(notificationId: number, status: string) {
-    this.userService.updateMessage(notificationId, status).subscribe((data) => {
+    this.userService.updateMessage(notificationId, status).subscribe((data: any) => {
+      if (data.success == true) {
+        this.refreshPage();
+      }
     });
   }
 
@@ -124,7 +128,6 @@ export class NavbarComponent implements AfterViewInit, OnInit, DoCheck {
     this.token = sessionStorage.getItem('tokenId') ?? '';
     this.userService.getUser(this.token).subscribe((data) => {
       this.userData = data;
-      console.log(this.token);
     });
   }
 
@@ -142,19 +145,19 @@ export class NavbarComponent implements AfterViewInit, OnInit, DoCheck {
   }
 
   ngOnInit() {
-    if(sessionStorage.getItem('userType')=='admin'){
+    if (sessionStorage.getItem('userType') == 'admin') {
       this.router.navigate(['/dashboard-admin']);
     }
     this.fetchUser();
     this.getNotification();
-    this.userType=sessionStorage.getItem('userType')??'';
+    this.userType = sessionStorage.getItem('userType') ?? '';
   }
 
   ngDoCheck(): void {
     setTimeout(() => {
       this.getNotification();
-    },(60000) 
-  );
+    }, (60000)
+    );
   }
 
 

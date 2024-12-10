@@ -4,7 +4,7 @@
     <app-navbar></app-navbar>
   </div>
 
-  <div class="w-full max-w-screen-xl">
+  <div class="w-full ">
     <router-outlet></router-outlet>
   </div>
 </div>
@@ -24,10 +24,15 @@
       </div>
     </div>
     <!-- Main Content -->
-    <div class="flex-1 md:ml-60 max-w-screen-xl ">
+    <div class="flex-1 md:ml-60 w-full ">
       <!-- Navbar occupying full width with flexbox -->
-      <div class="w-full ">
-        <div class="flex justify-between items-center h-16 bg-[#2c6e49] shadow-[#1b4332] shadow-md px-4 py-4"
+      <div class="w-full h-16">
+        <div *ngIf="userData.length==0" class="bg-green-800  h-16 overflow-hidden">
+          <div 
+            class="h-16 bg-customDarkGreen max-full animate-gradient-wave  z-100 items-center justify-between bg-customDarkGreen px-2 md:px-6 py-4">
+          </div>
+        </div>
+        <div class="flex justify-between items-center h-16 bg-[#2c6e49] shadow-[#1b4332] shadow-md px-4 py-4 overflow-hidden"
           *ngFor="let user of userData">
           <div>
             <button #sidebarButton class="md:hidden flex justify-between items-center text-white focus:outline-none"
@@ -51,12 +56,12 @@
               </p>
             </button>
             <div #notifer *ngIf="toggleNotification"
-              class="flex absolute justify-end items-center animate-swipeDown max-w-[350px] shadow-r-md shadow-black p-2 z-[1000]">
+              class="flex absolute  justify-end items-end animate-swipeDown max-w-[350px] -right-[0.025rem] shadow-r-md shadow-black p-2 z-[10000]">
               <!-- Notification Card -->
-              <div class="relative max-w-[350px]  top-[3rem] right-[1.5rem] bg-dropDown shadow-xl rounded-lg p-4">
+              <div class="relative max-w-[350px]  top-[3rem] -right-[0.2rem] bg-dropDown shadow-xl rounded-lg p-4">
                 <!-- Pointer -->
                 <div
-                  class="relative -top-8 left-[2.5rem] md:left-[1.27rem] w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-dropDown">
+                  class="relative -top-8 left-[3.3rem] md:left-[1.27rem] w-0 h-0 border-l-[36px] border-r-[36px] border-b-[36px] border-l-transparent border-r-transparent border-dropDown">
                 </div>
                 <div class="h-96 w-56 pb-2 grid overflow-hidden">
                   <div class="overflow-scrollable h-full overflow-y-auto px-2">
@@ -71,8 +76,7 @@
                           <div class="text-md text-white text-left">{{ notif.message }}</div>
                           <div class="text-[10px] pt-1 text-right text-white flex justify-between">
                             {{ formatDate(notif.date_created) }}
-                            <button *ngIf="notif.status=='unread'"
-                              (click)="readMessage(notif.notification_id,'read');refreshPage()"
+                            <button *ngIf="notif.status=='unread'" (click)="readMessage(notif.notification_id,'read')"
                               class="text-gray-300 hover:text-gray-50 underline">Read</button>
                           </div>
                         </div>
@@ -106,7 +110,11 @@
       </div>
 
       <!-- Main Content -->
-      <div class="pt-2 max-w-screen-xl">
+      <div *ngIf="isMap()" class="pt-2 max-w-screen-xl ">
+        <router-outlet></router-outlet>
+      </div>
+      
+      <div *ngIf="!isMap()"  class="pt-2 w-full ">
         <router-outlet></router-outlet>
       </div>
 
@@ -118,6 +126,7 @@
     <app-footer class="bg-customBlack"></app-footer>
   </div>
 </div>
+
 <div *ngIf="isRoute()">
   <router-outlet></router-outlet>
 </div>

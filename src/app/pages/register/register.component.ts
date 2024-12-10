@@ -24,7 +24,11 @@ export class RegisterComponent {
   successMessage = '';
   errorMessage: string = '';
   tokenId: string = '';
+  signingUp: boolean = false;
   currentTime: string = '';
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
   constructor(private authService: AuthService, private router: Router) { }
   templateParams = {
     // Assuming you have form values like these
@@ -43,10 +47,20 @@ export class RegisterComponent {
     this.tokenId = uniqueId;
   }
 
+  togglePasswordVisibility(field: string): void {
+    if (field === 'password') {
+      this.showPassword = !this.showPassword;
+    } else if (field === 'confirmPassword') {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
+  }
   onSignUp() {
+    this.signingUp = true;
     // Validate if password and confirm password match
     if (this.email == '' || this.password == '' || this.fname == '' || this.lname == '' || this.businessName == '' || this.contactNumber == '' || this.username == '' || this.confirmPassword == '') {
       this.errorMessage = 'All fields are required!';
+
+      this.signingUp = false;
       return;
     }
     if (
@@ -55,29 +69,39 @@ export class RegisterComponent {
       !this.phoneNumberPattern.test(this.contactNumber)) {
       this.errorMessage = 'Invalid phone number';
       console.log(this.errorMessage);
+      this.signingUp = false;
       return;
     }
     if (this.password.length < 6) {
       this.errorMessage = 'Passwords must be 6 characters long!';
+      this.signingUp = false;
       return;
     }
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Passwords do not match!';
+      this.signingUp = false;
       return;
     }
     if (!this.passwordPatterm.test(this.password)) {
       this.errorMessage = 'Include atleast one symbos and number!';
+      this.signingUp = false;
       return;
     }
     if (!this.emailPattern.test(this.email)) {
       this.errorMessage = 'Invalid Email Format!';
+      this.signingUp = false;
       return;
     }
 
     else {
+
       this.generateUUID();
       this.authService.register(this.email, this.password, this.username, this.fname, this.lname, this.businessName, this.contactNumber, this.tokenId).subscribe({
         next: (response) => {
+          do {
+            this.signingUp = false;
+          } while (!response);
+
           if (response.success) {
 
             const now = new Date(); // Get current date and time
@@ -109,7 +133,6 @@ export class RegisterComponent {
           }
         },
         error: (error) => {
-          this.errorMessage = 'There was an error with the registration request.';
           console.log(error);
         },
         complete: () => {

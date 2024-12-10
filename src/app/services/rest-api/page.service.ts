@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files/'; // Replace with your PHP API URL
+  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files'; // Replace with your PHP API URL
 
   constructor(private http: HttpClient) { }
   getKioskMap(eventId:string):Observable<any[]> {
@@ -25,7 +25,7 @@ export class EventService {
   }
 
   downloadForm(formId: string, firstName: string, lastName: string): void {
-    const url = `${this.apiUrl}create-form.php`;
+    const url = `${this.apiUrl}/create-form.php`;
   
     // Include form_id, firstName, and lastName in the request payload
     const requestData = { formId, firstName, lastName };

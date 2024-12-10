@@ -53,7 +53,9 @@ export class MapViewerComponent implements OnChanges {
   ngOnChanges(isMap: SimpleChanges): void {
 
   }
-
+  goToDashBoard(){
+    this.router.navigate(['/dashboard']);
+  }
   ngOnInit(): void {
 
     this.renderer.domElement.addEventListener('click', (event) => this.onMouseClick(event));
@@ -75,7 +77,6 @@ export class MapViewerComponent implements OnChanges {
     directionalLight.position.set(20, 20, 20).normalize();
     this.scene.add(directionalLight);
     const eventId = sessionStorage.getItem('eventId') ?? '';
-    console.log(eventId);
     this.eventService.getKioskMap(eventId).subscribe((data) => {
       this.kioskData = data;
 
@@ -87,7 +88,7 @@ export class MapViewerComponent implements OnChanges {
           // Create a Mesh for the kiosk box and set its position
           const kioskMesh = new THREE.Mesh(boxGeometry, boxMaterial);
           kioskMesh.position.set(kiosk.position_x, 0.65, kiosk.position_y);
-          kioskMesh.userData = { name: kiosk.kiosk_name, eventId: kiosk.event_id, kioskId: kiosk.kiosk_id, kioskStatus: kiosk.status, kioskDescription: kiosk.kiosk_description, kioskImage: kiosk.kiosk_image }; // Attach kiosk name to the mesh
+          kioskMesh.userData = { name: kiosk.kiosk_name, eventsId: eventId, kioskId: kiosk.kiosk_id, kioskStatus: kiosk.status, kioskDescription: kiosk.kiosk_description, kioskImage: kiosk.kiosk_image }; // Attach kiosk name to the mesh
 
           this.scene.add(kioskMesh);
           this.clickableObjects.push(kioskMesh);
@@ -98,7 +99,7 @@ export class MapViewerComponent implements OnChanges {
           // Create a Mesh for the kiosk box and set its position
           const kioskMesh = new THREE.Mesh(boxGeometry, boxMaterial);
           kioskMesh.position.set(kiosk.position_x, 0.65, kiosk.position_y);
-          kioskMesh.userData = { name: kiosk.kiosk_name, eventId: kiosk.event_id, kioskId: kiosk.kiosk_id, kioskStatus: kiosk.status, kioskDescription: kiosk.kiosk_description, kioskImage: kiosk.kiosk_image }; // Attach kiosk name to the mesh
+          kioskMesh.userData = { name: kiosk.kiosk_name, eventsId: kiosk.event_id, kioskId: kiosk.kiosk_id, kioskStatus: kiosk.status, kioskDescription: kiosk.kiosk_description, kioskImage: kiosk.kiosk_image }; // Attach kiosk name to the mesh
 
           this.scene.add(kioskMesh);
           this.clickableObjects.push(kioskMesh);
@@ -110,7 +111,7 @@ export class MapViewerComponent implements OnChanges {
           // Create a Mesh for the kiosk box and set its position
           const kioskMesh = new THREE.Mesh(boxGeometry, boxMaterial);
           kioskMesh.position.set(kiosk.position_x, 0.65, kiosk.position_y);
-          kioskMesh.userData = { name: kiosk.kiosk_name, eventId: kiosk.event_id, kioskId: kiosk.kiosk_id, kioskStatus: kiosk.status, kioskDescription: kiosk.kiosk_description, kioskImage: kiosk.kiosk_image, kiosk }; // Attach kiosk name to the mesh
+          kioskMesh.userData = { name: kiosk.kiosk_name, eventsId: kiosk.event_id, kioskId: kiosk.kiosk_id, kioskStatus: kiosk.status, kioskDescription: kiosk.kiosk_description, kioskImage: kiosk.kiosk_image, kiosk }; // Attach kiosk name to the mesh
 
           this.scene.add(kioskMesh);
           this.clickableObjects.push(kioskMesh);
@@ -228,8 +229,8 @@ export class MapViewerComponent implements OnChanges {
   }
 
   changeModel(path: string): void {
+    this.removeModel();
     this.loadModel(path);
-
     this.renderer.domElement.addEventListener('click', (event) => this.onMouseClick(event));
     // Initialize OrbitControls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -256,31 +257,27 @@ export class MapViewerComponent implements OnChanges {
     // Update raycaster with pointer position and camera
     this.raycaster.setFromCamera(this.pointer, this.camera);
     const intersects = this.raycaster.intersectObjects(this.clickableObjects);
-
     if (intersects.length > 0) {
       const clickedObject = intersects[0].object;
-
       // Get the position of the clicked object
       const objectPositionY = clickedObject.position.y;
-
       const userData = clickedObject.userData as {
         name: string;
-        eventId: string;
+        eventsId: string;
         kioskId: string;
         kioskStatus: string;
         kioskDescription: string;
         kioskImage: string;
       };
       if (userData.kioskStatus == 'available') {
-        console.log('User data:', userData);
         const kioskId = userData.kioskId;
         const kioskName = userData.name;
-        const eventId = userData.eventId;
+        const eventsId = userData.eventsId;
         const kioskStatus = userData.kioskStatus;
         const kioskDescription = userData.kioskDescription;
         const kioskImage = userData.kioskImage;
         this.errorMessage = 'done';
-        this.eventId = eventId;
+        this.eventId = eventsId;
         this.kioskId = kioskId;
         this.kioskName = kioskName;
         this.kioskStatus = kioskStatus;
@@ -288,10 +285,8 @@ export class MapViewerComponent implements OnChanges {
         this.kioskImage = kioskImage;
       }
       else {
-
         const kioskName = userData.name;
         this.kioskName = kioskName;
-        console.log(kioskName)
         this.errorMessage = 'occupied';
       }
     }

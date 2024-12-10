@@ -7,14 +7,17 @@ $data = json_decode(file_get_contents("php://input"), true);
 $userId = $_POST['userId'] ?? '';
 $eventId = $_POST['eventId'] ?? '';
 $kioskId = $_POST['kioskId'] ?? '';
+$userName = $_POST['userName'] ?? '';
+$kioskName = $_POST['kioskName'] ?? '';
 $dateRequested = $_POST['dateRequested'] ?? '';
 $purpose = $_POST['purpose'] ?? '';
+$requirements = $_POST['requirements'] ?? '';
 $loi = $_FILES['loi'] ?? '';  // Get uploaded file 'loi'
 $status = 'pending';
 $kioskStatus = 'unavailable';
 
 // Check required fields
-if (!$userId || !$eventId || !$kioskId || !$dateRequested || !$purpose) {
+if (!$userId || !$eventId || !$kioskId || !$dateRequested || !$purpose || !$requirements) {
     echo json_encode([
         'success' => false,
         'message' => 'error in missing filed'
@@ -93,19 +96,35 @@ if ($loi) {
 // Insert and update database
 $insertQuery = $conn->prepare(
     "INSERT INTO `tbl_transactions` 
-    (`user_id`, `event_id`, `kiosk_id`, `date_req`, `purpose`, `file_name`, `status`, `date_created`) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, NOW())"
+    (`user_id`, `event_id`, `kiosk_id`, `date_req`, `purpose`, `file_name`, `status`, `requirements`, `date_created`) 
+    VALUES (?, ?, ?, ?, ?, ?,?, ?, NOW())"
 );
+
 $updateQuery = $conn->prepare(
     "UPDATE `tbl_kiosk` 
     SET `status` = ? 
     WHERE `kiosk_id` = ? AND `event_id` = ?"
 );
 
-$insertQuery->bind_param("sssssss", $userId, $eventId, $kioskId, $dateRequested, $purpose, $fileName, $status);
+
+
+// Add a notification for the new user
+$userMessage = 'User ' + $userName + 'submit application for' + $kioskName;
+$userStatus = 'unread';
+$dateCreated = date('Y-m-d H:i:s');
+
+$insertNotif = $conn->prepare(
+    "INSERT INTO `tbl_notifications` (`user_id`, `message`, `status`, `date_created`)
+    SELECT `user_info_id`, ?, ?, ?
+    FROM `tbl_users`
+    WHERE `User_type` != 'user'"
+);
+
+$insertNotif->bind_param("isss", $userId, $userMessage, $userStatus, $dateCreated);
+$insertQuery->bind_param("ssssssss", $userId, $eventId, $kioskId, $dateRequested, $purpose, $fileName, $status, $requirements);
 $updateQuery->bind_param('sis', $kioskStatus, $kioskId, $eventId);
 
-if ($insertQuery->execute() && $updateQuery->execute()) {
+if ($insertQuery->execute() && $updateQuery->execute() && $insertNotif->execute()) {
     echo json_encode([
         'success' => true,
         'message' => 'Application successful.'

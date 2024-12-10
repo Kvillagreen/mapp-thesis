@@ -7,7 +7,7 @@ import { throwError } from 'rxjs';
     providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files/'; // Replace with your PHP API URL
+  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files'; // Replace with your PHP API URL
 
     constructor(private http: HttpClient) { }
 
@@ -32,12 +32,7 @@ export class UserService {
     }
 
     submitApplication(formData: FormData): Observable<any> {
-        return this.http.post(`${this.apiUrl}/submit-application.php`, formData).pipe(
-          catchError((error) => {
-            console.error('HTTP error:', error);
-            return throwError(() => new Error('Submission failed.'));
-          })
-        );
+        return this.http.post(`${this.apiUrl}/submit-application.php`, formData);
       }
     submitReference(formId: string, receiptNumber:string): Observable<any> {
         const credentials = { formId, receiptNumber};

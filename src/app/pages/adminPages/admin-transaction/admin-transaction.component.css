@@ -1,11 +1,23 @@
 * {
-    user-select: none;  /* Prevents text selection */
-    -webkit-user-drag: none;  /* Prevents dragging in WebKit browsers (e.g., Chrome, Safari) */
-    -moz-user-select: none;  /* Prevents text selection in Firefox */
-    -ms-user-select: none;   /* Prevents text selection in IE/Edge */
-  }
-  
-  
-  .svgTable{
-    @apply md:w-6 md:h-6 w-4 h-4
-  }
+  user-select: none;
+  /* Prevents text selection */
+  -webkit-user-drag: none;
+  /* Prevents dragging in WebKit browsers (e.g., Chrome, Safari) */
+  -moz-user-select: none;
+  /* Prevents text selection in Firefox */
+  -ms-user-select: none;
+  /* Prevents text selection in IE/Edge */
+}
+
+
+.svgTable {
+  @apply md:w-6 md:h-6 w-4 h-4
+}
+
+.labelForm {
+  @apply text-lg text-left h-12 flex justify-start items-center font-semibold text-red-50 rounded-l-xl border-b-2 border-l-2 border-t-2 border-gray-50 pl-3 
+}
+
+.valueForm {
+  @apply text-lg text-left h-12 flex justify-start items-center text-red-50 border-b-2 rounded-r-xl border-r-2 border-t-2 border-gray-50 
+}

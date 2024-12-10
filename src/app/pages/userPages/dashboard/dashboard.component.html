@@ -1,17 +1,23 @@
-<div class="h-full max-w-full  pt-20  justify-center flex items-center z-0 overflow-y-auto">
+<div class="h-full max-w-full  pt-20  justify-center flex items-center z-0 overflow-y-hidden">
 
   <div class="grid grid-cols-1 md:grid-cols-2 pt-2 z-10">
     <div class="h-full justify-center itens-center flex bg-black">
       <div class="swiper justify-center itens-center default-carousel">
         <!-- Slides -->
-        <div class="swiper-wrapper">
-          <div *ngFor="let event of events" class="swiper-slide">
-            <div *ngIf="events.length==0" class="h-full w-full flex justify-center items-center ">
-              <div class="h-[500px] w-full object-cover flex text-gray-50 justify-center items-center ">No Image
-                provided</div>
+
+        <div class="swiper-wrapper bg-green-900">
+          <div *ngIf="events.length==0" class="swiper-slide w-full h-full bg-customDarkGreen opacity-85">
+            <div class="h-[70vh] w-full flex justify-center items-center ">
+              <div class="flex flex-col items-center justify-center w-screen h-full">
+                <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-gray-50"></div>
+                <!-- Loading Text -->
+                <p class="mt-4 font-bold text-gray-50 text-lg">Events</p>
+              </div>
             </div>
-            <div class="h-full w-full flex justify-center items-center ">
-              <img [src]="urlImage + event.event_image" class="h-full w-full object-cover" />
+          </div>
+          <div *ngFor="let event of events" class="swiper-slide ">
+            <div class="h-full w-full flex">
+              <img [src]="urlImage+event.event_image" class="h-full w-full  object-cover" />
             </div>
           </div>
         </div>
@@ -42,8 +48,7 @@
       </div>
     </div>
     <div class="flex justify-center items-center space-y-9  w-full h-full bg-customDarkGreen l-0 py-24 md:py-0">
-      <div class="block justify-center items-center  w-full pl-4">
-
+      <div class="flex flex-col justify-center items-center md:justify-start md:items-start md:py-0 py-20 space-y-2  w-full pl-4">
         <div class="text-left text-white text-7xl font-bold">EVENTS</div>
         <div class="text-left  text-gray-300 text-sm font-semibold pt-2 w-3/4">"Streamline your event experience with
           our kiosk
@@ -141,15 +146,41 @@
               </button>
             </div>
           </div>
+          <div *ngIf="events.length%2==1"
+            class="md:flex hidden h-96 w-full flex items-center justify-center bg-gray-300 opacity-50 inset-0 rounded-xl shadow-green-700 shadow-md">
+            <!-- Spinning Loader -->
+            <div class="flex flex-col items-center justify-center">
+              <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+              <!-- Loading Text -->
+              <p class="mt-4 font-bold text-xs">Event</p>
+            </div>
+          </div>
+
+          <div *ngIf="events.length==0"
+            class="h-96 w-full flex items-center justify-center bg-gray-300 opacity-50 inset-0 rounded-xl shadow-green-700 shadow-md">
+            <!-- Spinning Loader -->
+            <div class="flex flex-col items-center justify-center">
+              <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+              <!-- Loading Text -->
+              <p class="mt-4 font-bold text-xs">Events</p>
+            </div>
+          </div>
+          <div *ngIf="events.length==0"
+            class="h-96 w-full flex items-center justify-center bg-gray-300 opacity-50 inset-0 rounded-xl shadow-green-700 shadow-md">
+            <!-- Spinning Loader -->
+            <div class="flex flex-col items-center justify-center">
+              <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+              <!-- Loading Text -->
+              <p class="mt-4 font-bold text-xs">Events</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
 </div>
 
-<div *ngIf="loading"
+<div *ngIf="loading"  
   class="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-50 h-full w-full z-[100]">
   <!-- Spinning Loader -->
   <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>

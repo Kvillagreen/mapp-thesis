@@ -49,8 +49,9 @@ export class AdminMapViewerComponent implements OnChanges {
   private currentModel: THREE.Object3D | undefined;
   kioskUploadImage: File | null = null;
   kioskUploadImageName: string = '';
-  isModalOpen = false;
-  disable = false;
+  isModalOpen: boolean = false
+  disable: boolean = false
+  loading: boolean = false
   @ViewChild('modelContainer', { static: true }) modelContainer!: ElementRef;
 
   constructor(public router: Router, private screenSizeService: ScreenSizeService, private adminService: AdminService) {
@@ -64,7 +65,7 @@ export class AdminMapViewerComponent implements OnChanges {
 
   ngOnChanges(isMap: SimpleChanges): void {
   }
-  goToDashBoard(){
+  goToDashBoard() {
     this.router.navigate(['/dashboard-admin'])
   }
   onEventSelect(event: Event): void {
@@ -127,7 +128,6 @@ export class AdminMapViewerComponent implements OnChanges {
     directionalLight.position.set(20, 20, 20).normalize();
     this.scene.add(directionalLight);
     const eventId = sessionStorage.getItem('eventIdMap') ?? '';
-    console.log(eventId);
     this.adminService.getKioskMap(eventId).subscribe((data) => {
       this.kioskData = data;
 
@@ -155,7 +155,7 @@ export class AdminMapViewerComponent implements OnChanges {
           this.scene.add(kioskMesh);
           this.clickableObjects.push(kioskMesh);
         }
-        else if(kiosk.status == 'unavailable'){
+        else if (kiosk.status == 'unavailable') {
           const boxMaterial = new THREE.MeshBasicMaterial({
             color: 0x9d0208
           });
@@ -167,7 +167,7 @@ export class AdminMapViewerComponent implements OnChanges {
           this.scene.add(kioskMesh);
           this.clickableObjects.push(kioskMesh);
         }
-        else{
+        else {
           const boxMaterial = new THREE.MeshBasicMaterial({
             color: 0x1b263b
           });
@@ -179,7 +179,7 @@ export class AdminMapViewerComponent implements OnChanges {
           this.scene.add(kioskMesh);
           this.clickableObjects.push(kioskMesh);
         }
-        
+
 
         // Load the font and create TextGeometry
         this.fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (font) => {
@@ -333,7 +333,6 @@ export class AdminMapViewerComponent implements OnChanges {
         posx: string;
         posy: string;
       };
-      console.log('User data:', userData);
       const kioskId = userData.kioskId;
       const kioskName = userData.name;
       const eventId = userData.eventId;
@@ -435,11 +434,11 @@ export class AdminMapViewerComponent implements OnChanges {
     if (this.kioskUploadImage) {
       formData.append('kioskUploadImage', this.kioskUploadImage, this.kioskUploadImage.name);
     }
-
+    this.loading = true;
     // Call service method to update the event
     this.adminService.updateKiosk(formData).subscribe({
       next: (response) => {
-        console.log(response.message, response.success);
+        this.loading = false;
         if (response.success) {
           sessionStorage.setItem('submit', 'true');
           this.closeModal();

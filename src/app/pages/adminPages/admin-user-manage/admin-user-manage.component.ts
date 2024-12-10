@@ -143,14 +143,15 @@ export class AdminUserManageComponent implements OnInit {
   getUserToDisplay(): any[] {
 
     // Filter transactions based on search text
-    let filteredTransactions = this.userData.filter((transac) =>
-      this.toLowerCaseSafe(transac.First_name).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.Last_name).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.contact + '#').includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.Email).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.Company_name).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.status).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.User_type).includes(this.toLowerCaseSafe(this.searchText))
+    let filteredTransactions = this.userData.filter((user) =>
+      this.toLowerCaseSafe(this.formatDate(user.date_registered)).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(user.First_name).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(user.Last_name).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(user.contact + '#').includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(user.Email).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(user.Company_name).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(user.status).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(user.User_type).includes(this.toLowerCaseSafe(this.searchText))
     );
 
     // Now sort the filtered transactions

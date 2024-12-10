@@ -1,4 +1,4 @@
-<div class="w-full flex flex-cols justify-center align-center">
+<div class="w-full flex flex-cols justify-center align-center px-2">
     <div class="grid grid-cols-1 md:grid-cols-3  gap-2 ">
         <div
             class="col-span-1 md:col-span-3 text-gray-500 grid grid-cols-2 md:grid-cols-4 gap-2 p-2 justify-center align-center rounded-3xl h-full w-full border border-gray-300 rounded-3xl shadow-md shadow-gray-400 ">
@@ -66,19 +66,22 @@
 
             <p class="text-gray-700 text-2xl mt-4 px-4">Upcoming Events</p>
             <hr class="text-gray-700 text-xl  mx-4">
-            <div class="h-5/6  justify-center itens-center flex bg-transparent ">
+            <div class="h-5/6  justify-center itens-center flex bg-transparent mt-2">
                 <div class="swiper justify-center itens-center default-carousel">
                     <!-- Slides -->
-                    <div class="swiper-wrapper bg-transparent">
-                        <div *ngFor="let event of events" class="swiper-slide bg-gray-50  border-gray-50">
-                            <div *ngIf="events.length==0" class="h-full w-full flex justify-center items-center ">
-                                <div
-                                    class="h-[500px] w-full object-cover flex text-gray-50 justify-center items-center ">
-                                    No Image provided</div>
+                    <div class="swiper-wrapper">
+                        <div *ngIf="events.length==0" class="swiper-slide w-full h-[70vh] bg-gray-50">
+                            <div class="h-full w-full flex justify-center items-center ">
+                                <div class="flex flex-col items-center justify-center w-screen h-full">
+                                    <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-gray-500"></div>
+                                    <!-- Loading Text -->
+                                    <p class="mt-4 font-bold text-gray-500 text-lg">Events</p>
+                                </div>
                             </div>
-                            <div class="h-full w-full flex justify-center items-center bg-transparent  ">
-                                <img [src]="urlImage + event.event_image"
-                                    class="rounded-xl md:rounded-3xl opacity-80 h-full w-full object-contain" />
+                        </div>
+                        <div *ngFor="let event of events" class="swiper-slide">
+                            <div class="h-full w-full flex justify-center items-center ">
+                                <img [src]="urlImage + event.event_image" class="h-full w-full object-contain" />
                             </div>
                         </div>
                     </div>

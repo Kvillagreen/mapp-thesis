@@ -26,11 +26,15 @@ export class AdminReportsComponent implements OnInit, DoCheck {
   activeEvents: number = 0;
   selectedEventId: string = '';
   itemsPerPage: number = 5;
+  reportsPage: string = '';
+  reportsOptions: string[] = ['list of kiosk', 'list of approved business', 'list of kiosk per business owner', 'Show All'];
   pageOptions: number[] = [5, 10, 15, 20];
 
-  constructor(private adminService: AdminService, private router: Router) {}
+  constructor(private adminService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
+    
+    this.reportsPage=sessionStorage.getItem('reportName')??'';
     // Check if the user is authorized to view this page
     if (sessionStorage.getItem('reports') !== '1') {
       this.router.navigate(['/dashboard-admin']);
@@ -83,6 +87,19 @@ export class AdminReportsComponent implements OnInit, DoCheck {
     this.getKioskBusiness();
   }
 
+  checkReport(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedEventId = selectElement.value;
+    sessionStorage.setItem('reportName',selectedEventId) ;
+    window.location.reload();
+  }
+
+  toSentenceCase(input: string): string {
+    if (!input || typeof input !== 'string') return '';
+    return input
+      .toLowerCase()
+      .replace(/(^\s*\w|[.!?]\s*\w)/g, (char) => char.toUpperCase());
+  }
   // Handle event selection
   onEventSelect(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
@@ -153,5 +170,9 @@ export class AdminReportsComponent implements OnInit, DoCheck {
   // Get event name for the dropdown placeholder
   getEventName(): string {
     return sessionStorage.getItem('eventNameMap') ?? 'Select events';
+  }
+
+  getReportName(): string {
+    return sessionStorage.getItem('reportName') ?? 'Select reports';
   }
 }

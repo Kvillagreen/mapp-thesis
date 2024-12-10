@@ -25,7 +25,7 @@
         </div>
 
         <div
-            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid  grid-cols-9 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-[5px] md:text-sm leading-none text-md font-semibold text-gray-50">
+            class="shadow-gray-500 border-4 border-green-900 shadow-sm grid  grid-cols-9 bg-customDarkGreen text-center w-full h-full px-3 md:px-2 py-2 text-[7px] md:text-sm leading-none text-md font-semibold text-gray-50">
             <div class="border-r-2 border-green-900 flex px-2 justify-center items-center"><button
                     (click)="onSortChange('date_registered');ascDate = !ascDate" class="">
                     <div class="flex justify-center items-center ">
@@ -229,18 +229,23 @@
             </div>
 
         </div>
+        
+        <div *ngIf="getUserToDisplay().length==0"
+            class="grid grid-cols-7 overflow-hidden bg-customDarkGreen border-b border-gray-50 border-b-[3px] text-center w-full h-full px-3 md:px-2 py-2 text-xs md:text-lg font-semibold text-gray-200">
+            <div class="text-md col-span-7 md:text-lg flex justify-center items-center">No results found</div>
+        </div>
         <div *ngFor="let user of getUserToDisplay()"
             class=" grid grid-cols-9 text-[6px] md:text-xs overflow-hidden bg-customDarkGreen text-xs border-b border-gray-50 border-b-[3px] text-left w-full h-full px-3 md:px-2 py-2  font-semibold text-gray-200">
-            <div class=" flex justify-center items-center text-[6px] leading-none">{{formatDate(user.date_registered)}}
+            <div class=" flex justify-start items-center text-[6px] md:text-xs leading-none">{{formatDate(user.date_registered)}}
             </div>
-            <div class="flex justify-center items-center mx-2 leading-none">{{ user.First_name}}</div>
-            <div class="flex justify-center items-center mx-2  leading-none">{{ user.Last_name}}</div>
-            <div class="flex justify-center col-span-2 items-center mx-2  leading-none">{{ user.Email}}</div>
-            <div class="flex justify-center items-center mx-2  leading-none">{{ user['Contact#']}}</div>
-            <div class="flex justify-center items-center mx-2  leading-none">{{ user.Company_name}}</div>
-            <div class="flex justify-center items-center mx-2  leading-none">
+            <div class="flex justify-center items-center text-[6px] md:text-xs mx-2 leading-none">{{ user.First_name}}</div>
+            <div class="flex justify-center items-center text-[6px] md:text-xs mx-2   leading-none">{{ user.Last_name}}</div>
+            <div class="flex justify-center col-span-2 text-[6px] md:text-xs items-center mx-2  leading-none">{{ user.Email}}</div>
+            <div class="flex justify-center items-center text-[6px] md:text-xs mx-2  leading-none">{{ user['Contact#']}}</div>
+            <div class="flex justify-center items-center text-[6px] md:text-xs mx-2  leading-none">{{ user.Company_name}}</div>
+            <div class="flex justify-center items-center text-[6px] md:text-xs mx-2  leading-none">
 
-                <select id="dropdown" class="bg-customDarkGreen border-none outline-none"
+                <select id="dropdown" class="bg-customDarkGreen border-none text-[6px] md:text-xs outline-none"
                     (change)="onStatusChange($event, user.user_info_id, user.Email)">
                     <option [value]="" disabled selected>
                         <p *ngIf="user.status==0">pending</p>
@@ -255,7 +260,7 @@
                 </select>
             </div>
 
-            <div class="flex justify-center items-center"><select id="dropdown"
+            <div class="flex text-[6px] md:text-xs justify-center items-center"><select id="dropdown"
                     class="bg-customDarkGreen border-none outline-none"
                     (change)="onUserTypeChange( $event, user.user_info_id)">
                     <option selected>

@@ -1,8 +1,9 @@
 <div class="h-screen flex items-center justify-center bg-customGreen">
   <div
-    class="sm:grid grid-cols-1 lg:grid-cols-2 items-start shadow-bottom shadow-black min-h-screen-sm w-full md:rounded-xl">
+    class="sm:grid grid-cols-1 lg:grid-cols-2 items-start md:px-20 shadow-bottom shadow-black min-h-screen-sm w-full md:rounded-xl">
     <div class="justify-center items-center h-full w-full p-5 hidden lg:flex bg-gray-50 rounded-l-xl">
-      <img src="https://mapp-thesis.infotech3c.com/public/assets/images/chmsu_logo.png" class="lg:size-4/5 object-contain object-center">
+      <img src="https://mapp-thesis.infotech3c.com/public/assets/images/chmsu_logo.png"
+        class="lg:size-4/5 object-contain object-center">
     </div>
     <div
       class="h-full w-full px-5 py-20 md:p-10 justify-center items-center bg-gray-200 lg:rounded-l-none rounded-l-xl rounded-r-xl">
@@ -35,16 +36,26 @@
             <input type="text" id="username" [(ngModel)]="username" name="username" required placeholder="Username"
               class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
           </div>
-          <div class="form-group col-span-1">
-            <input type="password" id="password" [(ngModel)]="password" name="password" required
-              placeholder="Confirm Password"
+          <div class="form-group col-span-1 relative">
+            <input [type]="showPassword ? 'text' : 'password'" id="password" [(ngModel)]="password" name="password"
+              required placeholder="Password"
               class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+            <button type="button" (click)="togglePasswordVisibility('password')"
+              class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 px-1 focus:outline-none">
+              <i [ngClass]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" aria-hidden="true"></i>
+            </button>
           </div>
-          <div class="form-group col-span-1">
-            <input type="password" id="confirmpassword" [(ngModel)]="confirmPassword" name="confirmpassword" required
-              placeholder="Password"
+
+          <div class="form-group col-span-1 relative">
+            <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmpassword" [(ngModel)]="confirmPassword"
+              name="confirmpassword" required placeholder="Confirm Password"
               class="h-12 rounded-full text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+            <button type="button" (click)="togglePasswordVisibility('confirmPassword')"
+              class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 px-1 focus:outline-none">
+              <i [ngClass]="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" aria-hidden="true"></i>
+            </button>
           </div>
+
           <div class="form-group col-span-2 p-1">
             <button type="submit" id="submit" name="submit"
               class="h-12 rounded-full text-white text-sm px-4 py-2 bg-blue-600 hover:bg-blue-900 w-full border border-gray-300 focus:outline-none hover:ring-[3px] hover:ring-customSkyBlue">
@@ -62,4 +73,13 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<div *ngIf="signingUp"
+  class="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-50 h-full w-full z-[100]">
+  <!-- Spinning Loader -->
+  <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+  <!-- Loading Text -->
+  <p class="mt-4 font-bold text-xs">loading...</p>
 </div>

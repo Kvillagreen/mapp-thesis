@@ -26,6 +26,11 @@ export class AdminService {
     getPastEvent(): Observable<any[]> {
         return this.http.get<any>(`${this.apiUrl}/fetch-past-events.php`);
     }
+    
+    getSelectedEvent(eventId:number): Observable<any[]> {
+        const credentials = { eventId }
+        return this.http.post<any>(`${this.apiUrl}/fetch-selected-events.php`,credentials);
+    }
 
     getTransaction(): Observable<any[]> {
         return this.http.get<any>(`${this.apiUrl}/fetch-transaction.php`);
@@ -37,8 +42,8 @@ export class AdminService {
     }
 
 
-    updateStatus(status: any, userId: number, eventId: number, kioskId: number, formId: number): Observable<any[]> {
-        const credentials = { status, userId, eventId, kioskId, formId }
+    updateStatus(status: any, userId: number, eventId: number, kioskId: number, formId: number,dateRequested:String): Observable<any[]> {
+        const credentials = { status, userId, eventId, kioskId, formId,dateRequested }
         return this.http.post<any>(`${this.apiUrl}/update-status.php`, credentials);
     }
 
@@ -52,10 +57,10 @@ export class AdminService {
         return this.http.post<any>(`${this.apiUrl}/update-user-type.php`, credentials);
     }
 
-    dynamicController(tokenId:string): Observable<any> {
+    dynamicController(tokenId: string): Observable<any> {
         const credentials = { tokenId };
         return this.http.post<any>(`${this.apiUrl}/dynamic-control.php`, credentials);
-      }
+    }
 
     userControl(userId: number, permission: string, value: boolean): Observable<any[]> {
         const credentials = { userId, permission, value }
@@ -72,6 +77,7 @@ export class AdminService {
             })
         );
     }
+
     updateKiosk(formData: FormData): Observable<any> {
         return this.http.post(`${this.apiUrl}/update-kiosk.php`, formData).pipe(
             catchError((error) => {
@@ -91,6 +97,7 @@ export class AdminService {
         const credentials = { eventId }
         return this.http.post<any>(`${this.apiUrl}/update-event-status.php`, credentials);
     }
+
     createEvents(formData: FormData): Observable<any> {
         return this.http.post(`${this.apiUrl}/add-events.php`, formData).pipe(
             catchError((error) => {

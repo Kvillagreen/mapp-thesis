@@ -12,36 +12,24 @@
   <div class="grid grid-cols-7 gap-1 text-center font-semibold text-gray-50">
     <div *ngFor="let day of daysOfWeek" class="bg-[#246a73] py-1  md:px-2">{{
       day
-    }}</div>
+      }}</div>
   </div>
 
   <!-- Calendar Days -->
   <div class="grid grid-cols-7 ">
-    <div
-      *ngFor="let day of calendarDays"
-      class="relative py-2 text-center text-xs sm:text-sm md:text-md h-20 w-full flex flex-col items-center justify-start bg-gray-50"
-    >
+    <div *ngFor="let day of calendarDays"
+      class="relative py-2 text-center text-xs sm:text-sm md:text-md h-20 w-full flex flex-col items-center justify-start bg-gray-50">
       <!-- Day Number -->
       <div *ngIf="day.date" class="text-gray-50 w-full bg-[#368f8b] font-bold justify-center align-center border  ">
         {{ day.date }}
       </div>
 
       <!-- Event Indicators -->
-      <div *ngFor="let event of day.events" class="text-gray-50 font-bold w-full flex-col justify-self-center align-center bg-[#3c6e71]">
-        <div
-          *ngIf="isEventMiddle(day.date, event); else centerPosition"
-          class="h-6 font-bold md:text-sm text-xs text-gray-50 bg-[#3c6e71]"
-        >
+      <div *ngFor="let event of day.events"
+        class="text-gray-50 font-bold w-full flex-col justify-self-center align-center bg-[#3c6e71] mt-4">
+        <div class="h-6 font-bold md:text-sm text-xs text-gray-50 bg-[#3c6e71]">
           {{ event.title }}
         </div>
-        <ng-template #centerPosition>
-          <div
-            class="h-6 y bg-[#3c6e71]"
-            [ngStyle]="{ marginLeft: getEventCenterPosition(day.date, event) + 'rem' }"
-          >
-            {{ event.title }}
-          </div>
-        </ng-template>
       </div>
     </div>
   </div>

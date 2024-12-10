@@ -9,8 +9,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import emailjs from 'emailjs-com';
+import { CalendarUserComponent } from '../../userPages/calendar-user/calendar-user.component';
 @Component({
-  imports: [FormsModule, CommonModule, PdfViewerModule, NgxExtendedPdfViewerModule],
+  imports: [FormsModule, CommonModule, PdfViewerModule, NgxExtendedPdfViewerModule, CalendarUserComponent],
   selector: 'app-admin-transaction',
   standalone: true,
   templateUrl: './admin-transaction.component.html',
@@ -38,32 +39,66 @@ export class AdminTransactionComponent implements OnInit {
   checkerReference: boolean = false;
   ascPurpose = false;
   ascDate = false;
+  ascReq = false;
   referenceNumber: boolean = false;
-  formId: string = '';
   errorMessage: string = '';
   viewPdf: boolean = false;
+  selectorDate: boolean = false;
+  loading: boolean = false;
+  updatedRequestedDate: boolean = false;
+  viewUser: boolean = false;
   statusOptions = ['pending', 'approved', 'denied', 'finished', 'paid'];
   pdfError: boolean = false;
+  dateRequested: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  status: string = '';
+  userId: number = 0;
+  eventId: number = 0;
+  kioskId: number = 0;
+  formId: number = 0;
+  viewUserName: string = '';
+  viewDate: string = '';
+  viewEvent: string = '';
+  viewKiosk: string = '';
+  viewPurpose: string = '';
+  viewThings: string = '';
+  viewReceipt: string = '';
+  viewDateRequested: string = '';
+  viewMayors: string = '';
+  viewSanitary: string = '';
+  viewBusiness: string = '';
+  userEmail: string = '';
   pdfUrl: SafeResourceUrl = '';
+  counter: number = 0
   constructor(private sanitizer: DomSanitizer, private router: Router, private userService: UserService, private eventService: EventService, private adminService: AdminService) { }
   selectedOption: string = '';
 
-  onOptionSelected(status: any, userId: number, eventId: number, kioskId: number, formId: number, userEmail: string, dateRequest: string) {
+  /*if (this.selectedOption == 'approved') {
+              emailjs.send("service_yb4nng9", "template_xgi9te4", {
+                from_name: sessionStorage.getItem('firstName') ?? '' + sessionStorage.getItem('lastName') ?? '',
+                to_email: userEmail,
+                message: 'Note: From ' + dateRequest + ' (requested date) you only have 3 days to comply with the requirements, Failure to comply within 3 days will result in your reservation being CANCELLED',
+                status: this.selectedOption,
+                submission_date: new Date().toLocaleString(),
+              }, '02COKKG2ReUMrf5Ks').then((result) => {
+                console.log('Email sent successfully!', result.text);
+                window.location.reload();
+              })
+            } else { */
+
+  onOptionSelected(status: any, userId: number, eventId: number, kioskId: number, formId: number, userEmail: string, dateRequested: string) {
+    console.log(new Date())
     this.selectedOption = status.target.value;
-    this.adminService.updateStatus(this.selectedOption, userId, eventId, kioskId, formId).subscribe((data: any) => {
-      if (data.success) {
-        if (this.selectedOption == 'approved') {
-          emailjs.send("service_yb4nng9", "template_xgi9te4", {
-            from_name: sessionStorage.getItem('firstName') ?? '' + sessionStorage.getItem('lastName') ?? '',
-            to_email: userEmail,
-            message: 'Note: From ' + dateRequest + ' (requested date) you only have 3 days to comply with the requirements, Failure to comply within 3 days will result in your reservation being CANCELLED',
-            status: this.selectedOption,
-            submission_date: new Date().toLocaleString(),
-          }, '02COKKG2ReUMrf5Ks').then((result) => {
-            console.log('Email sent successfully!', result.text);
-            window.location.reload();
-          })
-        } else {
+    if (!this.dateRequested && this.selectedOption != 'approved') {
+      dateRequested = '0000-00-00 00:00:00';
+      if (this.selectedOption == 'finished') {
+        dateRequested = dateRequested;
+      }
+      this.loading = true;
+      this.adminService.updateStatus(this.selectedOption, userId, eventId, kioskId, formId, dateRequested).subscribe((data: any) => {
+        if (data.success) {
+          this.loading = false;
           emailjs.send("service_yb4nng9", "template_xgi9te4", {
             from_name: sessionStorage.getItem('firstName') ?? '' + sessionStorage.getItem('lastName') ?? '',
             to_email: userEmail,
@@ -75,9 +110,77 @@ export class AdminTransactionComponent implements OnInit {
           })
 
         }
-      }
+      });
+    }
+    else if (this.dateRequested && this.selectedOption == 'approved') {
+      this.loading = true;
+      const date = new Date(dateRequested)
+      console.log(date);
+      this.adminService.updateStatus(this.selectedOption, userId, eventId, kioskId, formId, dateRequested).subscribe((data: any) => {
+        if (data.success) {
+          this.counter = 0;
+          this.selectorDate = !this.selectorDate;
+          this.updatedRequestedDate = !this.updatedRequestedDate;
+          sessionStorage.setItem('updatedRequestedDate', this.updatedRequestedDate.toString())
+          this.loading = false;
+          emailjs.send("service_yb4nng9", "template_xgi9te4", {
+            from_name: sessionStorage.getItem('firstName') ?? '' + sessionStorage.getItem('lastName') ?? '',
+            to_email: userEmail,
+            message: 'Note: From ' + this.formatDate(dateRequested) + ' (requested date) you only have 3 days to comply with the requirements, Failure to comply within 3 days will result in your reservation being CANCELLED',
+            status: this.selectedOption,
+            submission_date: new Date().toLocaleString(),
+          }, '02COKKG2ReUMrf5Ks').then((result) => {
+            console.log('Email sent successfully!', result.text);
+            this.dateRequested = '';
+            window.location.reload();
+          })
 
-    });
+        }
+      });
+    }
+
+    else if (!this.dateRequested && this.selectedOption == 'approved') {
+      this.loading = true;
+      this.counter += 1;
+      if (this.counter == 1) {
+        this.adminService.getSelectedEvent(eventId).subscribe((data: any) => {
+          if (data.success == true) {
+            this.loading = false;
+            const currentDate = new Date()
+            this.maxDate = this.formatDateRemove(data.endDate.toString());
+            this.minDate = this.formatDateRemove(currentDate.toString());
+            console.log(this.minDate, this.maxDate)
+            this.selectorDate = true;
+            this.userId = userId;
+            this.eventId = eventId;
+            this.kioskId = kioskId;
+            this.formId = formId;
+            this.userEmail = userEmail;
+          }
+        });
+      }
+    }
+
+  }
+
+  toSentenceCase(input: string): string {
+    if (!input || typeof input !== 'string') return '';
+    return input
+      .toLowerCase()
+      .replace(/(^\s*\w|[.!?]\s*\w)/g, (char) => char.toUpperCase());
+  }
+  formatDateRemove(dateStr: string): string {
+    const date = new Date(dateStr);
+    return date.toISOString().split('T')[0];
+  }
+
+  dateVerifier(dateStr: string) {
+    const currentDate = new Date();
+    const date = new Date(dateStr);
+    const datePlus3 = new Date(date);
+    datePlus3.setDate(datePlus3.getDate() + 3);
+    return currentDate > datePlus3;
+
   }
   getTransaction() {
     this.token = sessionStorage.getItem('tokenId') ?? '';
@@ -85,8 +188,13 @@ export class AdminTransactionComponent implements OnInit {
       this.userTransaction = data;
     });
   }
+
+  selectDate() {
+  }
+
+
   viewPdfFile(pdfUrl: string) {
-    let checkPdfUrl = 'http://localhost/mapp-thesis/public/dbAssets/userImages/' + pdfUrl;
+    let checkPdfUrl = 'https://mapp-thesis.infotech3c.com/public/dbAssets/userImages/' + pdfUrl;
     this.viewPdf = true;
     console.log(this.pdfUrl);
     this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(checkPdfUrl);
@@ -111,18 +219,22 @@ export class AdminTransactionComponent implements OnInit {
       .toLocaleDateString('en-US', options) // Format the date
       .replace(',', ''); // Adjust formatting if needed
   }
-  statusViewer(status:string){
-    if(status=='approved'){
+
+  statusViewer(status: string) {
+    if (status == 'approved') {
       return 'approved'
     }
-    else if (status=='pending'){
+    else if (status == 'pending') {
       return 'booked'
     }
-    else if (status=='finished'){
+    else if (status == 'finished') {
       return 'completed'
     }
-    else if (status=='paid'){
+    else if (status == 'paid') {
       return status
+    }
+    else if (status == 'denied') {
+      return 'cancelled'
     }
     else {
       return 'cancelled'
@@ -161,7 +273,10 @@ export class AdminTransactionComponent implements OnInit {
     return paidCount;
   }
 
-
+  removeLastComma(input: string): string {
+    if (!input || typeof input !== 'string') return '';
+    return input.replace(/,\s*$/, ''); // Matches the last comma and any trailing spaces, replacing them with nothing
+  }
   toLowerCaseSafe(value: string | undefined | null): string {
     return value ? value.toLowerCase() : '';
   }
@@ -170,11 +285,12 @@ export class AdminTransactionComponent implements OnInit {
 
     // Filter transactions based on search text
     let filteredTransactions = this.userTransaction.filter((transac) =>
-      this.toLowerCaseSafe(transac.event_name).includes(this.toLowerCaseSafe(this.searchText)) ||
       this.toLowerCaseSafe(transac.status).includes(this.toLowerCaseSafe(this.searchText)) ||
       this.toLowerCaseSafe(transac.kiosk_name).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.purpose).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.Username).includes(this.toLowerCaseSafe(this.searchText))
+      this.toLowerCaseSafe(transac.receipt_number).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(this.formatDate(transac.date_created)).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(transac.status+'(over due)').includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(transac.First_name+' '+transac.Last_name).includes(this.toLowerCaseSafe(this.searchText))
     );
 
     // Now sort the filtered transactions
@@ -249,12 +365,15 @@ export class AdminTransactionComponent implements OnInit {
     this.lastName = sessionStorage.getItem('lastName') ?? '';
     this.eventService.downloadForm(form_id, this.firstName, this.lastName);
   }
-
+  changeVal() {
+    sessionStorage.setItem('updatedRequestedDate', 'false')
+  }
   ngOnInit(): void {
-    
-    if(sessionStorage.getItem('transactions')!='1'){
+
+    if (sessionStorage.getItem('transactions') != '1') {
       this.router.navigate(['/dashboard-admin']);
     }
+    this.updatedRequestedDate = sessionStorage.getItem('updatedRequestedDate') === 'true'
     this.getEvent();
     this.getKiosk();
     this.getTransaction();

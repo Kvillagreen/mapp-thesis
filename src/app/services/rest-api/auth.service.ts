@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class AuthService {
 
-  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files/'; // Replace with your PHP API URL
+  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files'; // Replace with your PHP API URL
  // Adjust with your PHP server URL
 
   constructor(private http: HttpClient) { }

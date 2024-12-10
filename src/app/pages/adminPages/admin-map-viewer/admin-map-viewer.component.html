@@ -5,8 +5,10 @@
 
 
 <div class="z-[110] fixed bottom-0 md:top-0 right-0 w-full md:w-[350px] sm:w-auto p-4">
-    <button (click)="goToDashBoard()" class=" absolute top-12 left-8 flex justify-center align-center text-xl text-gray-50 w-20 bg-red-400 rounded-md mb-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex justify-center align-center mt-1 h-5 w-5">
+    <button (click)="goToDashBoard()"
+        class="md:hidden absolute top-12 left-8 flex justify-center align-center text-xl text-gray-50 w-20 bg-red-400 rounded-md mb-4"><svg
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" class="flex justify-center align-center mt-1 h-5 w-5">
             <path d="M19 12H5"></path>
             <path d="M12 19l-7-7 7-7"></path>
         </svg>
@@ -14,7 +16,7 @@
     </button>
     <div class="w-full grid grid-cols-2  bg-gray-400 p-4 rounded-xl gap-2">
         <!-- Change Model Buttons -->
-        <div class="flex-cols justify-center align-center w-full h-full pt-8 mt-12">
+        <div class="flex-cols justify-center align-center w-full h-full md:px-8 md:mt-12 md:pt-0 pt-8 mt-12">
             <button *ngIf="!mapTerrain" (click)="changeModel('assets/model/mapTerrain.glb'); mapTerrain=true"
                 class="size-20 hover:bg-green-700 hover:text-gray-50 hover:shadow-[#87c38f] hover:shadow-md bg-green-500 text-white flex justify-center items-start rounded-xl">
                 <div class="flex h-full pt-6 justify-center text-gray-50">
@@ -117,13 +119,15 @@
             </div>
             <div class="mb-4">
                 <label for="event_image" class="block text-sm font-medium text-gray-50">Kiosk Image</label>
-                <div
-                    class="relative h-12 bg-white rounded-md text-sm px-4 py-2 w-full border border-gray-300 cursor-pointer flex items-center justify-between">
-                    <span class="text-gray-700" *ngIf="kioskUploadImage">{{kioskUploadImage.name}}</span>
-                    <span class="text-gray-700" *ngIf="!kioskUploadImage">Upload image</span>
+                <div class="relative h-12 bg-white rounded-md text-sm px-4 py-2 w-full border border-gray-300 cursor-pointer flex items-center justify-between"
+                    (click)="fileInput.click()">
+                    <span class="text-gray-700" *ngIf="kioskUploadImage">{{kioskUploadImage.name|slice:0:12}}
+                        <span class="text-gray-700"
+                            *ngIf="kioskUploadImage && kioskUploadImage.name.length > 12">...</span></span>
+                    <span class="text-gray-700" *ngIf="!kioskUploadImage">Upload image </span>
                     <div class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">Browse</div>
                 </div>
-                <input #fileInput type="file" id="eventImage" name="eventImage" class="hidden"
+                <input #fileInput type="file" accept="image/*" id="kioskImage" name="kioskImage" class="hidden"
                     (change)="onFileChange($event)" />
             </div>
             <div *ngIf="errorMessage!='done' && !errorMessage" class="mb-4">
@@ -156,4 +160,12 @@
             </button>
         </div>
     </div>
+</div>
+
+<div *ngIf="loading"
+    class="absolute inset-0 flex flex-col items-center justify-center h-[70rem] bg-white opacity-50 overflow-hidden w-full z-[1001]">
+    <!-- Spinning Loader -->
+    <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+    <!-- Loading Text -->
+    <p class="mt-4 font-bold text-xs">loading...</p>
 </div>

@@ -27,6 +27,8 @@ export class AdminEventsCreateComponent implements OnInit {
   eventDetails: string = '';
   eventImage: File | null = null;
   imageFileName: string = '';
+  onlyOnce: boolean = false;
+  loading: boolean = false;
   constructor(private router: Router, private adminService: AdminService) { }
 
 
@@ -54,63 +56,76 @@ export class AdminEventsCreateComponent implements OnInit {
     const currentDate = new Date();
     const startDate = new Date(this.eventStart);
     const endDate = new Date(this.eventEnd);
-  
+    if (!this.eventName || !this.eventStart || !this.eventEnd || !this.eventDetails || !this.eventImage) {
+      this.errorMessage = 'All fields are required!';
+      return ;
+    }
+
     // Check if the start and end dates are the same
     if (startDate.getTime() === endDate.getTime()) {
       this.errorMessage = 'The start and end dates cannot be the same.';
       return; // Prevent form submission
     }
-  
+
     // Check if the end date is earlier than the start date
     if (endDate < startDate) {
       this.errorMessage = 'The end date must be later than the start date.';
       return; // Prevent form submission
     }
-  
+
     // Check if the start date is before the current date
     if (startDate < currentDate) {
       this.errorMessage = 'The start date must be in the future.';
       return; // Prevent form submission
     }
-  
+
     // Check if the end date is before the current date
     if (endDate < currentDate) {
       this.errorMessage = 'The end date must be in the future.';
       return; // Prevent form submission
     }
-  
+
     const formData = new FormData();
-  
+
     // Append form data (strings and numbers)
     formData.append('eventName', this.eventName);
     formData.append('eventStart', this.eventStart);
     formData.append('eventEnd', this.eventEnd);
     formData.append('details', this.eventDetails);
-  
+
     // Check if image file exists and append it to the FormData
     if (this.eventImage) {
       formData.append('eventImage', this.eventImage, this.eventImage.name);
     }
-  
-    // Call service method to create the event
-    this.adminService.createEvents(formData).subscribe({
-      next: (response) => {
-        console.log(response.message, response.success);
-        if (response.success) {
-          console.log('Event created successfully.');
-          this.created=true;
+
+    if (!this.onlyOnce) {
+      this.onlyOnce = true; // Lock the submission to prevent duplicates
+      // Call service method to create the event
+      this.loading = true;
+      this.adminService.createEvents(formData).subscribe({
+        next: (response) => {
+          this.loading = false;
+          console.log(response.message, response.success);
+          if (response.success) {
+            this.eventCreated(); // Call eventCreated only on success
+          }
+          this.onlyOnce = false; // Unlock after completion
+        },
+        error: (error) => {
+          this.errorMessage = 'Error submitting the event. Please try again.';
+          console.error(error);
+          console.error(this.errorMessage);
+          this.onlyOnce = false; // Unlock after error
         }
-      },
-      error: (error) => {
-        this.errorMessage = 'Error submitting the event. Please try again.';
-        console.error(error);
-      }
-    });
+      });
+    }
+
   }
-  
+
 
   eventCreated() {
-    this.created = !this.created;
+    this.onlyOnce = false
+    this.created = true;
     this.closeModal();
     this.eventName = '';
     this.eventStart = '';
@@ -124,7 +139,7 @@ export class AdminEventsCreateComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('events')!='1'){
+    if (sessionStorage.getItem('events') != '1') {
       this.router.navigate(['/dashboard-admin']);
     }
   }

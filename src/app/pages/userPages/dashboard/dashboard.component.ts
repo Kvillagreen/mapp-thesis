@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit,HostListener  } from '@angular/core';
 import { EventService } from '../../../services/rest-api/page.service';
 import { CommonModule } from '@angular/common';
 import Swiper from 'swiper';
@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   loading = false;
   urlImage: string = 'https://mapp-thesis.infotech3c.com/public/dbAssets/eventImages/';
   isEvent: boolean = false;
-  constructor(private eventService: EventService, private router: Router) { }
+  constructor(private eventService: EventService, private router: Router ) { }
   runOnce = false;
   ngOnInit() {
     if(sessionStorage.getItem('userType')=='admin'){
@@ -59,10 +59,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       },
     });
 
-    // Function to calculate the real index of the active slide
-   
-
-
     // Autoplay trigger (optional)
     setInterval(() => {
       swiper.slideNext();
@@ -98,7 +94,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       sessionStorage.setItem('eventName', event_name);
       sessionStorage.setItem('status', status);
       sessionStorage.setItem('eventStart', event_start);
-      sessionStorage.setItem('eventE  nd', event_end);
+      sessionStorage.setItem('eventEnd', event_end);
       this.router.navigate(['/map-viewer']).then(() => {
         window.location.reload();  // This will reload the page
       });

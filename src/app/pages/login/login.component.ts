@@ -25,14 +25,17 @@ export class LoginComponent implements OnInit {
   firstName: string = '';
   lastName: string = '';
   userId: string = '';
-
   userType: string = '';
+  showPassword: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
   change() {
     this.rememberMe = !this.rememberMe;
   }
 
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
 
   goToSignup() {
@@ -40,14 +43,18 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
-    sessionStorage.setItem('runOnce', 'false');
+    this.errorMessage = '';
     this.signingIn = true;
+    sessionStorage.setItem('runOnce', 'false');
     if (this.email == '' || this.password == '') {
       this.errorMessage = 'Email and password must not be empty';
       this.signingIn = false;
     } else {
       this.authService.login(this.email, this.password).subscribe({
         next: (response: any) => {
+          do {
+            this.signingIn = false;
+          } while (!response);
           if (response.success && response.tokenId) {
             if (response.userType == "user" && response.status == 1) {
               this.tokenIdTemp = response.tokenId;
@@ -55,21 +62,17 @@ export class LoginComponent implements OnInit {
               this.firstName = response.user.firstname;
               this.lastName = response.user.lastname;
               this.userId = response.user.userId;
-              this.email = response.user.email;
               this.userType = response.userType;
               sessionStorage.setItem('tokenId', this.tokenIdTemp.toString());
               sessionStorage.setItem('userName', this.userName.toString());
               sessionStorage.setItem('firstName', this.firstName.toString());
               sessionStorage.setItem('lastName', this.lastName.toString());
               sessionStorage.setItem('userId', this.userId.toString());
-              sessionStorage.setItem('email', this.email.toString());
+              sessionStorage.setItem('email', response.user.email.toString());
               sessionStorage.setItem('userType', this.userType.toString());
-              
-              setInterval(() => {
-                this.signingIn = false;
-                sessionStorage.setItem('runOnce', 'false');
-                this.router.navigate(['/dashboard']);
-              }, 200);
+              sessionStorage.setItem('runOnce', 'false');
+              sessionStorage.setItem('isLoggedIn','login');
+              this.router.navigate(['/dashboard']);
             }
             else if (response.userType == "admin" && response.status == 1 || response.userType == "IGP" && response.status == 1 || response.userType == "EX-Director" && response.status == 1) {
               this.tokenIdTemp = response.tokenId;
@@ -77,34 +80,30 @@ export class LoginComponent implements OnInit {
               this.firstName = response.user.firstname;
               this.lastName = response.user.lastname;
               this.userId = response.user.userId;
-              this.email = response.user.email;
               this.userType = response.userType;
-              
-              const events =response.events;
-              const transactions =response.transactions;
-              const reports =response.reports;
-              const settings =response.settings;
-              const control =response.control;
-              const history =response.history;
+
+              const events = response.events;
+              const transactions = response.transactions;
+              const reports = response.reports;
+              const settings = response.settings;
+              const control = response.control;
+              const history = response.history;
               sessionStorage.setItem('events', events);
-              sessionStorage.setItem('transactions',transactions );
-              sessionStorage.setItem('reports',reports );
-              sessionStorage.setItem('settings',settings );
-              sessionStorage.setItem('control',control );
-              sessionStorage.setItem('history',history );
-              console.log(reports,events,transactions,settings,history,control)
+              sessionStorage.setItem('transactions', transactions);
+              sessionStorage.setItem('reports', reports);
+              sessionStorage.setItem('settings', settings);
+              sessionStorage.setItem('control', control);
+              sessionStorage.setItem('history', history);
               sessionStorage.setItem('tokenId', this.tokenIdTemp.toString());
               sessionStorage.setItem('userName', this.userName.toString());
               sessionStorage.setItem('firstName', this.firstName.toString());
               sessionStorage.setItem('lastName', this.lastName.toString());
               sessionStorage.setItem('userId', this.userId.toString());
-              sessionStorage.setItem('email', this.email.toString());
+              sessionStorage.setItem('userId', this.userId.toString());
               sessionStorage.setItem('userType', this.userType.toString());
-              setInterval(() => {
-                this.signingIn = false;
-                sessionStorage.setItem('runOnce', 'false');
-                this.router.navigate(['/dashboard-admin']);
-              }, 200);
+              sessionStorage.setItem('runOnce', 'false');
+              sessionStorage.setItem('isLoggedIn','login');
+              this.router.navigate(['/dashboard-admin']);
             }
             else {
               setInterval(() => {
@@ -112,22 +111,19 @@ export class LoginComponent implements OnInit {
                 if (response.status == 0) {
                   this.errorMessage = 'Request is still pending';
                 }
-                else if  (response.status == 2) {
+                else if (response.status == 2) {
                   this.errorMessage = 'Request denied';
                 }  // This triggers the next slide
               }, 200);
             }
             // Redirect to dashboard or home
           } else {
-            setInterval(() => {
-              this.signingIn = false;
-              this.errorMessage = response.message;  // This triggers the next slide
-            }, 200);
+            this.signingIn = false;
+            this.errorMessage = response.message;
             console.log(this.errorMessage);
           }
         },
         error: (error: any) => {
-          this.errorMessage = 'There was an error with the login request.';
         },
         complete: () => {
 
@@ -137,6 +133,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    console.log('check')
   }
 }

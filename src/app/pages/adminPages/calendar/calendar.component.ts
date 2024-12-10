@@ -99,8 +99,9 @@ export class CalendarComponent implements OnInit {
     if (!date) return null;
     const startDate = event.startDate.getDate();
     const endDate = event.endDate.getDate();
-    return date % 2 === 0 ? (startDate + endDate) / 2 : null;
+    return date % 2 === 0 ? (startDate + endDate)/2 : null;
   }
+
   // Check if a date is the middle of an event
   isEventMiddle(date: number | null, event: any): boolean {
     if (!date) return false;

@@ -20,6 +20,7 @@ import { NgZone } from '@angular/core';
 export class AdminEventsManageComponent implements OnInit {
   eventData: any[] = [];
   searchText: string = '';
+  loading: boolean = false;
   pageIndex: number = 0;  // Keeps track of the current page
   pageSize: number = 10;
   sortField: string = 'event_start'; // Default field to sort by (date)
@@ -42,6 +43,7 @@ export class AdminEventsManageComponent implements OnInit {
   eventImage: File | null = null;
   imageFileName: string = '';
   submit: string = 'false';
+  onlyOnce: boolean = false
   constructor(private ngZone: NgZone, private sanitizer: DomSanitizer, private router: Router, private userService: UserService, private eventService: EventService, private adminService: AdminService) { }
 
   getDynamicImagePath(imageName: string): string {
@@ -123,6 +125,7 @@ export class AdminEventsManageComponent implements OnInit {
   }
 
   // Function to handle form submission (save changes)
+
   onSubmit() {
     const currentDate = new Date();
     const startDate = new Date(this.eventStart);
@@ -160,39 +163,45 @@ export class AdminEventsManageComponent implements OnInit {
     formData.append('eventEnd', this.eventEnd);
     formData.append('status', this.eventStatus);
     formData.append('details', this.eventDetails);
-
     // Check if image file exists and append it to the FormData
+
     if (this.eventImage) {
       formData.append('eventImage', this.eventImage, this.eventImage.name);
     }
+    if (this.onlyOnce == false) {
+      this.onlyOnce = true
+      // Call service method to update the event
+      this.loading = true;
+      this.adminService.updateEvents(formData).subscribe({
+        next: (response) => {
 
-    // Call service method to update the event
-    this.adminService.updateEvents(formData).subscribe({
-      next: (response) => {
-        console.log(response.message, response.success);
-        if (response.success) {
-          console.log('Event updated successfully.');
-          console.log('Event Name:', formData.get('eventName'));
-          console.log('Event ID:', formData.get('eventId'));
-          sessionStorage.setItem('submit', 'true');
-          this.closeModal();
-          this.eventId = '';
-          this.eventName = '';
-          this.eventStart = '';
-          this.eventEnd = '';
-          this.eventStatus = '';
-          this.eventDetails = '';
-          this.eventImage = null;
-          this.imageFileName = '';
-          window.location.reload();
+          this.loading = false;
+          console.log(response.message, response.success);
+          if (response.success) {
+            console.log('Event updated successfully.');
+            console.log('Event Name:', formData.get('eventName'));
+            console.log('Event ID:', formData.get('eventId'));
+            sessionStorage.setItem('submit', 'true');
+            this.closeModal();
+            this.eventId = '';
+            this.eventName = '';
+            this.eventStart = '';
+            this.eventEnd = '';
+            this.eventStatus = '';
+            this.eventDetails = '';
+            this.eventImage = null;
+            this.imageFileName = '';
+            this.onlyOnce = false
+            window.location.reload();
+          }
+        },
+        error: (error) => {
+          this.onlyOnce = false
+          this.errorMessage = 'Error submitting the application. Please try again.';
+          console.error(error);
         }
-      },
-      error: (error) => {
-        this.errorMessage = 'Error submitting the application. Please try again.';
-        console.error(error);
-      }
-    });
-
+      });
+    }
     // Close the modal after submission
   }
   get eventStatusModel(): string {
@@ -216,8 +225,8 @@ export class AdminEventsManageComponent implements OnInit {
     // Filter transactions based on search text
     let filteredEvents = this.eventData.filter((events) =>
       this.toLowerCaseSafe(events.event_name).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(events.event_start).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(events.event_end).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(this.formatDate(events.event_start)).includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(this.formatDate(events.event_end)).includes(this.toLowerCaseSafe(this.searchText)) ||
       this.toLowerCaseSafe('active').includes(this.toLowerCaseSafe(this.searchText)) ||
       this.toLowerCaseSafe(events.details).includes(this.toLowerCaseSafe(this.searchText))
     );

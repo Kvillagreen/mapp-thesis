@@ -121,6 +121,14 @@ export class TransactionComponent implements OnInit {
   }
 
 
+  dateVerifier(dateStr: string) {
+    const currentDate = new Date();
+    const date = new Date(dateStr);
+    const datePlus3 = new Date(date);
+    datePlus3.setDate(datePlus3.getDate() + 3);
+    return currentDate > datePlus3;
+
+  }
   toLowerCaseSafe(value: string | undefined | null): string {
     return value ? value.toLowerCase() : '';
   }
@@ -129,6 +137,7 @@ export class TransactionComponent implements OnInit {
 
     // Filter transactions based on search text
     let filteredTransactions = this.userTransaction.filter((transac) =>
+      this.toLowerCaseSafe(this.formatDate(transac.date_created)).includes(this.toLowerCaseSafe(this.searchText)) ||
       this.toLowerCaseSafe(transac.event_name).includes(this.toLowerCaseSafe(this.searchText)) ||
       this.toLowerCaseSafe(transac.status).includes(this.toLowerCaseSafe(this.searchText)) ||
       this.toLowerCaseSafe(transac.kiosk_name).includes(this.toLowerCaseSafe(this.searchText)) ||
