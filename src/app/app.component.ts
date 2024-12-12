@@ -110,8 +110,6 @@ export class AppComponent implements OnInit, DoCheck {
   
   formatDate(dateStr: string, offsetHours: number = 8): string {
     const date = new Date(dateStr);
-  
-    // Adjust the time by adding the offset in milliseconds
     date.setHours(date.getHours() + offsetHours);
   
     const options: Intl.DateTimeFormatOptions = {
