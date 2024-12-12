@@ -131,7 +131,12 @@ export class NavbarComponent implements AfterViewInit, OnInit, DoCheck {
     });
   }
 
-  formatDate(dateStr: string): string {
+  formatDate(dateStr: string, offsetHours: number = 8): string {
+    const date = new Date(dateStr);
+  
+    // Adjust the time by adding the offset in milliseconds
+    date.setHours(date.getHours() + offsetHours);
+  
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'long',
@@ -139,11 +144,11 @@ export class NavbarComponent implements AfterViewInit, OnInit, DoCheck {
       hour: '2-digit',
       minute: '2-digit',
     };
-    return new Date(dateStr)
-      .toLocaleDateString('en-US', options) // Format the date
+  
+    return date
+      .toLocaleString('en-US', options) // Format the date
       .replace(',', ''); // Adjust formatting if needed
   }
-
   ngOnInit() {
     if (sessionStorage.getItem('userType') == 'admin') {
       this.router.navigate(['/dashboard-admin']);

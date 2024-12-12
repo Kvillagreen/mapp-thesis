@@ -1,19 +1,19 @@
-<div class="h-full flex items-center justify-center overflow-hidden">
+<div class="h-full flex items-center justify-center overflow-hidden px-2">
     <div
-        class="grid grid-cols-1 md:grid-cols-2 items-start shadow-bottom shadow-black pt-28   min-h-screen-sm w-full md:max-w-screen-xl md:rounded-l-xl">
+        class="grid grid-cols-1 md:grid-cols-2 items-start shadow-bottom shadow-black pt-24   min-h-screen-sm w-full md:max-w-screen-xl md:rounded-l-xl">
         <div class="justify-center items-center h-full w-full bg-gray-50  ">
             <img src="assets/images/rulesRegulation.jpg" class="size-full md:rounded-l-xl object-full object-center">
         </div>
         <div
             class="h-full  w-full md:px-5 px-2 py-2 justify-center items-center bg-customDarkGreen rounded-r-none  md:rounded-r-xl">
             <div
-                class="w-full h-28 md:pt-0 pt-8 flex flex-col px-16 items-center md:flex-row md:justify-center md:top-0  top-8 md:left-6 relative">
+                class="w-full h-28 md:pt-0 pt-8 flex flex-col px-16 items-center md:flex-row md:justify-center md:top-0  top-8:-left-0 md:-left-4 relative">
                 <!-- Line with border -->
-                <div class="w-[16rem] md:w-[100%] h-16 pt-5  border-b-4 px-4 md:px-20 relative">
+                <div class="w-[100%] md:w-[100%] h-16 pt-5  border-b-4 px-4 md:px-20 relative">
                 </div>
                 <!-- Step 3 -->
                 <div
-                    class="size-8 bg-gray-50 rounded-full relative -top-[2rem] left-32 md:top-[1.90rem] md:left-0 mt-4 md:mt-0">
+                    class="size-8 bg-gray-50 rounded-full absolute top-[4.8rem]  md:top-[4.4rem] right-[2rem]  md:right-[2rem]  ">
                     <p
                         class="relative text-md w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
                         STEP 3
@@ -22,7 +22,7 @@
                 </div>
                 <!-- Step 2 -->
                 <div
-                    class="size-5 bg-green-300 rounded-full relative -top-[4.75rem]  md:top-[1.90rem] md:-left-[50%]  lg:-left-[50%]  mt-4 md:mt-0">
+                    class="size-5 bg-green-300 rounded-full absolute top-[5.2rem]  md:top-[4.8rem] left-1/2  md:left-1/2  ">
                     <p
                         class="relative text-sm w-40 text-center -top-10 -left-[4.0rem]  lg:-left-16 text-white font-bold leading-none">
                         STEP 2
@@ -31,7 +31,7 @@
                 </div>
                 <!-- Step 1 -->
                 <div
-                    class="size-5 bg-green-300 rounded-full  -top-[7rem]  -left-[8rem] md:top-[1.9rem] md:-left-[100%]  lg:-left-[96%] mt-4 md:mt-0 fixed">
+                    class="size-5 bg-green-300 rounded-full absolute top-[5.2rem]  md:top-[4.8rem] left-12  md:left-12 ">
                     <p
                         class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
                         STEP 1
@@ -126,7 +126,8 @@
                                 <span class="text-gray-700" *ngIf="businessPermit">{{businessPermitName|slice:0:8}}
                                     <span class="text-gray-700"
                                         *ngIf="businessPermitName && businessPermitName.length > 8">...</span></span>
-                                <span class="text-gray-700" *ngIf="!businessPermit">Upload an image</span>
+                                <span class="text-gray-700 text-[8px] md:text-xs leading-none"
+                                    *ngIf="!businessPermit">Upload an image</span>
                                 <button class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
                                     Browse
                                 </button>
@@ -144,7 +145,8 @@
                                 <span class="text-gray-700" *ngIf="mayorsPermit">{{mayorsPermitName|slice:0:8}}
                                     <span class="text-gray-700"
                                         *ngIf="mayorsPermitName && mayorsPermitName.length > 8">...</span></span>
-                                <span class="text-gray-700" *ngIf="!mayorsPermit">Upload an image</span>
+                                <span class="text-gray-700 text-[8px] md:text-xs leading-none"
+                                    *ngIf="!mayorsPermit">Upload an image</span>
                                 <button class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
                                     Browse
                                 </button>
@@ -161,7 +163,8 @@
                                 <span class="text-gray-700" *ngIf="sanitaryPermit">{{sanitaryPermitName|slice:0:8}}
                                     <span class="text-gray-700"
                                         *ngIf="sanitaryPermitName && sanitaryPermitName.length > 8">...</span></span>
-                                <span class="text-gray-700" *ngIf="!sanitaryPermit">Upload an image</span>
+                                <span class="text-gray-700 text-[8px] md:text-xs leading-none"
+                                    *ngIf="!sanitaryPermit">Upload an image</span>
                                 <button class="bg-green-800 text-white px-3 py-1 rounded-md text-xs hover:bg-green-900">
                                     Browse
                                 </button>
@@ -293,29 +296,30 @@
     </div>
 </div>
 
-<div *ngIf="load"
-    class="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-50 h-[70rem] w-full z-[100]">
-    <!-- Spinning Loader -->
-    <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
-    <!-- Loading Text -->
-    <p class="mt-4 font-bold text-xs">loading...</p>
-</div>
 
-<div *ngIf="successMessage=='success'"
-    class="animate-fadeIn absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[70rem] overflow-y-hidden w-full z-20">
-</div>
-<!-- Green Div (always centered within its parent) -->
-<div *ngIf="successMessage=='success'"
-    class="animate-fadeIn absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
-    <div class="flex w-full h-full justify-center items-center">
-        <p class="text-gray-50 text-center text-3xl">
-            Thank you for using our kiosk!, Admin has been notified!<br>
-            Select okay to view transaction.
-    </div>
-    <div class="flex justify-between w-full">
-        <button (click)="this.router.navigate(['/dashboard'])"
-            class="h-12 w-24 bg-red-400 rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">Back</button>
-        <button (click)="this.router.navigate(['/transaction'])"
-            class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Okay</button>
+
+<div *ngIf="successMessage=='success' || load" class="max-w-screen-lg">
+    <div class="animate-fadeIn fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-[100]">
+        <div *ngIf="successMessage=='success'"
+            class="animate-fadeIn absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
+            <div class="flex w-full h-full justify-center items-center">
+                <p class="text-gray-50 text-center text-3xl">
+                    Thank you for using our kiosk!, Admin has been notified!<br>
+                    Select okay to view transaction.
+            </div>
+            <div class="flex justify-between w-full">
+                <button (click)="this.router.navigate(['/dashboard'])"
+                    class="h-12 w-24 bg-red-400 rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">Back</button>
+                <button (click)="this.router.navigate(['/transaction'])"
+                    class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Okay</button>
+            </div>
+        </div>
+        <div *ngIf="load"
+            class="absolute inset-0 flex flex-col items-center justify-center  h-full w-full z-[100]">
+            <!-- Spinning Loader -->
+            <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+            <!-- Loading Text -->
+            <p class="mt-4 font-bold text-xs">loading...</p>
+        </div>
     </div>
 </div>

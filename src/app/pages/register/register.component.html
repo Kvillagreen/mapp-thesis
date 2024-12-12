@@ -76,10 +76,14 @@
 </div>
 
 
-<div *ngIf="signingUp"
-  class="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-50 h-[75rem] overflow-y-hidden w-full z-[100]">
-  <!-- Spinning Loader -->
-  <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
-  <!-- Loading Text -->
-  <p class="mt-4 font-bold text-xs">loading...</p>
+<div *ngIf="signingUp">
+    <div class="animate-fadeIn fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-[100]">
+        <div *ngIf="signingUp"
+            class="absolute inset-0 flex flex-col items-center justify-center  h-full w-full z-[100]">
+            <!-- Spinning Loader -->
+            <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+            <!-- Loading Text -->
+            <p class="mt-4 font-bold text-xs">loading...</p>
+        </div>
+    </div>
 </div>

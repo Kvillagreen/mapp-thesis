@@ -203,6 +203,7 @@
             </button>
         </div>
     </div>
+    
     <div *ngIf="isModalOpen" class="fixed inset-0 flex justify-center items-center bg-gray-700 bg-opacity-50 z-[1000]">
         <div class="bg-[#226f54] rounded-lg p-6 w-1/3 relative">
             <!-- Disabled Button on the upper-right corner -->
@@ -297,50 +298,49 @@
             </form>
         </div>
     </div>
-    <div *ngIf="submit=='true'"
-        class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[65rem] overflow-y-hidden w-full z-20">
-    </div>
 
-    <div *ngIf="submit=='true'"
-        class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
-        <div class="flex w-full h-full justify-center items-center">
-            <p class="text-gray-50 text-center text-3xl w-80">
-                Events Updated Succesfully!
-        </div>
-        <div class="flex justify-end w-full ">
-            <button (click)="changeVal()"
-                class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Okay
-            </button>
-        </div>
-    </div>
 
-    <div *ngIf="disable"
-        class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[65rem] overflow-y-hidden w-full z-[1000]">
-    </div>
-    <div *ngIf="disable"
-        class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[1100] bg-customDarkGreen">
-        <div class="flex w-full h-full justify-center items-center">
-            <p class="text-gray-50 text-center text-3xl w-96 leading-none">
-                Are you sure you want to disable the event?
-                <br>
-                <br>
-                <span class="text-[18px]">Note: It will only be seen in the event history</span>
-
+    <div *ngIf="loading || disable || submit=='true'">
+        <div class="animate-fadeIn fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-[100]">
+            <div *ngIf="loading"
+                class="absolute inset-0 flex flex-col items-center justify-center  h-full w-full z-[100]">
+                <!-- Spinning Loader -->
+                <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+                <!-- Loading Text -->
+                <p class="mt-4 font-bold text-xs">loading...</p>
+            </div>
         </div>
-        <div class="flex justify-between w-full ">
-            <button (click)="disable=!disable"
-                class="h-12 w-24 bg-red-700  rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-800 hover:shadow-md">No
-            </button>
-            <button (click)="eventDisable()"
-                class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Yes
-            </button>
-        </div>
-    </div>
 
-    <div *ngIf="loading"
-        class="absolute inset-0 flex flex-col items-center justify-center h-[70rem] bg-white opacity-50 overflow-hidden w-full z-[1001]">
-        <!-- Spinning Loader -->
-        <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
-        <!-- Loading Text -->
-        <p class="mt-4 font-bold text-xs">loading...</p>
+        <div *ngIf="disable"
+            class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[1100] bg-customDarkGreen">
+            <div class="flex w-full h-full justify-center items-center">
+                <p class="text-gray-50 text-center text-3xl w-96 leading-none">
+                    Are you sure you want to disable the event?
+                    <br>
+                    <br>
+                    <span class="text-[18px]">Note: It will only be seen in the event history</span>
+
+            </div>
+            <div class="flex justify-between w-full ">
+                <button (click)="disable=!disable"
+                    class="h-12 w-24 bg-red-700  rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-800 hover:shadow-md">No
+                </button>
+                <button (click)="eventDisable()"
+                    class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Yes
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="submit=='true'"
+            class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
+            <div class="flex w-full h-full justify-center items-center">
+                <p class="text-gray-50 text-center text-3xl w-80">
+                    Events Updated Succesfully!
+            </div>
+            <div class="flex justify-end w-full ">
+                <button (click)="changeVal()"
+                    class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Okay
+                </button>
+            </div>
+        </div>
     </div>

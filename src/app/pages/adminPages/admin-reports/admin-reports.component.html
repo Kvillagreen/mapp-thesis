@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full bg-customDarkGreen h-full px-4 py-8 md:p-8 mt-2  md:rounded-xl shadow-md shadow-green-900">
+    <div class="w-full  bg-gray-50 h-full ">
         <div class="absolute flex justify-end align-end top-[17rem] right-12 ">
             <button [useExistingCss]="true" printSectionId="print-section"
                 class="flex justify-center align-center pt-1 h-8 w-8 bg-green-600 rounded-md hover:bg-green-700"
@@ -36,47 +36,49 @@
                 </svg>
             </button>
         </div>
-        <div class="h-full w-full  flex-col my-2">
-            <p class="text-gray-50 text-left md:text-center text-3xl font-semibold">Reports Per Event</p>
-            <div class="w-full flex justify-between align-center mt-4">
-                <div class="w-32 flex-col justify-center align-center text-gray-700 pr-2">
-                    <label for="itemsPerPage" class="text-gray-50 pr-2 pt-2">Items: </label>
-                    <select id="itemsPerPage" [(ngModel)]="itemsPerPage"
-                        class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-3 py-2 text-sm  focus:ring-indigo-500 focus:border-indigo-500">
-                        <option *ngFor="let option of pageOptions" [value]="option">{{ option }}</option>
-                    </select>
-                </div>
+        <div class="bg-customDarkGreen  md:rounded-xl shadow-md shadow-green-900 px-4 pt-8 md:p-8 p-2 mt-2 ">
+            <div class="h-full w-full  flex-col my-2">
+                <p class="text-gray-50 text-left md:text-center text-3xl font-semibold">Reports Per Event</p>
+                <div class="w-full flex justify-between align-center mt-4">
+                    <div class="w-32 flex-col justify-center align-center text-gray-700 pr-2">
+                        <label for="itemsPerPage" class="text-gray-50 pr-2 pt-2">Items: </label>
+                        <select id="itemsPerPage" [(ngModel)]="itemsPerPage"
+                            class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-3 py-2 text-sm  focus:ring-indigo-500 focus:border-indigo-500">
+                            <option *ngFor="let option of pageOptions" [value]="option">{{ option }}</option>
+                        </select>
+                    </div>
 
-                <div class="w-32 flex-col justify-center align-center text-gray-700 pr-2">
-                    <label class="text-gray-50 pr-2 pt-2">Reports: </label>
-                    <select
-                        class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                        (change)="checkReport($event)">
-                        <option value="" selected>{{getReportName() }}</option>
-                        <option *ngFor="let options of reportsOptions" [value]="options">
-                            {{ options }}
-                        </option>
-                    </select>
-                </div>
+                    <div class="w-32 flex-col justify-center align-center text-gray-700 pr-2">
+                        <label class="text-gray-50 pr-2 pt-2">Reports: </label>
+                        <select
+                            class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                            (change)="checkReport($event)">
+                            <option value="" selected>{{getReportName() }}</option>
+                            <option *ngFor="let options of reportsOptions" [value]="options">
+                                {{ options }}
+                            </option>
+                        </select>
+                    </div>
 
-                <div class="w-32 flex-col justify-center align-center text-gray-700 pr-2">
-                    <label for="itemsPerPage" class="text-gray-50 pr-2 pt-2">Events: </label>
-                    <select id="eventSelect"
-                        class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                        (change)="onEventSelect($event)">
-                        <option value="" selected>{{getEventName() }}</option>
-                        <option *ngFor="let event of eventData" [value]="event.event_id">
-                            {{ event.event_name }}
-                        </option>
-                    </select>
+                    <div class="w-32 flex-col justify-center align-center text-gray-700 pr-2">
+                        <label for="itemsPerPage" class="text-gray-50 pr-2 pt-2">Events: </label>
+                        <select id="eventSelect"
+                            class="border border-gray-300 outline-none rounded-md shadow-sm w-full px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
+                            (change)="onEventSelect($event)">
+                            <option value="" selected>{{getEventName() }}</option>
+                            <option *ngFor="let event of eventData" [value]="event.event_id">
+                                {{ event.event_name }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-2 h-full w-full mt-8 gap-x-2 gap-y-5" id="print-section">
-            <div *ngIf="reportsPage=='list of kiosk'||reportsPage==='Show All'" class="col-span-2">
-                <div class="text-xl text-gray-50 flex align-center text-center font-semibold  justify-start p-2">
-                    <p class="pt-1">List of Kiosk</p>
-
+        <div class="grid grid-cols-1 h-full w-full gap-x-2 gap-y-2 mt-2" id="print-section">
+            <div *ngIf="reportsPage=='list of kiosk'||reportsPage==='Show All'"
+                class="bg-customDarkGreen  md:rounded-xl shadow-md shadow-green-900 px-4 md:p-8 p-2">
+                <div class="text-2xl text-gray-50 flex align-center text-center font-semibold  justify-center p-2">
+                    <p class="leading-none">List of Kiosk</p>
                 </div>
 
                 <div class="grid grid-cols-2 text-lg text-gray-50 mt-2 font-semibold py-2 border-y-2">
@@ -91,14 +93,15 @@
                         <div class="flex justify-center items-center w-full h-full text-lg md:text-md ">{{
                             data.kiosk_name }}</div>
                         <!-- Kiosk Description -->
-                        <div class="flex justify-center items-center w-full h-full">{{ data.kiosk_description }}</div>
+                        <div class="flex justify-center items-center w-full h-full">{{ data.kiosk_description }}
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div *ngIf="reportsPage =='list of approved business' || reportsPage==='Show All'" class="col-span-2  mt-2">
-                <div class="text-xl text-gray-50 text-center font-semibold  flex justify-start p-2">
-                    <p>List of Approved Business</p>
+            <div *ngIf="reportsPage =='list of approved business' || reportsPage==='Show All'"
+                class="bg-customDarkGreen  md:rounded-xl shadow-md shadow-green-900 px-4 md:p-8 p-2">
+                <div class="text-2xl text-gray-50 text-center font-semibold  flex justify-center p-2">
+                    <p class="leading-none">List of Approved Business</p>
 
                 </div>
 
@@ -121,11 +124,10 @@
                     </div>
                 </div>
             </div>
-
             <div *ngIf="reportsPage =='list of kiosk per business owner' || reportsPage==='Show All'"
-                class="col-span-2 mt-8">
-                <div class="text-xl  text-gray-50 text-center font-semibold flex justify-start p-2">
-                    <p>List of Kiosk Per Business Owner</p>
+                class="bg-customDarkGreen  md:rounded-xl shadow-md shadow-green-900 px-4 md:p-8 p-2">
+                <div class="text-2xl  text-gray-50 text-center font-semibold flex justify-center p-2">
+                    <p class="leading-none">List of Kiosk Per Business Owner</p>
 
 
                 </div>
@@ -151,7 +153,8 @@
                         <div class="flex justify-center items-center w-full h-full leading-none">{{ data.First_name +'
                             '+data.Last_name}}
                         </div>
-                        <div class="flex justify-center items-center w-full h-full leading-none">{{ toSentenceCase(data.purpose)}}</div>
+                        <div class="flex justify-center items-center w-full h-full leading-none">{{
+                            toSentenceCase(data.purpose)}}</div>
                         <div class="flex justify-center items-center w-full h-full leading-none">{{ data.status}}</div>
                     </div>
                 </div>

@@ -42,6 +42,7 @@ export class TransactionComponent implements OnInit {
     } else {
       this.userService.submitReference(this.formId, this.reference).subscribe((data) => {
         if (data.success) {
+          sessionStorage.setItem('errorMessageTransac','none');
           this.errorMessage = 'none';
           emailjs.send("service_yb4nng9", "template_5dtjkq9", {
             referenceNumber: this.reference,
@@ -216,26 +217,31 @@ export class TransactionComponent implements OnInit {
   
   statusViewer(status:string){
     if(status=='approved'){
-      return 'approved'
+      return 'Approved'
     }
     else if (status=='pending'){
-      return 'booked'
+      return 'Booked'
     }
     else if (status=='finished'){
-      return 'completed'
+      return 'Completed'
     }
     else if (status=='paid'){
       return status
     }
     else {
-      return 'cancelled'
+      return 'Cancelled'
     }
   }
-
+  changeValue(){
+    this.errorMessage = '';
+    sessionStorage.setItem('errorMessageTransac','');
+  }
   ngOnInit(): void {
     if (sessionStorage.getItem('userType') == 'admin') {
       this.router.navigate(['/dashboard-admin']);
+      
     }
+    this.errorMessage = sessionStorage.getItem('errorMessageTransac')??'';
     this.getEvent();
     this.getKiosk();
     this.getTransaction();

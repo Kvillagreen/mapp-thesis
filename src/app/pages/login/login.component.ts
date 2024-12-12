@@ -52,9 +52,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.authService.login(this.email, this.password).subscribe({
         next: (response: any) => {
-          do {
-            this.signingIn = false;
-          } while (!response);
+          this.signingIn = false;
           if (response.success && response.tokenId) {
             if (response.userType == "user" && response.status == 1) {
               this.tokenIdTemp = response.tokenId;
@@ -71,7 +69,7 @@ export class LoginComponent implements OnInit {
               sessionStorage.setItem('email', response.user.email.toString());
               sessionStorage.setItem('userType', this.userType.toString());
               sessionStorage.setItem('runOnce', 'false');
-              sessionStorage.setItem('isLoggedIn','login');
+              sessionStorage.setItem('isLoggedIn', 'login');
               this.router.navigate(['/dashboard']);
             }
             else if (response.userType == "admin" && response.status == 1 || response.userType == "IGP" && response.status == 1 || response.userType == "EX-Director" && response.status == 1) {
@@ -81,7 +79,6 @@ export class LoginComponent implements OnInit {
               this.lastName = response.user.lastname;
               this.userId = response.user.userId;
               this.userType = response.userType;
-
               const events = response.events;
               const transactions = response.transactions;
               const reports = response.reports;
@@ -102,7 +99,7 @@ export class LoginComponent implements OnInit {
               sessionStorage.setItem('userId', this.userId.toString());
               sessionStorage.setItem('userType', this.userType.toString());
               sessionStorage.setItem('runOnce', 'false');
-              sessionStorage.setItem('isLoggedIn','login');
+              sessionStorage.setItem('isLoggedIn', 'login');
               this.router.navigate(['/dashboard-admin']);
             }
             else {

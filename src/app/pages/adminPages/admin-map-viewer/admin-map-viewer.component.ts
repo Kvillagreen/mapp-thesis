@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './admin-map-viewer.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AdminMapViewerComponent implements OnChanges {
+export class AdminMapViewerComponent implements OnChanges, DoCheck {
   kioskData: any[] = [];
   eventData: any[] = [];
   private scene: THREE.Scene;
@@ -39,8 +39,8 @@ export class AdminMapViewerComponent implements OnChanges {
   kioskId: string = '';
   submitKiosk: string = '';
   kioskStatus: string = '';
-  posx: string = '';
-  posy: string = '';
+  posx: number = 0;
+  posy: number = 0;
   kioskDescription: string = '';
   kioskImage: string = '';
   mapTerrain: boolean = false;
@@ -51,7 +51,12 @@ export class AdminMapViewerComponent implements OnChanges {
   kioskUploadImageName: string = '';
   isModalOpen: boolean = false
   disable: boolean = false
-  loading: boolean = false
+  loading: boolean = false;
+  kioskX: number = 0;
+  kioskY: number = 0;
+  myKiosk: any;
+  addKiosk: boolean = false;
+  submitted: boolean = false;
   @ViewChild('modelContainer', { static: true }) modelContainer!: ElementRef;
 
   constructor(public router: Router, private screenSizeService: ScreenSizeService, private adminService: AdminService) {
@@ -317,7 +322,7 @@ export class AdminMapViewerComponent implements OnChanges {
     this.raycaster.setFromCamera(this.pointer, this.camera);
     const intersects = this.raycaster.intersectObjects(this.clickableObjects);
 
-    if (intersects.length > 0) {
+    if (intersects.length > 0 && !this.addKiosk) {
       const clickedObject = intersects[0].object;
 
       // Get the position of the clicked object
@@ -330,8 +335,8 @@ export class AdminMapViewerComponent implements OnChanges {
         kioskStatus: string;
         kioskDescription: string;
         kioskImage: string;
-        posx: string;
-        posy: string;
+        posx: number;
+        posy: number;
       };
       const kioskId = userData.kioskId;
       const kioskName = userData.name;
@@ -375,6 +380,26 @@ export class AdminMapViewerComponent implements OnChanges {
     this.renderer.render(this.scene, this.camera);
   }
 
+  ngDoCheck(): void {// Create the new kiosk geometry and material
+    if (this.addKiosk) {
+      const newBoxGeometry = new THREE.BoxGeometry(0.15, 0.15, 0.15);
+      const newBoxMaterial = new THREE.MeshBasicMaterial({ color: 0x5e503f });
+      const newKiosk = new THREE.Mesh(newBoxGeometry, newBoxMaterial);
+      newKiosk.position.set(this.posx, 0.65, this.posy);
+      this.posx = this.kioskX;
+      this.posy = this.kioskY;
+      //1.8 max buttom ; -2.6  max top ; 5 max right ; -3.5 max left 
+      if (this.myKiosk) {
+        this.scene.remove(this.myKiosk);
+      }
+      this.scene.add(newKiosk);
+      this.myKiosk = newKiosk;
+    }
+    else {
+      this.scene.remove(this.myKiosk);
+    }
+
+  }
   ngOnDestroy(): void {
     if (this.model) {
       this.scene.remove(this.model);
@@ -420,45 +445,46 @@ export class AdminMapViewerComponent implements OnChanges {
   }
 
   onSubmit() {
+    if (this.submitted) {
+      const formData = new FormData();
+      // Append form data (strings and numbers)
+      formData.append('kioskId', this.kioskId);
+      formData.append('kioskName', this.kioskName);
+      formData.append('posx', this.posx.toString());
+      formData.append('posy', this.posy.toString());
+      formData.append('kioskDescription', this.kioskDescription);
+      formData.append('status', this.kioskStatus);
 
-    const formData = new FormData();
-    // Append form data (strings and numbers)
-    formData.append('kioskId', this.kioskId);
-    formData.append('kioskName', this.kioskName);
-    formData.append('posx', this.posx);
-    formData.append('posy', this.posy);
-    formData.append('kioskDescription', this.kioskDescription);
-    formData.append('status', this.kioskStatus);
-
-    // Check if image file exists and append it to the FormData
-    if (this.kioskUploadImage) {
-      formData.append('kioskUploadImage', this.kioskUploadImage, this.kioskUploadImage.name);
-    }
-    this.loading = true;
-    // Call service method to update the event
-    this.adminService.updateKiosk(formData).subscribe({
-      next: (response) => {
-        this.loading = false;
-        if (response.success) {
-          sessionStorage.setItem('submit', 'true');
-          this.closeModal();
-          this.kioskId = '';
-          this.kioskName = '';
-          this.kioskDescription = '';
-          this.posx = '';
-          this.posy = '';
-          this.kioskStatus = '';
-          this.kioskUploadImage = null;
-          this.kioskUploadImageName = '';
-          window.location.reload();
-        }
-      },
-      error: (error) => {
-        this.errorMessage = 'Error submitting the application. Please try again.';
-        console.error(error);
+      // Check if image file exists and append it to the FormData
+      if (this.kioskUploadImage) {
+        formData.append('kioskUploadImage', this.kioskUploadImage, this.kioskUploadImage.name);
       }
-    });
+      this.loading = true;
+      // Call service method to update the event
+      this.adminService.updateKiosk(formData).subscribe({
+        next: (response) => {
+          this.loading = false;
+          if (response.success) {
+            sessionStorage.setItem('submit', 'true');
+            this.closeModal();
+            this.kioskId = '';
+            this.kioskName = '';
+            this.kioskDescription = '';
+            this.posx = 0;
+            this.posy = 0;
+            this.kioskStatus = '';
+            this.kioskUploadImage = null;
+            this.kioskUploadImageName = '';
+            window.location.reload();
+          }
+        },
+        error: (error) => {
+          this.errorMessage = 'Error submitting the application. Please try again.';
+          console.error(error);
+        }
+      });
 
+    }
     // Close the modal after submission
   }
 

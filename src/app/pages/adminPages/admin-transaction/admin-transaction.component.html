@@ -163,7 +163,7 @@
             </div>
             <div class="flex justify-center items-center px-1">
                 <button
-                    (click)="viewUser=!viewUser; viewUserName=transac.First_name+' '+transac.Last_name; viewDate=formatDate(transac.date_created.toString());viewEvent=transac.event_name;viewKiosk=transac.kiosk_name;viewReceipt=transac.receipt_number;viewPurpose=transac.purpose;viewThings=transac.requirements;viewDateRequested=transac.date_req; viewMayors=transac.mayors_permit;viewSanitary=transac.sanitary_permit;viewBusiness=transac.business_permit">
+                    (click)="viewUser=!viewUser;viewFormId=transac.form_id ;viewUserName=transac.First_name+' '+transac.Last_name; viewDate=formatDate(transac.date_created.toString());firstName=transac.First_name;lastName=transac.Last_name ;viewEvent=transac.event_name;viewKiosk=transac.kiosk_name;viewReceipt=transac.receipt_number;viewPurpose=transac.purpose;viewThings=transac.requirements;viewDateRequested=transac.date_req; viewMayors=transac.mayors_permit;viewSanitary=transac.sanitary_permit;viewBusiness=transac.business_permit">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24">
                         <path
                             d="M32 12C18 12 6.3 24 2 32c4.3 8 16 20 30 20s25.7-12 30-20c-4.3-8-16-20-30-20zm0 34c-8.3 0-15-6.7-15-15s6.7-15 15-15 15 6.7 15 15-6.7 15-15 15zm0-24c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9z"
@@ -191,8 +191,8 @@
         class="absolute top-0 left-1/2 transform -translate-x-1/2 mt-4 border-4 border-gray-300 bg-gray-50 w-3/4 h-[90%] flex flex-col z-[10001] shadow-lg">
         <!-- Close Button -->
         <button (click)="viewPdf=!viewPdf"
-            class="absolute top-2 right-2 py-1 hover:bg-green-700 hover:text-gray-200 text-lg text-center  cursor-pointer text-gray-50 rounded-full bg-customDarkGreen size-10 flex items-center justify-center">
-            x
+            class="absolute top-3 right-[16px] hover:bg-[#747775] hover:text-gray-200 text-sm  text-center  cursor-pointer text-gray-50 rounded-full bg-[#323639FF] size-8 flex items-center justify-center">
+            <span>x</span>
         </button>
 
         <!-- Conditional PDF Embed -->
@@ -209,161 +209,183 @@
 
 
 
-    <div *ngIf="selectorDate|| viewUser || updatedRequestedDate || loading"
-        class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[70rem] overflow-hidden w-full z-[1000]">
-    </div>
 
-    <div *ngIf="selectorDate"
-        class="animate-fadeIn overflow-hidden  absolute top-[15rem] pt-8 px-8 grid justify-center items-center  left-1/2 transform -translate-x-1/2 w-3/4 h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[10001] bg-customDarkGreen">
-        <div class="flex flex-col w-full h-40 justify-center items-center space-y-8">
-            <p class="text-lg text-center text-red-50 pt-4">
-                Please enter the date you wish to schedule!
-                In the field provided below.
-            </p>
+    <div *ngIf="selectorDate|| viewUser || updatedRequestedDate || loading">
+        <div class="animate-fadeIn fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-[10000]">
 
-            <div class="form-group w-72">
-                <label class="text-white">Requested Date</label>
-                <input type="date" id="dateRequested" [(ngModel)]="dateRequested" [min]="minDate" [max]="maxDate"
-                    [ngModelOptions]="{standalone: true}" name="dateRequested" required placeholder="Date requested"
-                    class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
+            <div *ngIf="selectorDate"
+                class=" animate-fadeIn overflow-hidden  absolute top-[15rem] pt-8 px-8 grid justify-center items-center  left-1/2 transform -translate-x-1/2 w-3/4 h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[10001] bg-customDarkGreen">
+                <div class="flex flex-col w-full h-40 justify-center items-center space-y-8">
+                    <p class="text-lg text-center text-red-50 pt-4">
+                        Please enter the date you wish to schedule!
+                        In the field provided below.
+                    </p>
 
-                <p class="h-12 text-sm text-center mt-8 text-red-500 ">
-                    <span *ngIf="counter>1">
-                        Requested date is required, please input in the field provided</span>
-                </p>
-            </div>
+                    <div class="form-group w-72">
+                        <label class="text-white">Requested Date</label>
+                        <input type="date" id="dateRequested" [(ngModel)]="dateRequested" [min]="minDate"
+                            [max]="maxDate" [ngModelOptions]="{standalone: true}" name="dateRequested" required
+                            placeholder="Date requested"
+                            class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
 
-        </div>
-        <div class="flex justify-between w-full">
-            <button (click)="selectorDate=!selectorDate"
-                class="h-12 w-24 bg-red-400 rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">Cancel</button>
-            <button value="approved"
-                (click)="onOptionSelected($event, userId, eventId, kioskId, formId,userEmail,this.dateRequested)"
-                class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Submit</button>
-        </div>
-    </div>
-    <div *ngIf="viewUser"
-        class="animate-fadeIn overflow-hidden absolute top-[5rem] p-8 grid justify-center items-center left-1/2 transform -translate-x-1/2 w-full h-3/4 md:h-3/4 md:w-3/4 border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[10001] bg-customDarkGreen">
+                        <p class="h-12 text-sm text-center mt-8 text-red-500 ">
+                            <span *ngIf="counter>1">
+                                Requested date is required, please input in the field provided</span>
+                        </p>
+                    </div>
 
-        <div class="absolute top-4 right-4">
-            <button value="approved" (click)="viewUser=!viewUser"
-                class="size-12 bg-green-600 rounded-full text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">x</button>
-        </div>
-        <div class="grid grid-cols-2 w-full h-full justify-start items-start gap-x-4 gap-y-0 px-8 pb-4">
-
-            <p class="md:col-span-1 col-span-2 text-2xl md:text-3xl text-center text-red-50 font-bold h-full ">
-                Transaction Details
-            </p>
-            <p class="hidden md:inline text-2xl md:text-3xl text-center text-red-50 font-bold h-full ">Permits</p>
-
-        </div>
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 w-full h-full justify-start items-start gap-x-4 gap-y-0 overflow-auto p-4 md:p-8">
-            <div class="grid grid-cols-2 w-full h-full justify-start items-start gap-y-2">
-
-                <p class="labelForm  ">
-                    Date Created:
-                </p>
-                <p class="valueForm ">
-                    {{viewDate}}
-                </p>
-                <p class="labelForm">
-                    Date requested:
-                </p>
-                <p class="valueForm">
-                    <span *ngIf='viewDateRequested'>{{formatDate(viewDateRequested)}}</span>
-                    <span *ngIf='!viewDateRequested'>Not yet approved</span>
-                </p>
-                <p class="labelForm">
-                    Full Name:
-                </p>
-                <p class="valueForm">
-                    {{viewUserName}}
-                </p>
-                <p class="labelForm">
-                    Event Name:
-                </p>
-                <p class="valueForm">
-                    {{viewEvent}}
-                </p>
-                <p class="labelForm">
-                    Kiosk Name:
-                </p>
-                <p class="valueForm">
-                    {{viewKiosk}}
-                </p>
-                <p class="labelForm">
-                    Receipt Number:
-                </p>
-                <p class="valueForm">
-                    <span *ngIf='viewReceipt'>{{viewReceipt}}</span>
-                    <span *ngIf='!viewReceipt'>Not yet paid</span>
-                </p>
-                <p
-                    class="text-sm md:text-lg font-semibold min-h-40 h-40 max-h-40 text-left py-2 text-red-50 rounded-l-xl border-b-2 border-l-2 border-t-2 border-gray-50 pl-3">
-                    Purpose:
-                </p>
-                <textarea readonly
-                    class="min-h-40 h-40 max-h-40 text-sm md:text-lg text-left bg-transparent py-2 text-red-50 rounded-r-xl border-b-2 border-r-2 border-t-2 border-gray-50 focus:outline-none focus:ring-none">{{toSentenceCase(viewPurpose)}}</textarea>
-                <p
-                    class="text-sm md:text-lg font-semibold min-h-40 h-40 max-h-40 text-left py-2 text-red-50 rounded-l-xl border-b-2 border-l-2 border-t-2 border-gray-50 pl-3">
-                    Things:
-                </p>
-                <textarea readonly
-                    class="min-h-40 h-40 max-h-40 text-sm md:text-lg text-left bg-transparent py-2 text-red-50 rounded-r-xl border-b-2 border-r-2 border-t-2 border-gray-50 focus:outline-none focus:ring-none">{{removeLastComma(viewThings)}}</textarea>
-            </div>
-            <div class="grid grid-cols-1  gap-2 text-lg overflow-auto">
-                <p
-                    class="flex items-center justify-center md:hidden col-span-1 md:col-span-2 text-2xl md:text-3xl text-center text-red-50 font-bold h-full py-4">
-                    Permits</p>
-                <div *ngIf="!viewMayors && !viewBusiness && !viewSanitary"
-                    class="flex justify-center items-center border-2 border-gray-50 rounded-xl">
-                    <div
-                        class="h-96 w-full rounded-lg object-contain text-gray-50 text-xl flex justify-center items-center">
-                        Permit not available</div>
                 </div>
-                <div *ngIf="viewMayors"
-                    class="flex flex-col justify-center items-center border-2 border-gray-50 rounded-xl">
-                    <label class="text-white font-semibold">Mayors Permit</label>
-                    <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/requirementsImages/{{viewMayors}}"
-                        class="size-full position-center rounded-lg object-contain" alt="{{viewMayors}}" />
-                </div>
-                <div *ngIf="viewBusiness"
-                    class="flex flex-col justify-center items-center border-2 border-gray-50 rounded-xl">
-                    <label class="text-white font-semibold">Business Permit</label>
-                    <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/requirementsImages/{{viewBusiness}}"
-                        class="size-full position-center  rounded-lg object-contain" alt="{{viewMayors}}" />
-                </div>
-                <div *ngIf="viewSanitary"
-                    class="flex flex-col justify-center items-center border-2 border-gray-50 rounded-xl">
-                    <label class="text-white font-semibold">Sanitary Permit</label>
-                    <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/requirementsImages/{{viewSanitary}}"
-                        class="size-full position-center object-contain" alt="{{viewMayors}}" />
+                <div class="flex justify-between w-full">
+                    <button (click)="selectorDate=!selectorDate"
+                        class="h-12 w-24 bg-red-400 rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">Cancel</button>
+                    <button value="approved"
+                        (click)="onOptionSelected($event, userId, eventId, kioskId, formId,userEmail,this.dateRequested)"
+                        class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Submit</button>
                 </div>
             </div>
+            <div *ngIf="viewUser"
+                class="animate-fadeIn overflow-hidden absolute top-[5rem] p-8 grid justify-center items-center left-1/2 transform -translate-x-1/2 w-full h-3/4 md:h-3/4 md:w-3/4 border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[10001] bg-customDarkGreen">
+
+                <div class="absolute top-4 right-4">
+                    <button value="approved" (click)="viewUser=!viewUser"
+                        class="size-12 bg-green-600 rounded-full text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">x</button>
+                </div>
+                <div class="grid grid-cols-2 w-full h-full justify-start items-start gap-x-4 gap-y-0 px-8 pb-4">
+
+                    <p class="md:col-span-1 col-span-2 text-2xl md:text-3xl text-center text-red-50 font-bold h-full ">
+                        Transaction Details
+                    </p>
+                    <p class="hidden md:inline text-2xl md:text-3xl text-center text-red-50 font-bold h-full ">Forms,
+                        and
+                        Permits</p>
+
+                </div>
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 w-full h-full justify-start items-start gap-x-4 gap-y-0 overflow-auto p-4 md:p-8">
+                    <div class="grid grid-cols-2 w-full h-full justify-start items-start gap-y-2">
+
+                        <p class="labelForm  ">
+                            Date Created:
+                        </p>
+                        <p class="valueForm ">
+                            <span class=" leading-none">{{viewDate}}</span>
+                        </p>
+                        <p class="labelForm leading-none">
+                            <span class=" leading-none">Date requested:</span>
+                        </p>
+                        <p class="valueForm leading-none">
+                            <span *ngIf='viewDateRequested!="0000-00-00 00:00:00"'
+                                class=" leading-none">{{formatDate(viewDateRequested)}}</span>
+                            <span *ngIf='viewDateRequested=="0000-00-00 00:00:00"' class=" leading-none">Not yet
+                                approved</span>
+                        </p>
+                        <p class="labelForm">
+                            Full Name:
+                        </p>
+                        <p class="valueForm">
+                            <span class=" leading-none">{{viewUserName}}</span>
+                        </p>
+                        <p class="labelForm">
+                            Event Name:
+                        </p>
+                        <p class="valueForm">
+                            <span class=" leading-none">{{viewEvent}}</span>
+                        </p>
+                        <p class="labelForm">
+                            Kiosk Name:
+                        </p>
+                        <p class="valueForm">
+                            <span class=" leading-none">{{viewKiosk}}</span>
+                        </p>
+                        <p class="labelForm">
+                            Receipt Number:
+                        </p>
+                        <p class="valueForm">
+                            <span *ngIf='viewReceipt' class=" leading-none">{{viewReceipt}}</span>
+                            <span *ngIf='!viewReceipt' class=" leading-none">Not yet paid</span>
+                        </p>
+                        <p
+                            class="text-sm md:text-lg font-semibold min-h-40 h-40 max-h-40 text-left py-2 text-red-50 rounded-l-xl border-b-2 border-l-2 border-t-2 border-gray-50 pl-3">
+                            Purpose:
+                        </p>
+                        <textarea readonly
+                            class="min-h-40 h-40 max-h-40 text-sm md:text-lg text-left bg-transparent py-2 text-red-50 rounded-r-xl border-b-2 border-r-2 border-t-2 border-gray-50 focus:outline-none focus:ring-none">{{toSentenceCase(viewPurpose)}}</textarea>
+                        <p
+                            class="text-sm md:text-lg font-semibold min-h-40 h-40 max-h-40 text-left py-2 text-red-50 rounded-l-xl border-b-2 border-l-2 border-t-2 border-gray-50 pl-3">
+                            Things:
+                        </p>
+                        <textarea readonly
+                            class="min-h-40 h-40 max-h-40 text-sm md:text-lg text-left bg-transparent py-2 text-red-50 rounded-r-xl border-b-2 border-r-2 border-t-2 border-gray-50 focus:outline-none focus:ring-none">{{removeLastComma(viewThings)}}</textarea>
+                    </div>
+                    <div class="grid grid-cols-1  gap-2 text-lg overflow-auto">
+
+                        <p
+                            class="flex items-center justify-center md:hidden col-span-1 md:col-span-2 text-2xl md:text-3xl text-center text-red-50 font-bold h-full py-4">
+                            Forms, and Permits</p>
+                        <div class="flex-col justify-center items-center text-gray-50 w-full">
+                            <label class="text-white w-full font-semibold">Application Form:</label>
+                            <button *ngIf="viewDateRequested!='0000-00-00 00:00:00'"
+                                (click)="downloadForm(viewFormId.toString())"
+                                class="bg-green-800 h-8 w-full border-2 leading-none border-gray-50 text-xs md:text-sm rounded-lg hover:bg-green-900 hover:text-white">
+                                Download User Application Form
+                            </button>
+                            <div *ngIf="viewDateRequested=='0000-00-00 00:00:00'"
+                                class="flex justify-center items-center border-2 leading-none border-gray-50 bg-green-800 h-8 w-full text-xs md:text-sm rounded-lg ">
+                                User Application Form Not Available
+                            </div>
+                        </div>
+                        <div *ngIf="!viewMayors && !viewBusiness && !viewSanitary"
+                            class="flex-col justify-center items-center ">
+                            <label class="text-white font-semibold">Permit:</label>
+                            <div
+                                class="h-96 w-full border-2 border-gray-50 rounded-xl object-contain text-gray-50 text-xl flex justify-center items-center">
+                                Permit not available</div>
+                        </div>
+                        <div *ngIf="viewMayors" class="flex flex-col justify-start items-start ">
+                            <label class="text-white font-semibold text-left">Mayors Permit:</label>
+                            <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/requirementsImages/{{viewMayors}}"
+                                class="size-full position-center  object-contain border-2 border-gray-50 rounded-xl"
+                                alt="{{viewMayors}}" />
+                        </div>
+                        <div *ngIf="viewBusiness" class="flex flex-col justify-start items-start ">
+                            <label class="text-white font-semibold text-left">Business Permit:</label>
+                            <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/requirementsImages/{{viewBusiness}}"
+                                class="size-full position-center object-contain border-2 border-gray-50 rounded-xl"
+                                alt="{{viewMayors}}" />
+                        </div>
+                        <div *ngIf="viewSanitary" class="flex flex-col justify-start items-start ">
+                            <label class="text-white font-semibold text-left">Sanitary Permit:</label>
+                            <img src="https://mapp-thesis.infotech3c.com/public/dbAssets/requirementsImages/{{viewSanitary}}"
+                                class="size-full position-center object-contain border-2 border-gray-50 rounded-xl"
+                                alt="{{viewMayors}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="updatedRequestedDate"
+                class="animate-fadeIn overflow-hidden  absolute top-[15rem] px-8 grid justify-center items-center  left-1/2 transform -translate-x-1/2 w-3/4 h-[380px]  md:h-[380px] md:w-96 border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[10001] bg-customDarkGreen">
+                <div class="flex flex-col w-full h-40 justify-center items-center space-y-8">
+                    <p class="text-lg md:text-2xl text-center text-gray-50 ">
+                        The requested date, and status has been successfully updated,
+                        User has been notified.
+                    </p>
+                </div>
+                <div class="flex justify-end w-full">
+                    <button (click)="updatedRequestedDate=!updatedRequestedDate; changeVal()"
+                        class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Okay</button>
+                </div>
+            </div>
+
+
+            <div *ngIf="loading"
+                class="absolute inset-0 flex flex-col items-center justify-center h-[70rem] overflow-hidden w-full z-[1001]">
+                <!-- Spinning Loader -->
+                <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+                <!-- Loading Text -->
+                <p class="mt-4 font-bold text-xs">loading...</p>
+            </div>
         </div>
     </div>
 
-
-    <div *ngIf="updatedRequestedDate"
-        class="animate-fadeIn overflow-hidden  absolute top-[15rem] px-8 grid justify-center items-center  left-1/2 transform -translate-x-1/2 w-3/4 h-[380px]  md:h-[380px] md:w-3/4 border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[10001] bg-customDarkGreen">
-        <div class="flex flex-col w-full h-40 justify-center items-center space-y-8">
-            <p class="text-lg md:text-2xl text-center text-gray-50 ">
-                The requested date, and status has been successfully updated,
-                User has been notified.
-            </p>
-        </div>
-        <div class="flex justify-end w-full">
-            <button (click)="updatedRequestedDate=!updatedRequestedDate; changeVal()"
-                class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Okay</button>
-        </div>
-    </div>
-
-
-    <div *ngIf="loading"
-        class="absolute inset-0 flex flex-col items-center justify-center h-[70rem] overflow-hidden w-full z-[1001]">
-        <!-- Spinning Loader -->
-        <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
-        <!-- Loading Text -->
-        <p class="mt-4 font-bold text-xs">loading...</p>
-    </div>

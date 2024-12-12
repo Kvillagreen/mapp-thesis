@@ -82,8 +82,8 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     if (sessionStorage.getItem('isLoggedIn') == 'login') {
       this.dynamicControl();
+      this.getNotification();
     }
-    this.getNotification();
   }
   getNotification(): void {
     const tokenId = sessionStorage.getItem('tokenId') ?? '';

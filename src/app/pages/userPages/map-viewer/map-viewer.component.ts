@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -37,6 +37,9 @@ export class MapViewerComponent implements OnChanges {
   kioskDescription: string = '';
   mapTerrain: boolean = false;
   kioskImage: string = '';
+  kisokx: number = 0;
+  kisoky: number = 0;
+  myKiosk: any;
   private currentModel: THREE.Object3D | undefined;
 
   @ViewChild('modelContainer', { static: true }) modelContainer!: ElementRef;
@@ -53,9 +56,11 @@ export class MapViewerComponent implements OnChanges {
   ngOnChanges(isMap: SimpleChanges): void {
 
   }
-  goToDashBoard(){
+  goToDashBoard() {
     this.router.navigate(['/dashboard']);
   }
+  
+
   ngOnInit(): void {
 
     this.renderer.domElement.addEventListener('click', (event) => this.onMouseClick(event));
@@ -77,12 +82,15 @@ export class MapViewerComponent implements OnChanges {
     directionalLight.position.set(20, 20, 20).normalize();
     this.scene.add(directionalLight);
     const eventId = sessionStorage.getItem('eventId') ?? '';
+
+    const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xffbe0b });
+    // Create a Mesh for the kiosk box and set its position
     this.eventService.getKioskMap(eventId).subscribe((data) => {
       this.kioskData = data;
 
       data.forEach((kiosk: any) => {
-        // Create a box geometry for the kiosk
-        const boxGeometry = new THREE.BoxGeometry(0.15, 0.15, 0.15); // Width, height, depth
+
+        const boxGeometry = new THREE.BoxGeometry(0.15, 0.15, 0.15);
         if (kiosk.status == 'available') {
           const boxMaterial = new THREE.MeshBasicMaterial({ color: 0x52796f });
           // Create a Mesh for the kiosk box and set its position

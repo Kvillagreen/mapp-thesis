@@ -46,7 +46,7 @@
                     (change)="onFileChange($event)" required />
             </div>
 
-            <div  class="mb-4 h-8">
+            <div class="mb-4 h-8">
                 <p *ngIf="errorMessage" class="text-center text-md text-red-300">{{errorMessage}}</p>
             </div>
 
@@ -75,10 +75,16 @@
     </div>
 </div>
 
-<div *ngIf="loading"
-    class="absolute inset-0 flex flex-col items-center justify-center h-[70rem] bg-white opacity-50 overflow-hidden w-full z-[1001]">
-    <!-- Spinning Loader -->
-    <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
-    <!-- Loading Text -->
-    <p class="mt-4 font-bold text-xs">loading...</p>
+
+
+
+<div *ngIf="loading">
+    <div class="animate-fadeIn fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-[100]">
+        <div *ngIf="loading" class="absolute inset-0 flex flex-col items-center justify-center  h-full w-full z-[100]">
+            <!-- Spinning Loader -->
+            <div class="animate-spin rounded-full h-20 w-20 border-t-4 border-black"></div>
+            <!-- Loading Text -->
+            <p class="mt-4 font-bold text-xs">loading...</p>
+        </div>
+    </div>
 </div>

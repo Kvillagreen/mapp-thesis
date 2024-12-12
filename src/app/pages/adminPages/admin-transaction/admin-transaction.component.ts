@@ -57,6 +57,7 @@ export class AdminTransactionComponent implements OnInit {
   eventId: number = 0;
   kioskId: number = 0;
   formId: number = 0;
+  viewFormId:number=0;
   viewUserName: string = '';
   viewDate: string = '';
   viewEvent: string = '';
@@ -359,11 +360,11 @@ export class AdminTransactionComponent implements OnInit {
     }
     return paidCount;
   }
+
   downloadForm(form_id: string): void {
-    this.firstName = sessionStorage.getItem('firstName') ?? '';
-    this.lastName = sessionStorage.getItem('lastName') ?? '';
     this.eventService.downloadForm(form_id, this.firstName, this.lastName);
   }
+
   changeVal() {
     sessionStorage.setItem('updatedRequestedDate', 'false')
   }

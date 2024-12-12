@@ -27,7 +27,7 @@
       <!-- Checkbox for days within the range -->
       <div *ngIf="day.checkbox!=2 " class="flex justify-center items-center mt-2"
         (change)="checkDate(day.date??0, day.checkbox,day.exactDate)">
-        <input value="{{day.exactDate}}" type="checkbox" id="checkbox-{{ day.date }}" class="cursor-pointer" />
+        <input value="{{day.exactDate}}" type="checkbox" id="checkbox-{{ day.date }}" class=" md: cursor-pointer" />
       </div>
     </div>
   </div>
