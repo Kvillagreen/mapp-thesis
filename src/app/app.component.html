@@ -29,7 +29,7 @@
       <div class="w-full h-16">
         <div *ngIf="userData.length==0" class="bg-green-800  h-16 overflow-hidden">
           <div 
-            class="h-16 bg-customDarkGreen max-full animate-gradient-wave  z-100 items-center justify-between bg-customDarkGreen px-2 md:px-6 py-4">
+            class="h-16 bg-customDarkGreen max-full animate-gradient-wave  z-100 items-center justify-between  px-2 md:px-6 py-4">
           </div>
         </div>
         <div class="flex justify-between items-center h-16 bg-[#2c6e49] shadow-[#1b4332] shadow-md px-4 py-4 overflow-hidden"
@@ -42,8 +42,8 @@
               </svg>
             </button>
           </div>
-          <div class="flex justify-center">
-            <button #notifyButton (click)="toggleNotificationBar()"
+          <div #notifyButton class="flex justify-center">
+            <button  (click)="toggleNotificationBar()"
               class="text-white rounded-md text-sm flex items-center justify-between w-auto pr-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 48 48" fill="#ffffff">
                 <path

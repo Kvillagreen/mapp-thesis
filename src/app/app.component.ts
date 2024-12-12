@@ -60,7 +60,9 @@ export class AppComponent implements OnInit, DoCheck {
       this.toggleNotification === true
     ) {
       this.toggleNotification = false;
+      console.log('close')
     } else {
+      console.log('open')
       event.stopPropagation();
     } if (
       this.sidebar?.nativeElement &&

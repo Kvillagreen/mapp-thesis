@@ -11,7 +11,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import emailjs from 'emailjs-com';
 import { CalendarUserComponent } from '../../userPages/calendar-user/calendar-user.component';
 @Component({
-  imports: [FormsModule, CommonModule, PdfViewerModule, NgxExtendedPdfViewerModule, CalendarUserComponent],
+  imports: [FormsModule, CommonModule, PdfViewerModule, NgxExtendedPdfViewerModule],
   selector: 'app-admin-transaction',
   standalone: true,
   templateUrl: './admin-transaction.component.html',
@@ -282,7 +282,6 @@ export class AdminTransactionComponent implements OnInit {
   }
   // Method to get the current page of transactions
   getTransactionsToDisplay(): any[] {
-
     // Filter transactions based on search text
     let filteredTransactions = this.userTransaction.filter((transac) =>
       this.toLowerCaseSafe(transac.status).includes(this.toLowerCaseSafe(this.searchText)) ||

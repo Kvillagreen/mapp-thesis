@@ -199,7 +199,7 @@
                 {{statusViewer(transac.status)}}
                 <span
                     *ngIf="dateVerifier(transac.date_req) && transac.date_req != '0000-00-00 00:00:00' && transac.status == 'approved'"
-                    class="text-red-300">(over due)</span>
+                    class="text-red-300">(Missed Date)</span>
         </div>
 
         <div class="flex justify-between items-center">

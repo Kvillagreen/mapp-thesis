@@ -131,8 +131,8 @@
                 {{formatDate(transac.date_created)}}</div>
             <div class="flex justify-center items-center leading-none">{{ transac.First_name+' '+transac.Last_name}}
             </div>
-            <div id="dropdown" class="flex justify-center items-center leading-none">
-                <select class="bg-customDarkGreen border-none outline-none w-96"
+            <div id="dropdown" class="flex justify-center items-center leading-none  overflow-x-hidden">
+                <select class="bg-customDarkGreen border-none outline-none w-48 md:w-96"
                     [disabled]="dateVerifier(transac.date_req) && transac.date_req != '0000-00-00 00:00:00' && transac.status == 'approved' "
                     (change)="onOptionSelected($event, transac.user_id, transac.event_id, transac.kiosk_id, transac.form_id, transac.Email, transac.date_req)">
                     <option value="" [ngClass]="{'bg-customDarkGreen rounded-md hover:bg-green-500 hidden': true}"
@@ -140,7 +140,7 @@
                         {{ statusViewer(transac.status) || 'Select an option' }}
                         <span
                             *ngIf="dateVerifier(transac.date_req) && transac.date_req != '0000-00-00 00:00:00' && transac.status == 'approved'"
-                            class="text-red-200">(over due)</span>
+                            class="text-red-200">(Missed Date)</span>
                     </option>
                     <option *ngFor="let option of statusOptions"
                         [ngClass]="{'bg-customDarkGreen rounded-md hover:bg-green-500': true}"
@@ -258,7 +258,7 @@
 
         </div>
         <div
-            class="grid grid-cols-1 md:grid-cols-2 w-full h-full justify-start items-start gap-x-4 gap-y-0 overflow-auto p-8">
+            class="grid grid-cols-1 md:grid-cols-2 w-full h-full justify-start items-start gap-x-4 gap-y-0 overflow-auto p-4 md:p-8">
             <div class="grid grid-cols-2 w-full h-full justify-start items-start gap-y-2">
 
                 <p class="labelForm  ">
@@ -271,7 +271,7 @@
                     Date requested:
                 </p>
                 <p class="valueForm">
-                    <span *ngIf='viewDateRequested'>{{viewDateRequested}}</span>
+                    <span *ngIf='viewDateRequested'>{{formatDate(viewDateRequested)}}</span>
                     <span *ngIf='!viewDateRequested'>Not yet approved</span>
                 </p>
                 <p class="labelForm">
@@ -300,17 +300,17 @@
                     <span *ngIf='!viewReceipt'>Not yet paid</span>
                 </p>
                 <p
-                    class="text-lg font-semibold min-h-40 h-40 max-h-40 text-left text-red-50 rounded-l-xl border-b-2 border-l-2 border-t-2 border-gray-50 pl-3">
+                    class="text-sm md:text-lg font-semibold min-h-40 h-40 max-h-40 text-left py-2 text-red-50 rounded-l-xl border-b-2 border-l-2 border-t-2 border-gray-50 pl-3">
                     Purpose:
                 </p>
                 <textarea readonly
-                    class="min-h-40 h-40 max-h-40 text-lg text-left bg-transparent text-red-50 rounded-r-xl border-b-2 border-r-2 border-t-2 border-gray-50 focus:outline-none focus:ring-none">{{toSentenceCase(viewPurpose)}}</textarea>
+                    class="min-h-40 h-40 max-h-40 text-sm md:text-lg text-left bg-transparent py-2 text-red-50 rounded-r-xl border-b-2 border-r-2 border-t-2 border-gray-50 focus:outline-none focus:ring-none">{{toSentenceCase(viewPurpose)}}</textarea>
                 <p
-                    class="text-lg font-semibold min-h-40 h-40 max-h-40 text-left text-red-50 rounded-l-xl border-b-2 border-l-2 border-t-2 border-gray-50 pl-3">
+                    class="text-sm md:text-lg font-semibold min-h-40 h-40 max-h-40 text-left py-2 text-red-50 rounded-l-xl border-b-2 border-l-2 border-t-2 border-gray-50 pl-3">
                     Things:
                 </p>
                 <textarea readonly
-                    class="min-h-40 h-40 max-h-40 text-lg text-left bg-transparent text-red-50 rounded-r-xl border-b-2 border-r-2 border-t-2 border-gray-50 focus:outline-none focus:ring-none">{{removeLastComma(viewThings)}}</textarea>
+                    class="min-h-40 h-40 max-h-40 text-sm md:text-lg text-left bg-transparent py-2 text-red-50 rounded-r-xl border-b-2 border-r-2 border-t-2 border-gray-50 focus:outline-none focus:ring-none">{{removeLastComma(viewThings)}}</textarea>
             </div>
             <div class="grid grid-cols-1  gap-2 text-lg overflow-auto">
                 <p

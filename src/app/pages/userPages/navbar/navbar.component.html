@@ -1,7 +1,7 @@
 <div class="fixed w-full z-[100] " *ngIf="userType=='user'">
   <div class="bg-green-800">
     <div *ngIf="userData.length==0"
-      class="h-20 bg-customDarkGreen max-full animate-gradient-wave  z-100 h-20 items-center justify-between bg-customDarkGreen px-2 md:px-6 py-4">
+      class="h-20  max-full animate-gradient-wave  z-100 items-center justify-between bg-customDarkGreen px-2 md:px-6 py-4">
     </div>
   </div>
   <div class="flex max-full z-100 items-center justify-between bg-customDarkGreen px-2 md:px-6 py-4"
@@ -33,12 +33,12 @@
       <div class="md:flex hidden justify-center items-center">
         <div>
           <img *ngIf="!user.profile_image"
-            src="https://mapp-thesis.infotech3c.com/public/assets/images/defaultProfile.png"
+            src="./assets/images/defaultProfile.png"
             class="size-10 bg-black rounded-full ">
 
         </div>
         <button #drop (click)="toggleSettings()"
-          class=" hidden md:flex text-gray-800 pl-2 text-white text-xl font-bold justify-center text-gray-200 hover:text-white align-center ">
+          class=" hidden md:flex  pl-2  text-xl font-bold justify-center text-gray-200 hover:text-white align-center ">
           {{
           user.First_name | slice:0:6 }}<span *ngIf="user.First_name.length>6">...</span>
           <span>
@@ -247,7 +247,7 @@
 
 
   
-<div *ngIf="logOut == true" class="animate-fadeIn fixed inset-0 flex justify-center items-center z-[10000] items-center justify-center bg-white bg-opacity-50 h-full w-full z-[100]">
+<div *ngIf="logOut == true" class="animate-fadeIn fixed inset-0 flex justify-center items-center  bg-white bg-opacity-50 h-full w-full z-[100]">
 </div>
 <div *ngIf="logOut == true" class="animate-fadeIn fixed inset-0 flex justify-center items-center z-[10000]">
     <div

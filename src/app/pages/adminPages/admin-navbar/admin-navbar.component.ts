@@ -21,6 +21,7 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
   control: string = '';
   history: string = '';
   logOut: boolean = false;
+  notifData: string[] = [];
   constructor(public router: Router, public adminService: AdminService) {
 
   }
@@ -74,6 +75,7 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
     if (sessionStorage.getItem('isLoggedIn') == 'login') {
       setInterval(() => {
         this.dynamicControl();
+        this.getNotification();
       }, 120000);
     }
   }
@@ -81,7 +83,35 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
     if (sessionStorage.getItem('isLoggedIn') == 'login') {
       this.dynamicControl();
     }
+    this.getNotification();
   }
+  getNotification(): void {
+    const tokenId = sessionStorage.getItem('tokenId') ?? '';
+    this.adminService.getNotification(tokenId).subscribe({
+      next: (data: any) => {
+        this.notifData = data; // Assuming `data` is an array of strings
+      },
+      error: (err) => {
+        console.error('Error fetching notifications:', err);
+      }
+    });
+  }
+
+  getUserNotif(type: string): string {
+    let count = 0;
+    if (type == 'user') {
+      count = this.notifData.filter((notification: any) =>
+        notification.message?.startsWith('User created account,') &&  notification.status?.startsWith('unread')
+      ).length;
+    }
+    else {
+      count = this.notifData.filter((notification: any) =>
+        !notification.message?.startsWith('User created account,') &&  notification.status?.startsWith('unread')
+      ).length;
+    }
+    return count.toString();
+  }
+
 
   isSidebarVisible() {
     sessionStorage.setItem('isSidebarVisible', 'true')

@@ -1,5 +1,4 @@
 <div class="h-full flex items-center justify-center overflow-hidden">
-
     <div
         class="grid grid-cols-1 md:grid-cols-2 items-start shadow-bottom shadow-black pt-28   min-h-screen-sm w-full md:max-w-screen-xl md:rounded-l-xl">
         <div class="justify-center items-center h-full w-full bg-gray-50  ">
@@ -7,7 +6,6 @@
         </div>
         <div
             class="h-full  w-full md:px-5 px-2 py-2 justify-center items-center bg-customDarkGreen rounded-r-none  md:rounded-r-xl">
-
             <div
                 class="w-full h-28 md:pt-0 pt-8 flex flex-col px-16 items-center md:flex-row md:justify-center md:top-0  top-8 md:left-6 relative">
                 <!-- Line with border -->
@@ -22,7 +20,6 @@
                         <span class="text-xs text-gray-50"><br>Application</span>
                     </p>
                 </div>
-
                 <!-- Step 2 -->
                 <div
                     class="size-5 bg-green-300 rounded-full relative -top-[4.75rem]  md:top-[1.90rem] md:-left-[50%]  lg:-left-[50%]  mt-4 md:mt-0">
@@ -32,10 +29,9 @@
                         <span class="text-xs text-gray-300"><br>Kiosk Selection</span>
                     </p>
                 </div>
-
                 <!-- Step 1 -->
                 <div
-                    class="size-5 bg-green-300 rounded-full relative -top-[7rem]  -left-[8rem] md:top-[1.9rem] md:-left-[100%]  lg:-left-[96%] mt-4 md:mt-0 fixed">
+                    class="size-5 bg-green-300 rounded-full  -top-[7rem]  -left-[8rem] md:top-[1.9rem] md:-left-[100%]  lg:-left-[96%] mt-4 md:mt-0 fixed">
                     <p
                         class="relative text-sm w-40 text-center -top-10 -left-[4.0rem] md:-left-16 text-white font-bold leading-none">
                         STEP 1
@@ -64,9 +60,7 @@
                             placeholder="{{kioskName}}"
                             class="h-12 rounded-xl text-sm px-4 py-2 w-full border border-gray-300 focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue" />
                     </div>
-
                 </div>
-
                 <!-- Date Input -->
                 <div class="form-group col-span-1 hidden">
                     <label class="text-white">Date Requested*</label>
@@ -95,14 +89,11 @@
                                 </text>
                             </svg>
                         </div>
-
                     </button>
                     <div *ngIf="calendarVisible" class="z-[1000] mt-1 absolute flex ">
                         <app-calendar-user></app-calendar-user>
                     </div>
-
                 </div>
-
                 <div class="form-group col-span-1 ">
                     <label class="text-white">Purpose*</label>
                     <input type="text" id="purpose" [(ngModel)]="purpose" [ngModelOptions]="{standalone: true}"
@@ -283,10 +274,6 @@
                                 class="ml-2 h-full rounded-md text-sm px-2 py-2 w-full border border-black focus:outline-none focus:ring-[1px] focus:ring-customSkyBlue" />
                         </div>
                     </div>
-
-
-
-
                 </div>
                 <div class="form-group col-span-2 h-2 py-4">
                     <p *ngIf="errorMessage" class="text-center text-red-700 text-sm ">{{this.errorMessage}}</p>
@@ -301,12 +288,10 @@
                         Submit
                     </button>
                 </div>
-                
             </form>
         </div>
     </div>
 </div>
-
 
 <div *ngIf="load"
     class="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-50 h-[70rem] w-full z-[100]">
@@ -318,14 +303,13 @@
 
 <div *ngIf="successMessage=='success'"
     class="animate-fadeIn absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 h-[70rem] overflow-y-hidden w-full z-20">
-
 </div>
 <!-- Green Div (always centered within its parent) -->
 <div *ngIf="successMessage=='success'"
     class="animate-fadeIn absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
     <div class="flex w-full h-full justify-center items-center">
         <p class="text-gray-50 text-center text-3xl">
-            Thank you for using our kiosk!, Admin has been notfied!<br>
+            Thank you for using our kiosk!, Admin has been notified!<br>
             Select okay to view transaction.
     </div>
     <div class="flex justify-between w-full">
