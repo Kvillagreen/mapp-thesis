@@ -184,7 +184,7 @@
                 'text-red-300': transac.status === 'denied' || dateVerifier(transac.date_req),
                 'text-yellow-300': transac.status === 'paid',
             }">
-                <button (click)='referenceNumber=!referenceNumber; formId=transac.form_id'
+                <button class="hidden" (click)='referenceNumber=!referenceNumber; formId=transac.form_id'
                     *ngIf="transac.status==='pending'" class="pr-2"> <svg width="18px" height="18px" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
 

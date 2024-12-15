@@ -27,10 +27,10 @@ export class TransactionComponent implements OnInit {
   ascStatus = false;
   ascEvent = false;
   ascKiosk = false;
-  reference: string = '';
   checkerReference: boolean = false;
   ascPurpose = false;
   ascDate = false;
+  reference: string = '';
   referenceNumber: boolean = false;
   formId: string = '';
   errorMessage: string = '';

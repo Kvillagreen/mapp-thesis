@@ -119,8 +119,7 @@
                 <div class="form-group col-span-1 ">
                     <div class="grid grid-cols-3 gap-x-2">
                         <div class=" flex flex-col">
-                            <label class="text-white">Business Permit</label>
-                            <!-- Custom container for the styled file input -->
+                            <label class="text-white md:text-md text-[10px] ">Business Permit</label>
                             <div class="relative h-12 bg-white rounded-xl text-xs px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
                                 (click)="this.fileChecker=true;fileInputBusiness.click()">
                                 <span class="text-gray-700" *ngIf="businessPermit">{{businessPermitName|slice:0:8}}
@@ -138,7 +137,7 @@
                                 (change)="fileChecker=true;handleFileChange($event,'2');" required />
                         </div>
                         <div class=" flex flex-col">
-                            <label class="text-white">Mayors Permit</label>
+                            <label class="text-white md:text-md text-xs">Mayors Permit</label>
                             <!-- Custom container for the styled file input -->
                             <div class="relative h-12 bg-white rounded-xl text-xs px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
                                 (click)="this.fileChecker=true;fileInputMayors.click()">
@@ -156,7 +155,7 @@
                                 class="hidden" (change)="fileChecker=true;handleFileChange($event,'3');" required />
                         </div>
                         <div class=" flex flex-col">
-                            <label class="text-white">Sanitary Permit</label>
+                            <label class="text-white md:text-md text-xs">Sanitary Permit</label>
                             <!-- Custom container for the styled file input -->
                             <div class="relative h-12 bg-white rounded-xl text-xs px-4 py-2 w-full border border-gray-300 cursor-pointer focus:outline-none focus:ring-[3px] focus:ring-customSkyBlue flex items-center justify-between"
                                 (click)="this.fileChecker=true;fileInputSanitary.click()">

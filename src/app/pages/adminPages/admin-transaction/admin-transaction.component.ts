@@ -57,7 +57,7 @@ export class AdminTransactionComponent implements OnInit {
   eventId: number = 0;
   kioskId: number = 0;
   formId: number = 0;
-  viewFormId:number=0;
+  viewFormId: number = 0;
   viewUserName: string = '';
   viewDate: string = '';
   viewEvent: string = '';
@@ -71,7 +71,7 @@ export class AdminTransactionComponent implements OnInit {
   viewBusiness: string = '';
   userEmail: string = '';
   pdfUrl: SafeResourceUrl = '';
-  counter: number = 0
+  counter: number = 0;
   constructor(private sanitizer: DomSanitizer, private router: Router, private userService: UserService, private eventService: EventService, private adminService: AdminService) { }
   selectedOption: string = '';
 
@@ -88,6 +88,35 @@ export class AdminTransactionComponent implements OnInit {
               })
             } else { */
 
+  submitReference() {
+    if (!this.formId || !this.reference) {
+      this.errorMessage = 'error';
+    } else {
+      this.userService.submitReference(this.formId.toString(), this.reference).subscribe((data) => {
+        if (data.success) {
+          sessionStorage.setItem('errorMessageTransac', 'none');
+          this.errorMessage = 'none';
+          emailjs.send("service_yb4nng9", "template_5dtjkq9", {
+            referenceNumber: this.reference,
+            from_name: sessionStorage.getItem('firstName') ?? '' + sessionStorage.getItem('lastName') ?? '',
+            submission_date: new Date().toLocaleString(),
+          }, '02COKKG2ReUMrf5Ks').then((result) => {
+            console.log('Email sent successfully!', result.text);
+            window.location.reload();
+          })
+
+        }
+
+      },
+
+
+      );
+    }
+  }
+  changeValue() {
+    this.errorMessage = '';
+    sessionStorage.setItem('errorMessageTransac', '');
+  }
   onOptionSelected(status: any, userId: number, eventId: number, kioskId: number, formId: number, userEmail: string, dateRequested: string) {
     console.log(new Date())
     this.selectedOption = status.target.value;
@@ -289,8 +318,8 @@ export class AdminTransactionComponent implements OnInit {
       this.toLowerCaseSafe(transac.kiosk_name).includes(this.toLowerCaseSafe(this.searchText)) ||
       this.toLowerCaseSafe(transac.receipt_number).includes(this.toLowerCaseSafe(this.searchText)) ||
       this.toLowerCaseSafe(this.formatDate(transac.date_created)).includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.status+'(over due)').includes(this.toLowerCaseSafe(this.searchText)) ||
-      this.toLowerCaseSafe(transac.First_name+' '+transac.Last_name).includes(this.toLowerCaseSafe(this.searchText))
+      this.toLowerCaseSafe(transac.status + '(over due)').includes(this.toLowerCaseSafe(this.searchText)) ||
+      this.toLowerCaseSafe(transac.First_name + ' ' + transac.Last_name).includes(this.toLowerCaseSafe(this.searchText))
     );
 
     // Now sort the filtered transactions
