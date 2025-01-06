@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AdminService } from '../../../services/rest-api/page-admin.service';
-
+import { AppComponent } from '../../../app.component';
 @Component({
   selector: 'app-admin-navbar',
   standalone: true,
@@ -21,12 +21,16 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
   control: string = '';
   history: string = '';
   logOut: boolean = false;
+  app = AppComponent;
   notifData: string[] = [];
-  constructor(public router: Router, public adminService: AdminService) {
+  constructor(public router: Router, public adminService: AdminService, private appComponent: AppComponent) {
 
   }
   isDropdownOpen = false;
 
+  toggleSideBar() {
+    this.appComponent.isSidebarVisible = false;
+  }
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
@@ -48,7 +52,6 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
     const tokenId = sessionStorage.getItem('tokenId') ?? '';
     this.adminService.dynamicController(tokenId).subscribe({
       next: (response: any) => {
-        console.log('check');
         const events = response.events;
         const transactions = response.transactions;
         const reports = response.reports;
@@ -101,12 +104,12 @@ export class AdminNavbarComponent implements OnInit, DoCheck {
     let count = 0;
     if (type == 'user') {
       count = this.notifData.filter((notification: any) =>
-        notification.message?.startsWith('User created account,') &&  notification.status?.startsWith('unread')
+        notification.message?.startsWith('User created account,') && notification.status?.startsWith('unread')
       ).length;
     }
     else {
       count = this.notifData.filter((notification: any) =>
-        !notification.message?.startsWith('User created account,') &&  notification.status?.startsWith('unread')
+        !notification.message?.startsWith('User created account,') && notification.status?.startsWith('unread')
       ).length;
     }
     return count.toString();

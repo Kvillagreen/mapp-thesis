@@ -36,6 +36,10 @@ export class TransactionComponent implements OnInit {
   errorMessage: string = '';
   constructor(private router: Router, private userService: UserService, private eventService: EventService) { }
 
+  changeValue(){
+    this.errorMessage = '';
+    sessionStorage.setItem('errorMessageTransac','');
+  }
   submitReference() {
     if (!this.formId || !this.reference) {
       this.errorMessage = 'error';
@@ -232,16 +236,11 @@ export class TransactionComponent implements OnInit {
       return 'Cancelled'
     }
   }
-  changeValue(){
-    this.errorMessage = '';
-    sessionStorage.setItem('errorMessageTransac','');
-  }
   ngOnInit(): void {
     if (sessionStorage.getItem('userType') == 'admin') {
       this.router.navigate(['/dashboard-admin']);
       
     }
-    this.errorMessage = sessionStorage.getItem('errorMessageTransac')??'';
     this.getEvent();
     this.getKiosk();
     this.getTransaction();

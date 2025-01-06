@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, DoCheck {
   userType: string | null = null;
   token: string = '';
   userData: any[] = [];
-  isSidebarVisible = false; // Sidebar visibility state
+  isSidebarVisible = false; 
 
   toggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;
@@ -60,9 +60,9 @@ export class AppComponent implements OnInit, DoCheck {
       this.toggleNotification === true
     ) {
       this.toggleNotification = false;
-      console.log('close')
+
     } else {
-      console.log('open')
+
       event.stopPropagation();
     } if (
       this.sidebar?.nativeElement &&
@@ -107,11 +107,11 @@ export class AppComponent implements OnInit, DoCheck {
     this.toggleNotification = !this.toggleNotification;
   }
 
-  
+
   formatDate(dateStr: string, offsetHours: number = 8): string {
     const date = new Date(dateStr);
     date.setHours(date.getHours() + offsetHours);
-  
+
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'long',
@@ -119,7 +119,7 @@ export class AppComponent implements OnInit, DoCheck {
       hour: '2-digit',
       minute: '2-digit',
     };
-  
+
     return date
       .toLocaleString('en-US', options) // Format the date
       .replace(',', ''); // Adjust formatting if needed
@@ -136,7 +136,7 @@ export class AppComponent implements OnInit, DoCheck {
 
 
   isRoute(): boolean {
-    return this.router.url.startsWith('/login') || this.router.url.startsWith('/register')|| this.router.url.startsWith('/owner');
+    return this.router.url.startsWith('/login') || this.router.url.startsWith('/register') || this.router.url.startsWith('/owner');
   }
 
   shouldShowForAdmin(): boolean {

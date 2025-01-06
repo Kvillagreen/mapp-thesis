@@ -59,7 +59,7 @@ export class AdminMapViewerComponent implements OnChanges, DoCheck {
   submitted: boolean = false;
   @ViewChild('modelContainer', { static: true }) modelContainer!: ElementRef;
 
-  constructor(public router: Router, private screenSizeService: ScreenSizeService, private adminService: AdminService) {
+  constructor(public router: Router, private adminService: AdminService) {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -459,10 +459,13 @@ export class AdminMapViewerComponent implements OnChanges, DoCheck {
       if (this.kioskUploadImage) {
         formData.append('kioskUploadImage', this.kioskUploadImage, this.kioskUploadImage.name);
       }
+
       this.loading = true;
       // Call service method to update the event
       this.adminService.updateKiosk(formData).subscribe({
         next: (response) => {
+          console.log(response)
+          console.log(formData)
           this.loading = false;
           if (response.success) {
             sessionStorage.setItem('submit', 'true');

@@ -180,21 +180,11 @@
             </div>
             <div class="flex flex-col justify-center items-center" [ngClass]="{
                 'text-green-300': transac.status === 'finished' || transac.status === 'approved',
-                'text-orange-300': transac.status === 'pending',
-                'text-red-300': transac.status === 'denied' || dateVerifier(transac.date_req),
+                'text-orange-300': transac.status === 'pending' ,
+                'text-red-300': transac.status === 'denied' || transac.status === 'approved' && dateVerifier(transac.date_req) ,
                 'text-yellow-300': transac.status === 'paid',
             }">
-                <button (click)='referenceNumber=!referenceNumber; formId=transac.form_id'
-                    *ngIf="transac.status==='pending'" class="pr-2"> <svg width="18px" height="18px" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-
-                        <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#ffe5ec"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-
-                        <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#ffe5ec"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                    </svg>
-                </button>
+                
 
                 {{statusViewer(transac.status)}}
                 <p *ngIf="dateVerifier(transac.date_req) && transac.date_req != '0000-00-00 00:00:00' && transac.status == 'approved'"
@@ -228,66 +218,3 @@
     <div>
     </div>
 
-
-
-    <div *ngIf="errorMessage=='none' || errorMessage=='error' || checkerReference || referenceNumber ">
-        <div class="animate-fadeIn fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-[100]">
-            <div *ngIf="errorMessage=='none'"
-                class="overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
-                <div class="flex w-full h-full justify-center items-center">
-                    <p class="text-gray-50 text-center text-3xl w-80">
-                        Thank you for paying, reference number is already submitted!
-                </div>
-                <div class="flex justify-end w-full ">
-                    <button (click)="checkerReference=false;changeValue() "
-                        class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Okay
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="errorMessage=='error' "
-            class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
-            <div class="flex w-full h-full justify-center items-center">
-                <p class="text-gray-50 text-center text-3xl w-80">
-                    Error please input valid reference number!
-            </div>
-            <div class="flex justify-end w-full ">
-                <button (click)="errorMessage=''; checkerReference=false; referenceNumber=true "
-                    class="h-12 w-24 bg-dropDown  rounded-xl text-gray-50 text-center text-xl hover:bg-hoverBar hover:text-gray-200 hover:shadow-hoverBar hover:shadow-md">Okay
-                </button>
-            </div>
-        </div>
-        <div *ngIf="checkerReference"
-            class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-[15rem] left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
-            <div class="flex w-full h-full justify-center items-center">
-                <p class="text-gray-50 text-center text-3xl w-80">
-                    Are you sure your Reference Number: <b>{{reference}}</b> is correct ? </p>
-            </div>
-            <div class="flex justify-between w-full ">
-                <button (click)="checkerReference=false; referenceNumber=true"
-                    class="h-12 w-24 bg-red-400  rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">No
-                </button>
-                <button (click)="submitReference()"
-                    class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Yes</button>
-            </div>
-        </div>
-        <div *ngIf="referenceNumber"
-            class="animate-fadeIn overflow-hidden  absolute px-8 grid justify-center items-center top-1/4 left-1/2 transform -translate-x-1/2 w-480px h-[380px]  md:h-[380px] md:w-[480px] border-2 border-green-50 shadow-gray-800 shadow-lg rounded-xl z-[100] bg-customDarkGreen">
-            <div class="flex w-full h-full justify-center items-center">
-                <div class="block w-80 ">
-                    <p class="text-lg text-center text-gray-200 pb-4">Please input your<b> Reference Number </b><br>in
-                        the
-                        field provided!</p>
-                    <input type="text" class="w-full h-12 rounded-lg outline-none px-2 " placeholder="Reference Number:"
-                        name="reference" [(ngModel)]="reference">
-                </div>
-            </div>
-            <div class="flex justify-between w-full">
-                <button (click)="referenceNumber=false; reference=''"
-                    class="h-12 w-24 bg-red-400 rounded-xl text-gray-50 text-center text-xl hover:bg-red-800 hover:text-gray-200 hover:shadow-red-900 hover:shadow-md">Cancel</button>
-                <button
-                    (click)="checkerReference=!checkerReference; referenceNumber=!referenceNumber;reference=reference"
-                    class="h-12 w-24 bg-green-600 rounded-xl text-gray-50 text-center text-xl hover:bg-green-800 hover:text-gray-200 hover:shadow-green-900 hover:shadow-md">Submit</button>
-            </div>
-        </div>
-    </div>

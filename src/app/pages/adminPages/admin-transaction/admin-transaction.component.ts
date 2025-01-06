@@ -361,6 +361,39 @@ export class AdminTransactionComponent implements OnInit {
     return paidCount;
   }
 
+
+  changeValue(){
+    this.errorMessage = '';
+    sessionStorage.setItem('errorMessageTransac','');
+  }
+  
+  submitReference() {
+    if (!this.formId || !this.reference) {
+      this.errorMessage = 'error';
+    } else {
+      this.userService.submitReference(this.formId.toString(), this.reference).subscribe((data) => {
+        if (data.success) {
+          sessionStorage.setItem('errorMessageTransac','none');
+          this.errorMessage = 'none';
+          emailjs.send("service_yb4nng9", "template_5dtjkq9", {
+            referenceNumber: this.reference,
+            from_name: this.firstName +' '+ this.lastName,
+            submission_date: new Date().toLocaleString(),
+          }, '02COKKG2ReUMrf5Ks').then((result) => {
+            console.log('Email sent successfully!', result.text);
+            window.location.reload();
+          })
+
+        }
+
+      },
+
+
+      );
+    }
+  }
+
+
   downloadForm(form_id: string): void {
     this.eventService.downloadForm(form_id, this.firstName, this.lastName);
   }
@@ -373,6 +406,7 @@ export class AdminTransactionComponent implements OnInit {
     if (sessionStorage.getItem('transactions') != '1') {
       this.router.navigate(['/dashboard-admin']);
     }
+    this.errorMessage = sessionStorage.getItem('errorMessageTransac')??'';
     this.updatedRequestedDate = sessionStorage.getItem('updatedRequestedDate') === 'true'
     this.getEvent();
     this.getKiosk();
