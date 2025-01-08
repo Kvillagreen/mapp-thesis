@@ -5,7 +5,6 @@ include 'connection.php';
 $data = json_decode(file_get_contents("php://input"), true);
 
 // Initialize response variables
-$userId = '';
 $notification = [];
 
 $sql = "
@@ -14,11 +13,14 @@ $sql = "
         f.user_id,
         f.event_id,
         f.kiosk_id,
+        f.sanitary_permit,
+        f.business_permit,
+        f.mayors_permit,
         f.date_req,
         f.purpose,
         f.status,
-        f.receipt_number,
         f.requirements,
+        f.receipt_number,
         f.file_name,
         f.date_created,
         k.kiosk_name,

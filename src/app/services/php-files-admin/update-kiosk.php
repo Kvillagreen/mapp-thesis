@@ -30,7 +30,7 @@ if ($kioskImage != null) {
     $fileType = $_FILES['kioskUploadImage']['type'];
 
     $newFileName = uniqid('kiosk', true) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-    $uploadDir = '../../../../public/dbAssets/kioskImages/'; // Your uploads directory
+    $uploadDir = '../../public/dbAssets/kioskImages/'; // Your uploads directory
     $uploadFile = $uploadDir . $newFileName;
 
     // Validate image type

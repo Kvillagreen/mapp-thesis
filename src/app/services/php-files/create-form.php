@@ -19,7 +19,9 @@ $query = "
         k.kiosk_name, 
         t.date_req, 
         t.purpose, 
+        t.rent_date, 
         t.status, 
+        t.requirements, 
         u.First_name, 
         u.Last_name, 
         u.`Contact#`, 
@@ -54,7 +56,13 @@ $event_end = date("M. j, Y, g:i a", strtotime($row['event_end']));
 $event_name = $row['event_name'];
 $event_details = $row['event_details'];
 $kiosk_name = $row['kiosk_name'];
-
+$rentDate = $row['rent_date'];
+$rentDateArray = explode(',', $rentDate);
+$rentDateLength = count($rentDateArray);
+$requirements = $row['requirements'];
+if($requirements==''){
+    $requirements='N/A';
+}
 $title = 'Application for Rental of Facilities';
 $note = 'Noted: ';
 $verified = "Verified:";
@@ -75,7 +83,7 @@ class PDF extends FPDF
     function Header()
     {
         // Logo
-        $this->Image('../../../../public/dbAssets/formImages/formHeader.png', 10, 0, 190);
+        $this->Image('../../public/dbAssets/formImages/formHeader.png', 10, 0, 190);
         // Line break
         $this->Ln(10);
     }
@@ -85,7 +93,6 @@ class PDF extends FPDF
     {
         // Position at 1.5 cm from bottom
         $this->SetY(-15);
-        $this->Image('../../../../public/dbAssets/formImages/formFooter.png', 10, 275, 190);
         // Line break
         $this->Ln(10);
     }
@@ -115,13 +122,23 @@ $pdf->Cell(75, 10, $date_req, 0, 0);
 $pdf->Cell(39, 10, 'Event Date & Time :', 0, 0);
 $pdf->Cell(75, 10, $event_start, 0, 1);
 
+$pdf->Cell(39, 10, 'Purpose:', 0, 0);
+$pdf->Cell(75, 10, $purpose, 0, 0);
+
+
+$pdf->Cell(39, 10, '', 0, 0);
+$pdf->Cell(75, 10, '', 0, 1);
+
+$pdf->Cell(39, 10, 'Things to bring:', 0, 0);
+$pdf->Cell(75, 10, $requirements, 0, 1);
+
+$pdf->Cell(39, 10, 'Days to be rented:', 0, 0);
+$pdf->Cell(75, 10, $rentDateLength, 0, 1);
+
 $pdf->SetFont('Arial', '', 12);
 // Date & Time
 
 
-// Purpose
-$pdf->Cell(39, 10, 'Purpose:', 0, 0);
-$pdf->MultiCell(150, 10, $purpose, 0, 1);
 
 
 //space
@@ -163,7 +180,7 @@ $pdf->Cell(94, 30, $approved, 0, 1, 'C');
 
 $pdf->SetFont('Arial', '', 12);
 $pdf->Cell(95, 5, 'Mark Franz Sumagaysay, PhD/IGP', 0, 0, 'C');
-$pdf->Cell(94, 5, 'Edwin H. bigna PhD/Executive Director.', 0, 1, 'C');
+$pdf->Cell(94, 5, 'Edwin H. Bugna PhD/Executive Director.', 0, 1, 'C');
 //line
 $pdf->Cell(95, 1, '___________________________________', 0, 0, 'C');
 $pdf->Cell(94, 1, '___________________________________', 0, 1, 'C');
@@ -194,4 +211,4 @@ $pdf->Output();
 
 </body>
 
-</html>ml
+</html>

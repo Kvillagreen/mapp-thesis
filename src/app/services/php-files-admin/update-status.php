@@ -20,15 +20,29 @@ $eventId = $data['eventId'] ?? null;
 $kioskId = $data['kioskId'] ?? null;
 $userId = $data['userId'] ?? null;
 $status = $data['status'] ?? null;
+$dateRequested = $data['dateRequested'] ?? null;
 $message = 'Your transaction has been ' . $status; // Concatenation fixed
+$dateRequested = '2025-01-24 00:00:00'; // Example date
+
+// Format the date
+$formattedDate = date('F j, Y', strtotime($dateRequested)); 
+$messageApproved = 'Your transaction has been Approved, your schedule of appointment is on ' . $formattedDate. 'You have only 3 days to comply, failure to comply might cancel the reservation';
 
 // Prepare the UPDATE query
 $updateQuery = $conn->prepare(
     "UPDATE `tbl_transactions` 
-     SET `status` = ? 
+     SET `status` = ?, `date_req` = ?
      WHERE `form_id` = ? AND `event_id` = ? AND `user_id` = ? AND `kiosk_id` = ?"
 );
-$updateQuery->bind_param("siiii", $status, $formId, $eventId, $userId, $kioskId);
+
+$updateQueryKiosk = $conn->prepare(
+    "UPDATE `tbl_kiosk` 
+    SET `status` = ? 
+    WHERE `kiosk_id` = ? AND `event_id` = ?"
+);
+$kioskStatus='unavailable';
+$updateQueryKiosk->bind_param('sis', $kioskStatus, $kioskId, $eventId);
+$updateQuery->bind_param("ssiiii", $status, $dateRequested, $formId, $eventId, $userId, $kioskId);
 
 if ($updateQuery->execute()) {
     // Prepare the INSERT query
@@ -36,7 +50,12 @@ if ($updateQuery->execute()) {
         "INSERT INTO `tbl_notifications` (`message`, `status`, `date_created`, `user_id`) 
          VALUES (?, 'unread', NOW(), ?)"
     );
-    $insertQuery->bind_param("si", $message, $userId);
+    if($status=="approved"){
+        $insertQuery->bind_param("si", $messageApproved, $userId);
+        $updateQueryKiosk->execute();
+    }else{
+        $insertQuery->bind_param("si", $message, $userId);
+    }
 
     if ($insertQuery->execute()) {
         echo json_encode([

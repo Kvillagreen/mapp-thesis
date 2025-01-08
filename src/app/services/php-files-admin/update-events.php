@@ -30,7 +30,7 @@ if ($eventImage != null) {
     $fileType = $_FILES['eventImage']['type'];
 
     $newFileName = uniqid('event_', true) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-    $uploadDir = '../../../../public/dbAssets/eventImages/'; // Your uploads directory
+    $uploadDir = '../../public/dbAssets/eventImages/'; // Your uploads directory
     $uploadFile = $uploadDir . $newFileName;
 
     // Validate image type (optional: better validation can be done here)

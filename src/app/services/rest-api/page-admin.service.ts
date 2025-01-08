@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { Environment } from '../environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AdminService {
-    private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files-admin'; // Replace with your PHP API URL
+    private apiUrl = Environment.adminApi; // Replace with your PHP API URL
 
     constructor(private http: HttpClient) { }
 

@@ -121,9 +121,9 @@ export class LoginComponent implements OnInit {
           }
         },
         error: (error: any) => {
+          console.log(error);
         },
         complete: () => {
-
         }
       });
     }

@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files'; // Replace with your PHP API URL
+  private apiUrl = Environment.userApi; // Replace with your PHP API URL
  // Adjust with your PHP server URL
 
   constructor(private http: HttpClient) { }

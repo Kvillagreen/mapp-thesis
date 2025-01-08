@@ -12,57 +12,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 include 'connection.php';
 
-// Fetch the form data from $_POST and $_FILES
+// Fetch the form data
 $eventName = $_POST['eventName'] ?? null;
 $eventStart = $_POST['eventStart'] ?? null;
 $eventEnd = $_POST['eventEnd'] ?? null;
 $details = $_POST['details'] ?? null;
 $eventImage = $_FILES['eventImage'] ?? null;
 
-$fileName = '';
+// Validate inputs
+if (!$eventName || !$eventStart || !$eventEnd || !$details) {
+    echo json_encode(['success' => false, 'message' => 'All fields are required.']);
+    exit();
+}
+
 $eventImagePath = null;
 
-// If an image was uploaded, process it
-if ($eventImage != null) {
-    $fileTmpPath = $_FILES['eventImage']['tmp_name'];
-    $fileName = $_FILES['eventImage']['name'];
-    $fileSize = $_FILES['eventImage']['size'];
-    $fileType = $_FILES['eventImage']['type'];
+// Process uploaded image if present
+if ($eventImage) {
+    $fileTmpPath = $eventImage['tmp_name'];
+    $fileName = $eventImage['name'];
+    $fileType = $eventImage['type'];
 
     $newFileName = uniqid('event_', true) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
-    $uploadDir = '../../../../public/dbAssets/eventImages/'; // Your uploads directory
+    $uploadDir = '../../public/dbAssets/eventImages/'; // Directory for uploaded files
     $uploadFile = $uploadDir . $newFileName;
 
-    // Validate image type
     $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-    if (in_array($fileType, $allowedTypes)) {
-        if (move_uploaded_file($fileTmpPath, $uploadFile)) {
-            $eventImagePath = $newFileName;
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Error uploading image.']);
-            exit();
-        }
-    } else {
+    if (!in_array($fileType, $allowedTypes)) {
         echo json_encode(['success' => false, 'message' => 'Invalid file type. Only images are allowed.']);
         exit();
     }
+
+    if (!move_uploaded_file($fileTmpPath, $uploadFile)) {
+        echo json_encode(['success' => false, 'message' => 'Error uploading image.']);
+        exit();
+    }
+
+    $eventImagePath = $newFileName;
 }
 
-// Prepare and execute the INSERT query to create a new event
-$insertQuery = $conn->prepare(
-    "INSERT INTO `tbl_event` 
-     (`event_start`, `event_end`, `event_name`, `details`, `event_image`, `date_created`) 
-     VALUES (?, ?, ?, ?, ?, NOW())"
-);
+try {
+    $conn->begin_transaction();
 
-$insertQuery->bind_param("sssss", $eventStart, $eventEnd, $eventName, $details, $eventImagePath);
+    // Insert event
+    $insertEventQuery = $conn->prepare("
+        INSERT INTO tbl_event 
+        (event_start, event_end, event_name, details, event_image, date_created) 
+        VALUES (?, ?, ?, ?, ?, NOW())
+    ");
+    $insertEventQuery->bind_param("sssss", $eventStart, $eventEnd, $eventName, $details, $eventImagePath);
 
-if ($insertQuery->execute()) {
+    if (!$insertEventQuery->execute()) {
+        throw new Exception("Event creation failed: " . $insertEventQuery->error);
+    }
     $eventId = $conn->insert_id;
 
-    // Insert kiosks into `tbl_kiosk`
-    $stmt = $conn->prepare("INSERT INTO tbl_kiosk (position_x, position_y, kiosk_name,kiosk_image, event_id, status, date_created) VALUES (?,?, ?, ?, ?, 'available', NOW())");
-    $stmt->bind_param("ddsss", $pos_x, $pos_y, $kiosk_name, $kiosk_image, $eventId);
+    // Insert kiosks
+    $insertKioskQuery = $conn->prepare("
+        INSERT INTO tbl_kiosk 
+        (position_x, position_y, kiosk_name, kiosk_image, event_id, status, date_created) 
+        VALUES (?, ?, ?, ?, ?, 'available', NOW())
+    ");
 
     $kiosks = [
         [2.95, -0.05, 'kiosk 1', 'kiosk1.jpg'],
@@ -73,34 +83,47 @@ if ($insertQuery->execute()) {
         [2.12, -0.45, 'kiosk 6', 'kiosk6.jpg'],
         [2.50, -0.45, 'kiosk 7', 'kiosk7.jpg'],
         [2.72, -0.45, 'kiosk 8', 'kiosk8.jpg'],
-        [0.30, 0.25, 'kiosk 9', 'kiosk1.jpg'],
-        [0.30, 0.05, 'kiosk 10', 'kiosk2.jpg'],
-        [0.30, -0.15, 'kiosk 11', 'kiosk3.jpg'],
-        [0.30, -0.35, 'kiosk 12', 'kiosk4.jpg'],
-        [0.30, -0.55, 'kiosk 13', 'kiosk5.jpg'],
-        [0.30, -0.75, 'kiosk 14', 'kiosk6.jpg'],
-        [3.40, -0.28, 'kiosk 15', 'kiosk7.jpg'],
-        [3.40, -0.48, 'kiosk 16', 'kiosk8.jpg'],
-        [3.40, -0.68, 'kiosk 17', 'kiosk1.jpg'],
-        [3.40, -0.88, 'kiosk 18', 'kiosk2.jpg']
+        [0.30, 0.25, 'kiosk 9', 'kiosk9.jpg'],
+        [0.30, 0.05, 'kiosk 10', 'kiosk10.jpg'],
+        [0.30, -0.15, 'kiosk 11', 'kiosk11.jpg'],
+        [0.30, -0.35, 'kiosk 12', 'kiosk12.jpg'],
+        [0.30, -0.55, 'kiosk 13', 'kiosk13.jpg'],
+        [0.30, -0.75, 'kiosk 14', 'kiosk14.jpg'],
+        [3.40, -0.28, 'kiosk 15', 'kiosk15.jpg'],
+        [3.40, -0.48, 'kiosk 16', 'kiosk16.jpg'],
+        [3.40, -0.68, 'kiosk 17', 'kiosk17.jpg'],
+        [3.40, -0.88, 'kiosk 18', 'kiosk18.jpg']
     ];
 
     foreach ($kiosks as $kiosk) {
-        $pos_x = $kiosk[0];
-        $pos_y = $kiosk[1];
-        $kiosk_name = $kiosk[2];
-        $kiosk_image = $kiosk[3];
-
-        if (!$stmt->execute()) {
-            echo json_encode(['success' => false, 'message' => 'Error inserting kiosk: ' . $kiosk_name]);
-            exit();
+        [$posX, $posY, $kioskName, $kioskImage] = $kiosk;
+        $insertKioskQuery->bind_param("ddsss", $posX, $posY, $kioskName, $kioskImage, $eventId);
+        if (!$insertKioskQuery->execute()) {
+            throw new Exception("Error inserting kiosk: " . $kioskName);
         }
     }
+    $insertNotificationQuery = $conn->prepare("
+    INSERT INTO tbl_notifications (user_id, message, status, date_created)
+    SELECT user_info_id, CONCAT('New event ', ?, ' created'), 'unread', NOW()
+    FROM tbl_users
+    WHERE user_type = 'user'
+    ");
 
-    echo json_encode(['success' => true, 'message' => 'Event and kiosks created successfully.', 'eventId' => $eventId]);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Event creation failed.', 'error' => $insertQuery->error]);
+    // Bind the event name parameter to the query
+    $insertNotificationQuery->bind_param("s", $eventName);
+
+
+    if (!$insertNotificationQuery->execute()) {
+        throw new Exception("Error creating notifications.");
+    }
+
+    $conn->commit();
+
+    echo json_encode(['success' => true, 'message' => 'Event, kiosks, and notifications created successfully.', 'eventId' => $eventId]);
+} catch (Exception $e) {
+    $conn->rollback();
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+} finally {
+    $conn->close();
 }
-
-$conn->close();
 ?>

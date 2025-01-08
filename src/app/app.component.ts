@@ -19,6 +19,7 @@ import { AdminService } from './services/rest-api/page-admin.service';
 })
 
 export class AppComponent implements OnInit, DoCheck {
+  title='mapp-thesis'
   notification: any[] = [];
   @ViewChild('notifer') notifer!: ElementRef;
   @ViewChild('notifyButton') notifyButton!: ElementRef;

@@ -54,19 +54,36 @@ try {
         $userMessage = 'Your account is pending';
         $userStatus = 'unread';
         $dateCreated = date('Y-m-d H:i:s');
-
         $insertNotif = $conn->prepare(
             "INSERT INTO `tbl_notifications` (`user_id`, `message`, `status`, `date_created`) 
             VALUES (?, ?, ?, ?)"
         );
+        
+        $adminMessage = 'User created account, please review the application of '.$fname.' '.$lname.'';
+        $adminStatus = 'unread';
+        $adminCreated = date('Y-m-d H:i:s');
+        
+        $insertAdminNotif = $conn->prepare(
+        "INSERT INTO `tbl_notifications` (`user_id`, `message`, `status`, `date_created`)
+        SELECT `user_info_id`, ?, ?, ?
+        FROM `tbl_users`
+        WHERE `User_type` != 'user'"
+        );
+        
+        $insertAdminNotif->bind_param("sss", $adminMessage, $adminStatus, $adminCreated);
         $insertNotif->bind_param("isss", $userId, $userMessage, $userStatus, $dateCreated);
-        $insertNotif->execute();
-
-        echo json_encode([
+        if($insertNotif->execute() && $insertAdminNotif->execute()){
+            echo json_encode([
             'success' => true,
             'message' => 'Registration successful. Please wait for account approval.',
             'token' => $tokenId
         ]);
+        }else{
+            echo json_encode([
+            'success' => false,
+            'message' => 'Registration failed. Please wait for account approval.']);
+        }
+        
     } else {
         throw new Exception('Registration failed. Please try again later.');
     }

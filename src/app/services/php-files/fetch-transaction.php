@@ -33,8 +33,6 @@ if (!empty($userId)) {
         f.purpose,
         f.status,
         f.receipt_number,
-        f.file_size,
-        f.file_type,
         f.file_name,
         f.date_created,
         k.kiosk_name,

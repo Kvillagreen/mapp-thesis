@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { Environment } from '../environment';
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  private apiUrl = 'https://mapp-thesis.infotech3c.com/services/php-files'; // Replace with your PHP API URL
+  private apiUrl = Environment.userApi; // Replace with your PHP API URL
 
   constructor(private http: HttpClient) { }
   getKioskMap(eventId:string):Observable<any[]> {
